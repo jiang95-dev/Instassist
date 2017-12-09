@@ -1,3 +1,4 @@
 {
-  "dbUri": "mongodb://<user>:<pw>@YOUR MLAB URI HERE"
+	//use your own database
+  //"dbUri": "mongodb://Jintao:123456@ds021689.mlab.com:21689/cs498rk"
 }
