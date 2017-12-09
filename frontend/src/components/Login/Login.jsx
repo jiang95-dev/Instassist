@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 import styles from './styles.scss'
+import Navbar from '../Navbar/Navbar.jsx'
+//import CreatePost from '../CreatePost/CreatePost.jsx'
 
 class Login extends Component {
 
@@ -68,25 +70,28 @@ class Login extends Component {
 
     render() {
         return(
-            <form className="Login" action="/" onSubmit={this.onSubmit}>
-            <Card className="Login__content">
-                <div>
-                    <h1>Login</h1>
-                    <Input label="Email" onChange={this.onChangeEmail} />
-                    <br/><br/>
-                    <Input label="Password" onChange={this.onChangePassword} />
-                    <br/><br/>
+            <div>
+                <Navbar/>
+                <form className="Login" action="/" onSubmit={this.onSubmit}>
+                    <Card className="Login_content">
+                        <div>
+                            <h1>Login</h1>
+                            <Input label="Email" onChange={this.onChangeEmail} />
+                            <br/><br/>
+                            <Input label="Password" onChange={this.onChangePassword} />
+                            <br/><br/>
 
-                    <p>{this.state.message}</p>
-                    <Input type="submit" />
-                    <h4>No account yet? Click <Link to="/register">here</Link> to Register!</h4>
+                            <p>{this.state.message}</p>
+                            <Input type="submit" />
+                            <h4>No account yet? Click <Link to="/register">here</Link> to Register!</h4>
 
-                    <Link to="/dashboard"><p>Go to Dashboard</p></Link>
-                </div>
-            </Card>
-        </form>
-    )
-}
+                            <Link to="/dashboard"><p>Go to Dashboard</p></Link>
+                        </div>
+                    </Card>
+                </form>
+            </div>
+        )
+    }
 }
 
 export default Login
