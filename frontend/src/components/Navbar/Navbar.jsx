@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
 //import avatar from '../../assets/avatar.jpeg'
@@ -21,7 +22,7 @@ class Navbar extends Component{
 				    </div>
 				</div>
 				<div class="right menu">
-				    <a><i class="plus icon large myPlus link"></i></a>
+				    <a><Link to="/createpost"><i class="plus icon large myPlus link"></i></Link></a>
 				    <img alt="image" src="../../assets/avatar.png" class="myImage"/>
 				</div>
 			</div>

@@ -6,6 +6,7 @@ import Home from './components/Home/Home.jsx';
 import Register from './components/Register/Register.jsx';
 import Login from './components/Login/Login.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
+import CreatePost from './components/CreatePost/CreatePost.jsx';
 
 import styles from './styles/main.scss';
 
@@ -16,6 +17,7 @@ ReactDom.render(
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/dashboard" component={Dashboard}/>
+            <Route exact path="/createpost" component={CreatePost}/>
         </Switch>
     </Router>,
     document.getElementById('react-app')
