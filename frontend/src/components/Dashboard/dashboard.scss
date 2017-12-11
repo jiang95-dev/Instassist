@@ -9,5 +9,34 @@
 }
 
 .user-name {
-    font-size: 3.6em;
+    font-size: 2em !important;
+    border-bottom: 1px solid transparent;
+
+    input {
+        box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0;
+        font: inherit;
+        width: 5em;
+        border:none;
+        background: transparent;
+        border-bottom: 1px solid black;
+
+        &:focus { outline:none; }
+    }
+}
+
+.description {
+    border-bottom: 1px solid transparent;
+    input {
+        box-sizing: border-box;
+        padding: 0;
+        font: inherit;
+        width: 15em;
+        border:none;
+        background: transparent;
+        border-bottom: 1px solid black;
+
+        &:focus { outline:none; }
+    }
 }
