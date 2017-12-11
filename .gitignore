@@ -6,3 +6,4 @@ node_modules/*
 public/
 public/*
 config/index.json
+frontend/dist/js/app.js
