@@ -24,7 +24,7 @@ const ProjectFeed = ({projects}) => {
 
     return (
         <section className="my-projects">
-            <h1>My Message</h1>
+            <h1>My Projects</h1>
             <Grid className="row" columns="equal">
                 <Grid.Column key="add" computer={4} mobile={16}>
                     <Card
