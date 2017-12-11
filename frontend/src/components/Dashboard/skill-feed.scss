@@ -1,0 +1,25 @@
+.my-skills {
+    .ui.circular.labels .label{
+        border-radius: .5em;
+        padding: .5em !important;
+        font-weight: 200;
+
+        &.new{
+            &.active{
+                background-color: #1678c2!important;
+                border-color: #1678c2!important;
+                color: #fff!important;
+            }
+
+            input {
+                font-weight: bold;
+                width: 3em;
+                border:none;
+                color:white;
+                background: transparent;
+
+                &:focus { outline:none; }
+            }
+        }
+    }
+}

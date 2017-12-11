@@ -66,4 +66,8 @@ class Dashboard extends Component {
     }
 }
 
+<<<<<<< HEAD
 export default Dashboard
+=======
+export default Dashboard
+>>>>>>> 94455ab015050655be839b614ee1236a4f30bf2f

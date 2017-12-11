@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Grid, Divider, Image, Button, Card } from 'semantic-ui-react'
 import MessageFeed from './MessageFeed.jsx'
 import ProjectFeed from './ProjectFeed.jsx'
+import SkillFeed from './SkillFeed.jsx'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -14,7 +15,8 @@ export default class Dashboard extends Component {
 
     render() {
         const username = "Yushi";
-        const projects = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
+        const testArr = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
+        const skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"]
         return (
             <Container className="dashboard">
                     <Grid stackable relaxed columns={3}>
@@ -24,13 +26,13 @@ export default class Dashboard extends Component {
                             <p> Edit </p>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <h1>My Skills</h1>
+                            <SkillFeed skills={skills} />
                         </Grid.Column>
                         <Grid.Column width={7}>
                             <MessageFeed events={null} />
                         </Grid.Column>
                     </Grid>
-                <ProjectFeed projects={projects} />
+                <ProjectFeed projects={testArr} />
             </Container>
         );
     }
