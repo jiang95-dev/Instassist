@@ -28,7 +28,6 @@ class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
         const email = encodeURIComponent(this.state.user.email);
         const password = encodeURIComponent(this.state.user.password);
         const formData = `email=${email}&password=${password}`;
@@ -73,21 +72,20 @@ class Login extends Component {
             <div>
                 <Navbar/>
                 <form className="Login" action="/" onSubmit={this.onSubmit}>
-                    <Card className="Login_content">
+                    <div className="ui card">
                         <div>
-                            <h1>Login</h1>
-                            <Input label="Email" onChange={this.onChangeEmail} />
+                            <h1>Sign In</h1>
+                            <label>Email</label><br/>
+                            <input className="myInput" onChange={this.onChangeEmail} />
                             <br/><br/>
-                            <Input label="Password" onChange={this.onChangePassword} />
+                            <label>Password</label><br/>
+                            <input className="myInput" onChange={this.onChangePassword} />
                             <br/><br/>
-
                             <p>{this.state.message}</p>
-                            <Input type="submit" />
-                            <h4>No account yet? Click <Link to="/register">here</Link> to Register!</h4>
-
-                            <Link to="/dashboard"><p>Go to Dashboard</p></Link>
+                            <Input type="submit" value="Group me in!" className="mySubmit"/>
+                            <h4>No account? Register <Link to="/register">here</Link> ! </h4>
                         </div>
-                    </Card>
+                    </div>
                 </form>
             </div>
         )

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports.connect = (uri) => {
-  mongoose.connect(uri);
+  mongoose.connect(uri, { useMongoClient: true }); // modification because of the error thrown
 
   mongoose.Promise = global.Promise;
 

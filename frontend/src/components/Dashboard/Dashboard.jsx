@@ -1,69 +1,37 @@
 import React, { Component } from 'react'
-import { Button, Card } from 'semantic-ui-react'
+import { Container, Grid, Divider, Image, Button, Card } from 'semantic-ui-react'
+import MessageFeed from './MessageFeed.jsx'
+import ProjectFeed from './ProjectFeed.jsx'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-import styles from './styles.scss'
+import style from './dashboard.scss'
 
-class Dashboard extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            isLoggedIn: false
-        }
-
-        this.logOut = this.logOut.bind(this);
-
-    }
-
-    componentDidMount() {
-        axios.get('/api/profile').then( (res) => {
-            console.log(res);
-            this.setState({
-                isLoggedIn: true
-            })
-        }).catch( (err) => {
-            this.setState({
-                isLoggedIn: false
-            })
-        })
-    }
-
-    logOut() {
-        axios.get('/api/logout').then( (res) => {
-            console.log("Logged out");
-        })
+export default class Dashboard extends Component {
+    constructor(props) {
+        super(props);
     }
 
     render() {
-
-        if (this.state.isLoggedIn) {
-            return(
-                <div className="Dashboard">
-                    <Card>
-                        <h1>Welcome to the App!</h1>
-                        <p>You are now logged in.</p>
-
-                        <Link to="/" onClick={this.logOut}>
-                            Log out
-                        </Link>
-                    </Card>
-                </div>
-            )
-        } else {
-            return(
-                <div className="Dashboard">
-                    <Card>
-                        <h1>You must log in before you can see this page.</h1>
-                        <Link to="/login">
-                            Login
-                        </Link>
-                    </Card>
-                </div>
-            )
-        }
+        const username = "Yushi";
+        const projects = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
+        return (
+            <Container className="dashboard">
+                    <Grid stackable relaxed columns={3}>
+                        <Grid.Column width={5}>
+                            <Image src='https://freeiconshop.com/wp-content/uploads/edd/person-flat.png' size='small' circular />
+                            <h1 className="user-name">{`Hi, ${username}`}</h1>
+                            <p> Edit </p>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <h1>My Skills</h1>
+                        </Grid.Column>
+                        <Grid.Column width={7}>
+                            <MessageFeed events={null} />
+                        </Grid.Column>
+                    </Grid>
+                <ProjectFeed projects={projects} />
+            </Container>
+        );
     }
 }
-
-export default Dashboard

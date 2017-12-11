@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import styles from './styles.scss'
-
+import Navbar from '../Navbar/Navbar.jsx'
 
 class Register extends Component {
     constructor() {
@@ -71,24 +71,27 @@ class Register extends Component {
 
     render() {
         return(
-            <form className="Register" action="/" onSubmit={this.onSubmit}>
-                <Card className="Register__content">
-                    <div>
-                        <h1>Register</h1>
-                        <Input label="Email" onChange={this.onChangeEmail} />
-                        <br/><br/>
-                        <Input label="Password" onChange={this.onChangePassword} />
-                        <br/><br/>
-                        <p>{this.state.message}</p>
-                        <Input type="submit" />
-                        <h4>Already registered? Click <Link to="/login">here</Link> to Log-in!</h4>
-
-                        <Link to="/dashboard"><p>Go to Dashboard</p></Link>
-                    </div>
-                </Card>
-            </form>
-    )
-}
+            <div>
+                <Navbar/>
+                <form className="Register" action="/" onSubmit={this.onSubmit}>
+                    <Card className="Register__content">
+                        <div>
+                            <h1>Sign up</h1>
+                            <label>Email</label><br/>
+                            <input className="myInput" onChange={this.onChangeEmail} />
+                            <br/><br/>
+                            <label>Password</label><br/>
+                            <input className="myInput" onChange={this.onChangePassword} />
+                            <br/><br/>
+                            <p>{this.state.message}</p>
+                            <Input type="submit" />
+                            <h4>Already have an account? Sign in <Link to="/login">here</Link> ! </h4>
+                        </div>
+                    </Card>
+                </form>
+            </div>
+        )
+    }
 }
 
 export default Register

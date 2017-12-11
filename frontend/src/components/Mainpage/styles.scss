@@ -1,0 +1,128 @@
+$maincolor : #4999E2;
+
+.Mainpage {
+    background-color: white;
+    text-align: center;
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+
+
+    .postGrid{
+        position: fixed;
+        right: 0;
+        left: 15vw;
+        padding: 3vw 3vw;
+        display: flex;
+        width: 90vw;
+        margin: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow: auto;
+        max-height: 100%;  
+        // align-items: ;
+    }
+
+    .sidebar{
+        position: relative;
+        float: left;
+        height: 100vh;
+        width: 15vw;
+        padding: 20vh 0.5vw 0 0.5vw; 
+        // background-color: lightblue;
+    }
+
+    .popularTags{
+        margin-top: 1vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+        align-self: auto;
+    }
+
+    .filters{
+        margin-top: 1vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+        align-self: auto;
+    }
+
+    .vr {
+        width:0.3vw;
+        background-color: $maincolor;
+        position:absolute;
+        top:7vh;
+        bottom:7vh;
+        left:15vw;
+        border-radius: 0.5vw;
+    }
+
+    hr {
+        width:7vw;
+        height: 0.3vh;
+        margin-top: 5vh;
+        margin-bottom: 5vh; 
+        background-color: $maincolor;
+        border-radius: 0.5vw;
+    }
+
+    .ui.card {
+        // height: auto;
+        transition: all .25s ease-in-out;
+        background-color: $maincolor;
+        text-align: left;
+        margin: 0 10px 20px 10px;
+        box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, .1);
+        height: 35vh;
+        .ui.label{
+            height: auto;
+            width: auto;
+        }
+        border-radius: 1vw;
+        overflow-wrap:break-word;
+        .header{
+            padding: 5% 5% 0 5%;
+        }
+        .meta{
+            font-size: 1em;
+            padding-left: 5%; 
+            color: rgba(255, 255, 255, 0.726);            
+        }
+        .description{
+            padding: 5% 5% 0 5%;
+            color: white;            
+        }
+        > .extra{
+            // background-color: white;
+            padding: 2% 7%;
+        }
+
+        .content>.header:not(.ui){
+            font-size: 2em;
+            color: white;    
+        }
+    }
+    .ui.card:hover{
+        transform: scale(1.007);
+        // border-radius: 10px;
+        box-shadow: 0px 0px 20px 0px $maincolor;
+    }
+
+
+
+    .ui.label{
+        margin: 0 3px 6px 3px;
+        height: 30px;
+        width: 40%;
+        text-align: center;
+        background-color:$maincolor;
+        color: white;
+        border-radius: 0.5vw;
+        border-color: white;
+    }
+
+}

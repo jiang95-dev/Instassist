@@ -6,45 +6,42 @@
     top: 20%;
     left: 50%;
     transform: translateX(-50%);
-}
 
-.logo{
+    .logo{
 	color: white;
 	font-size: 80px;
 	font-family: verdana;
 	font-weight: lighter;
-}
+	}
 
-.title{
-	color: white;
-	font-size: 20px;
-	font-family: verdana;
-	font-weight: lighter;
-}
+	.title{
+		color: white;
+		font-size: 20px;
+		font-family: verdana;
+		font-weight: lighter;
+	}
 
-.myInput{
-	border-radius: 20px;
-	outline: none;
-	padding: 6px 10px 6px 10px;
-	margin-bottom: 20px;
-	width: 500px;
-}
+	.stick{
+		border-bottom:2px solid #A1CEF3;
+		padding-top: 30px;
+		margin-bottom: 30px;
+		width: 600px;
+	}
 
-.stick{
-	border-bottom:2px solid #A1CEF3;
-	padding-top: 30px;
-	margin-bottom: 30px;
-	width: 600px;
-}
+	.footer-title{
+		color: #A1CEF3;
+		font-size: 20px;
+	}
 
-.footer-title{
-	color: #A1CEF3;
-	font-size: 20px;
-}
+	.footer-body{
+		color: #A1CEF3;
+		padding-top: 10px;
+	}
 
-.footer-body{
-	color: #A1CEF3;
-	padding-top: 10px;
+	.myInput{
+		margin-bottom: 20px;
+	}
+	
 }
 
 .myTriangle{
@@ -59,10 +56,18 @@
 
 .continue-text{
 	float: left;
+	color: white;
+	font-size: 20px;
+	font-family: verdana;
+	font-weight: lighter;
 }
 
 .background{
 	height: 100vh;
 	background-color: #3A95E5;
 }
+
+
+
+
 

@@ -31,9 +31,19 @@ app.route('/register').get(function(req, res) {
 app.route('/dashboard').get(function(req,res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 })
-app.route('/createpost').get(function(req,res) {
+app.route('/mainpage').get(function(req,res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 })
+
+
+var allowCrossDomain = function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS, PATCH");
+    next();
+};
+app.use(allowCrossDomain);
+
 
 /* New things ================================================================ */
 
@@ -52,7 +62,6 @@ app.use(passport.session());
 
 // Get our routes
 app.use('/api', require('./backend/routes/api')(router, passport));
-
 /* =========================================================================== */
 
 // start the server

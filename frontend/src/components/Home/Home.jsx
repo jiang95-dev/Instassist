@@ -17,10 +17,10 @@ class Home extends Component {
                     <div className="stick"></div>
                     <p className="footer-title">Project Name</p>
                     <div>
-                        <i class="trophy icon big"></i>
-                        <i class="trophy icon big"></i>
-                        <i class="trophy icon big"></i>
-                        <i class="trophy icon big"></i>
+                        <i className="trophy icon big"></i>
+                        <i className="trophy icon big"></i>
+                        <i className="trophy icon big"></i>
+                        <i className="trophy icon big"></i>
                     </div>
                     <p className="footer-body">This is a random string. It makes no sense. Please replace the</p>
                     <p>sentence with what you want.</p>
@@ -30,8 +30,8 @@ class Home extends Component {
                 </div>
                 <Link to="/dashboard">
                     <div className="continue">
-                        <p className="title continue-text">Continue</p>
-                        <i class="triangle right icon big myTriangle"></i>
+                        <p className="continue-text">Continue</p>
+                        <i className="triangle right icon big myTriangle"></i>
                     </div>
                 </Link>
             </div>

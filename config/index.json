@@ -1,4 +1,3 @@
 {
-	//use your own database
-  //"dbUri": "mongodb://Jintao:123456@ds021689.mlab.com:21689/cs498rk"
+	"dbUri": "mongodb://GroupIn.Inc:GroupInCS498RK@ds127536.mlab.com:27536/groupin"
 }
