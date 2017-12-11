@@ -13,17 +13,17 @@ class Navbar extends Component{
 
 	render(){
 		return(
-			<div class="ui secondary menu navbar">
-				<div class="myLogo">Groupin</div>
-				<div class="item">
-				    <div class="ui icon input">
-				    	<input type="text" placeholder="Search..." class="myInput"/>
-				        <i class="search link icon"></i>
+			<div className="ui secondary menu navbar">
+				<div className="myLogo">Groupin</div>
+				<div className="item">
+				    <div className="ui icon input">
+				    	<input type="text" placeholder="Search..." className="myInput"/>
+				        <i className="search link icon"></i>
 				    </div>
 				</div>
-				<div class="right menu">
-				    <a><Link to="/createpost"><i class="plus icon large myPlus link"></i></Link></a>
-				    <img alt="image" src="../../assets/avatar.png" class="myImage"/>
+				<div className="right menu">
+				    <a><Link to="/createpost"><i className="plus icon large myPlus link"></i></Link></a>
+				    <img alt="image" src="../../assets/avatar.png" className="myImage"/>
 				</div>
 			</div>
 		);
