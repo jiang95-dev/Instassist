@@ -21,9 +21,19 @@ export default class Dashboard extends Component {
             <Container className="dashboard">
                     <Grid stackable relaxed columns={3}>
                         <Grid.Column width={5}>
-                            <Image src='https://freeiconshop.com/wp-content/uploads/edd/person-flat.png' size='small' circular />
-                            <h1 className="user-name">{`Hi, ${username}`}</h1>
-                            <p> Edit </p>
+                        <Card
+                            centered
+                            raised
+                            image='http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg'
+                            header={`Hi, ${username}`}
+                            description="Ready to get to know me?"
+                            extra={
+                                <div className='ui two buttons'>
+                                    <Button basic color='green'>Edit</Button>
+                                    <Button basic color='red'>Log Out</Button>
+                                </div>
+                            }
+                        />
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <SkillFeed skills={skills} />
@@ -32,7 +42,7 @@ export default class Dashboard extends Component {
                             <MessageFeed events={null} />
                         </Grid.Column>
                     </Grid>
-                <ProjectFeed projects={testArr} />
+                <ProjectFeed style={{marginTop: '2em'}} projects={testArr} />
             </Container>
         );
     }
