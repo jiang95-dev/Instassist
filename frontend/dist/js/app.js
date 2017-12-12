@@ -63857,7 +63857,7 @@ var Register = function (_Component) {
 
             // create an AJAX POST request (This should probably done with Axios instead) 
             var xhr = new XMLHttpRequest();
-            xhr.open('post', 'http://10.192.215.5:3000/api/register');
+            xhr.open('post', 'https://mighty-oasis-90906.herokuapp.com/api/register');
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.responseType = 'json';
             xhr.addEventListener('load', function () {
@@ -65923,14 +65923,15 @@ var CreatePost = function (_Component) {
 			};
 			console.log(parsed_data);
 
+			console.log(localStorage.getItem('jwtToken'));
 			var instance = _axios2.default.create({
-				headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4',
+				headers: { 'x-access-token': localStorage.getItem('jwtToken'),
 					'Content-Type': 'application/json' }
 			});
 
-			var data = JSON.stringify({ "data": parsed_data });
+			var data = JSON.stringify(parsed_data);
 			//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
-			instance.post('http://10.192.127.59:3000/api/projects', data).then(function (res) {
+			instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data).then(function (res) {
 				console.log(res);
 				_this.props.history.push('/dashboard');
 			}).catch(function (err) {
@@ -66465,13 +66466,6 @@ var Mainpage = function (_Component) {
 }(_react.Component);
 
 exports.default = Mainpage;
-
-// <Card 
-// header={projName}
-// meta= {projTimeStamp}
-// extra= {tags}
-// description={projIntro}
-// />
 
 /***/ }),
 /* 820 */

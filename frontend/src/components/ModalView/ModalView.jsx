@@ -200,8 +200,3 @@ class MessageForm extends Component {
 export default ModalView;
 
 
-
-
-
-
-

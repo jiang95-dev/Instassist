@@ -35,14 +35,15 @@ class CreatePost extends Component {
 		};
 		console.log(parsed_data);
 
+		console.log(localStorage.getItem('jwtToken'));
 		var instance = axios.create({
-			headers: {'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4',
+			headers: {'x-access-token': localStorage.getItem('jwtToken'),
 						'Content-Type': 'application/json'}
 		});
 		
-		var data = JSON.stringify({"data" :parsed_data})
+		var data = JSON.stringify(parsed_data)
 		//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
-		instance.post('http://10.192.127.59:3000/api/projects', data)
+		instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data)
 		.then(function(res){
 			console.log(res);
 			_this.props.history.push('/dashboard');

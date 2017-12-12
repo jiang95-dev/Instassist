@@ -240,11 +240,3 @@ class Mainpage extends Component {
 
 export default Mainpage
 
-
-
-// <Card 
-// header={projName}
-// meta= {projTimeStamp}
-// extra= {tags}
-// description={projIntro}
-// />
