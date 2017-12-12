@@ -1,26 +1,32 @@
 .navbar{
     background-color: #3A95E5 !important;
-    padding: 5px;
+	padding: 5px;
+	height: 60px;
 }
 
 .myLogo{
-	padding: 10px;
+	// padding: 10px;
+	// position: absolute;
+	padding: 10px 0 0 20px;
 	color: white;
-	font-size: 20px;
+	font-size: 40px;
+	top: 20px;
+	left: 20px;
 }
 
 .myInput{
 	width: 400px;
+	padding-left: 10px; 
 }
 
 .myPlus{
 	color: white;
-	padding: 10px;
+	padding: 13px 15px 0 0;
 	resize: 30px;
 }
 
 .myImage{
-	height: 40px;
-	width: 40px;
-	padding: 0px;
+	height: 50px;
+	width: 50px;
+	margin-right: 13px;
 }

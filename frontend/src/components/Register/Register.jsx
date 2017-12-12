@@ -35,7 +35,7 @@ class Register extends Component {
 
         // create an AJAX POST request (This should probably done with Axios instead) 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', 'http://10.192.215.5:3000/api/register');
+        xhr.open('post', 'https://mighty-oasis-90906.herokuapp.com/api/register');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {

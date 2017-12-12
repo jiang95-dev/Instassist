@@ -35,7 +35,7 @@ class Login extends Component {
 
         // create an AJAX request (This should probably done with Axios instead) 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', 'http://10.192.215.5:3000/api/login');
+        xhr.open('post', 'https://mighty-oasis-90906.herokuapp.com/api/login');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {

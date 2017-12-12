@@ -14,12 +14,82 @@ export default class Dashboard extends Component {
         super(props);
         this.state = { 
             editing: false,
-            username: "Ushi",
-            description: "Ready to get to know me?"
+            username: "",
+            description: "",
+            projects: [],
+            skills: []
+        }
+
+        this.token = localStorage.getItem('jwtToken');
+
+        this.id = null;
+        this.userUrl = null;
+        this.logOut = this.logOut.bind(this);
+        this.addSkill = this.addSkill.bind(this);
+        this.fetchUser();
+    }
+
+    componentWillMount() {
+        if (!this.token) {
+            this.props.history.push('/login');
         }
     }
 
-    logout(){
+    fetchUser() {
+        let profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
+        axios.get(profileUrl, {
+            headers: { "x-access-token": this.token }
+        }).then((response) => {
+            this.id = response.data._id;
+            this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
+            console.log(response.data)
+            let username = response.data.username ? response.data.username : "Anonymous";
+            
+            this.setState({
+                username: username,
+                description: response.data.description,
+                skills: response.data.skills,
+                projects: response.data.projects
+            });
+        });
+    }
+
+    updateProfile(shouldUpdate) {
+        if (shouldUpdate && this.userUrl) {
+            axios.patch(this.userUrl, { 
+                    username: this.state.username, description: this.state.description 
+                }, { 
+                    headers: { 
+                        "x-access-token": this.token
+                    } 
+                }).then((response) => {
+                    let username = response.data.username ? response.data.username : "";
+                    this.setState({
+                        username: username,
+                        description: response.data.description,
+                        editing: false
+                    });
+            });
+        }
+    }
+
+    addSkill(newSkill) {
+        console.log(newSkill)
+        axios.patch(this.userUrl, { 
+                skills: this.state.skills.concat(newSkill)
+            }, { 
+                headers: { 
+                    "x-access-token": this.token
+                } 
+            }).then((response) => {
+                console.log(response.data.skills)
+                this.setState({
+                    skills: response.data.skills
+                });
+        });
+    }
+
+    logOut(){
         localStorage.removeItem('jwtToken');
         this.props.history.push('/mainpage');
     }
@@ -38,6 +108,7 @@ export default class Dashboard extends Component {
                     <input 
                         value={this.state.username}
                         onChange={e => this.setState({ username: e.target.value })} 
+                        onKeyPress={e => this.updateProfile(e.key == 'Enter')}
                     />
                 </Card.Header>
             );
@@ -46,6 +117,7 @@ export default class Dashboard extends Component {
                     <input 
                         value={this.state.description}
                         onChange={e => this.setState({ description: e.target.value })} 
+                        onKeyPress={e => this.updateProfile(e.key == 'Enter')}
                     />
                 </Card.Description>
             );
@@ -56,7 +128,11 @@ export default class Dashboard extends Component {
                     {`Hi,  ${this.state.username}`}
                 </Card.Header>
             );
-            description = <Card.Description>{this.state.description}</Card.Description>;
+            description = (
+                <Card.Description>
+                    {this.state.description}
+                </Card.Description>
+            );
             editButton = "Edit";
         }
 
@@ -66,7 +142,7 @@ export default class Dashboard extends Component {
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
                             <Grid.Column width={5}>
-                            <Card centered >
+                            <Card centered raised={this.state.editing}>
                                 <Image src='http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' />
                                 <Card.Content>
                                     {nameField}
@@ -75,19 +151,19 @@ export default class Dashboard extends Component {
                                 <Card.Content extra>
                                     <div className='ui two buttons'>
                                         <Button onClick={() => this.setState({ editing: !this.state.editing })} basic color='green'>{editButton}</Button>
-                                        <Button basic color='red' onClick={this.logout.bind(this)}>Log Out</Button>
+                                        <Button basic color='red' onClick={this.logOut}>Log Out</Button>
                                     </div>
                                 </Card.Content>
                             </Card> 
                             </Grid.Column>
                             <Grid.Column width={4}>
-                                <SkillFeed skills={skills} />
+                                <SkillFeed skills={this.state.skills} addSkill={this.addSkill} />
                             </Grid.Column>
                             <Grid.Column width={7}>
                                 <MessageFeed events={null} />
                             </Grid.Column>
                         </Grid>
-                    <ProjectFeed style={{marginTop: '2em'}} projects={testArr} />
+                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} />
                 </Container>
             </div>
         );
