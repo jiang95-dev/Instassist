@@ -22,16 +22,44 @@ class Mainpage extends Component {
         this.updateSearchResult = this.updateSearchResult.bind(this);
         
         this.cardClicked = this.cardClicked.bind(this);
+        this.modalClosed = this.modalClosed.bind(this);
     }
 
     /*for DV*/
-    cardClicked(obj){
+    cardClicked(obj, idx){
         console.log("card clicked");
-        console.log(obj);
+        // console.log(obj);
+        
+        var baseUrl_ty = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
+        // var baseUrl_lc = 'http://localhost:8080/'
+        var id = obj._id;
+        var url_ty = baseUrl_ty + id + "/popularity";
+        // var url_lc = baseUrl_lc + id + "popularity";
+        // console.log("url_ty: " + url_ty);
+
+
+        // update popularity
+        axios.put(url_ty)
+        .then((response) => {
+            console.log(response.data);
+            var list = this.state.postList;
+            list[idx].popularity += 1;
+            this.setState({
+                postList: list,
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("put popularity failed");
+        })
+
+        // update state in order to render modal 
         this.setState({
             modalOpen: true,
             selected: obj,
         })
+
+
     }
 
 
@@ -164,6 +192,12 @@ class Mainpage extends Component {
         }
     }
 
+    modalClosed(){
+        this.setState({
+            modalOpen: false,
+        });
+    }
+
     render() {
         //Asy check
         console.log("===Mainpage===");
@@ -194,7 +228,7 @@ class Mainpage extends Component {
                         meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
                         extra= {projtag}
                         description={projIntro}
-                        onClick={() => {this.cardClicked(obj)}}
+                        onClick={() => {this.cardClicked(obj, idx)}}
                         />
                     )
                 }
@@ -230,7 +264,7 @@ class Mainpage extends Component {
                             {postGrid}
                         </div>
                     </div>
-                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
+                    <ModalView open={this.state.modalOpen} selected={this.state.selected} onClose={this.modalClosed}/>
                 </div>
             )
         }
