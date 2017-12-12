@@ -183,11 +183,12 @@ class Mainpage extends Component {
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{
                         return(
-                            <Label key={idx} as='a' basic>{tag.name}</Label>
+                            <Label key={idx+'p'+idx_t} as='a' basic>{tag.name}</Label>
                         )
                     })
                     return(
                         <Card 
+                        key={'c'+idx}
                         header={projName}
                         meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
                         extra= {projtag}
@@ -200,7 +201,7 @@ class Mainpage extends Component {
             let popTags = this.state.popularTagList.map((obj, key)=>{
                 if (key < 5 && key < this.state.popularTagList.length){
                     let tid = obj._id;
-                    return (<Label as='a' key={key} onClick={()=>this.filterHandler({tid})} basic>{obj.name}</Label>)                    
+                    return (<Label as='a' key={'t'+key} onClick={()=>this.filterHandler({tid})} basic>{obj.name}</Label>)                    
                 }
             });
 
