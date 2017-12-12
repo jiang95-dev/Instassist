@@ -13,51 +13,43 @@ class CreatePost extends Component {
             project: {
                 name: '',
                 description: '',
-                tags: '',
+                tag_names: '',
                 required_skills: '',
-                creator_name: 'fixed',
-                creaor_id: '5a2c2a4a99aa9913d0a07218'
             },
-
             message: ''
         }
 	}
 
 	onSubmitForm(e){
-		e.preventDefault();
-		console.log(this.state);
-		/*axios.post('/api/projects', {name: "fixed",
-			creator_name : "fixed",
-			creaor_id: '5a2c2a4a99aa9913d0a07218'})
+		e.preventDefault();	
+		var _this = this;
+		
+		//parse first
+		const tags = this.state.project.tag_names.split(',');
+		const skills = this.state.project.required_skills.split(',');
+		var parsed_data = {
+			name : this.state.project.name,
+			description : this.state.project.description,
+			tag_names : tags,
+			required_skills : skills
+		};
+		console.log(parsed_data);
+
+		var instance = axios.create({
+			headers: {'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4',
+						'Content-Type': 'application/json'}
+		});
+		
+		var data = JSON.stringify({"data" :parsed_data})
+		//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
+		instance.post('http://10.192.127.59:3000/api/projects', data)
 		.then(function(res){
 			console.log(res);
+			_this.props.history.push('/dashboard');
 		})
 		.catch(function(err){
 			console.log(err);
-		});*/
-		const name = encodeURIComponent(this.state.project.name);
-        const description = encodeURIComponent(this.state.project.description);
-        const required_skills = encodeURIComponent(this.state.project.required_skills);
-        const formData = `name=${name}&description=${description}&required_skills={required_skills}&creaor_name={"1234"}&creaor_id={'5a2c2a4a99aa9913d0a07218'}`;
-
-        // create an AJAX request (This should probably done with Axios instead) 
-        const xhr = new XMLHttpRequest();
-        xhr.open('post', '/api/projects');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
-                this.setState({
-                    message: 'Successfully logged in!'
-                })
-            } else {
-                this.setState({
-                    message: 'Unable to log in'
-                })
-            }
-        });
-        xhr.send(formData);
-
+		});
 	}
 
 	onChangeTitle(e){
@@ -78,7 +70,7 @@ class CreatePost extends Component {
 
 	onChangeTag(e){
 		const project = this.state.project;
-        project.tags = e.target.value;
+        project.tag_names = e.target.value;
         this.setState({
             project
         });
@@ -99,7 +91,7 @@ class CreatePost extends Component {
 					<div className="header">Post a new project here!</div>
 				  	<p>Fill out the form in detail so that others can have a clear understanding of your project</p>
 				</div>
-				<form className="ui form attached fluid segment" action="/" onSubmit={this.onSubmitForm.bind(this)}>
+				<form className="ui form attached fluid segment" onSubmit={this.onSubmitForm.bind(this)}>
 				  	<div className="field">
 				    	<label>Project Title</label>
 				    	<input placeholder="Project Title" type="text" onChange={this.onChangeTitle.bind(this)}/>

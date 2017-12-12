@@ -10482,19 +10482,60 @@ var Navbar = function (_Component) {
 	function Navbar() {
 		_classCallCheck(this, Navbar);
 
-		return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this));
+		var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this));
+
+		_this.inputChangeHandler = _this.inputChangeHandler.bind(_this);
+		return _this;
 	}
 
 	_createClass(Navbar, [{
+		key: 'inputChangeHandler',
+		value: function inputChangeHandler(event) {
+			var searchkey = event.target.value;
+			console.log(searchkey);
+			this.props.search(searchkey);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			if (localStorage.getItem('jwtToken') != null) {
+				var create = _react2.default.createElement(
+					_reactRouterDom.Link,
+					{ to: '/createpost' },
+					_react2.default.createElement('i', { className: 'plus icon large myPlus link' })
+				);
+				var avatar = _react2.default.createElement(
+					_reactRouterDom.Link,
+					{ to: '/dashboard' },
+					_react2.default.createElement('img', { alt: 'image', src: 'https://freeiconshop.com/wp-content/uploads/edd/person-flat.png', className: 'myImage' })
+				);
+			} else {
+				var create = _react2.default.createElement(
+					_reactRouterDom.Link,
+					{ to: '/login' },
+					_react2.default.createElement('i', { className: 'plus icon large myPlus link' })
+				);
+				var avatar = _react2.default.createElement(
+					_reactRouterDom.Link,
+					{ to: '/login' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'myPlus' },
+						'Sign in'
+					)
+				);
+			}
 			return _react2.default.createElement(
 				'div',
 				{ className: 'ui secondary menu navbar' },
 				_react2.default.createElement(
-					'div',
-					{ className: 'myLogo' },
-					'Groupin'
+					_reactRouterDom.Link,
+					{ to: '/mainpage' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'myLogo' },
+						'Groupin'
+					)
 				),
 				_react2.default.createElement(
 					'div',
@@ -10502,19 +10543,15 @@ var Navbar = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'ui icon input' },
-						_react2.default.createElement('input', { type: 'text', placeholder: 'Search...', className: 'myInput' }),
+						_react2.default.createElement('input', { type: 'text', placeholder: 'Search...', className: 'myInput', onChange: this.inputChangeHandler }),
 						_react2.default.createElement('i', { className: 'search link icon' })
 					)
 				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'right menu' },
-					_react2.default.createElement(
-						_reactRouterDom.Link,
-						{ to: '/createpost' },
-						_react2.default.createElement('i', { className: 'plus icon large myPlus link' })
-					),
-					_react2.default.createElement('img', { alt: 'image', src: 'https://freeiconshop.com/wp-content/uploads/edd/person-flat.png', className: 'myImage' })
+					create,
+					avatar
 				)
 			);
 		}
@@ -44187,7 +44224,7 @@ var Home = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/dashboard' },
+                    { to: '/mainpage' },
                     _react2.default.createElement(
                         'div',
                         { className: 'continue' },
@@ -63788,7 +63825,7 @@ var Register = function (_Component) {
 
             // create an AJAX POST request (This should probably done with Axios instead) 
             var xhr = new XMLHttpRequest();
-            xhr.open('post', '/api/register');
+            xhr.open('post', 'http://10.192.215.5:3000/api/register');
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.responseType = 'json';
             xhr.addEventListener('load', function () {
@@ -63859,7 +63896,7 @@ var Register = function (_Component) {
                                 'Password'
                             ),
                             _react2.default.createElement('br', null),
-                            _react2.default.createElement('input', { className: 'myInput', onChange: this.onChangePassword }),
+                            _react2.default.createElement('input', { type: 'password', className: 'myInput', onChange: this.onChangePassword }),
                             _react2.default.createElement('br', null),
                             _react2.default.createElement('br', null),
                             _react2.default.createElement(
@@ -64896,6 +64933,10 @@ var _Navbar = __webpack_require__(216);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
+var _axios = __webpack_require__(133);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64919,7 +64960,6 @@ var Login = function (_Component) {
                 password: '',
                 email: ''
             },
-
             message: ''
         };
 
@@ -64935,13 +64975,14 @@ var Login = function (_Component) {
             var _this2 = this;
 
             e.preventDefault();
+
             var email = encodeURIComponent(this.state.user.email);
             var password = encodeURIComponent(this.state.user.password);
             var formData = 'email=' + email + '&password=' + password;
 
             // create an AJAX request (This should probably done with Axios instead) 
             var xhr = new XMLHttpRequest();
-            xhr.open('post', '/api/login');
+            xhr.open('post', 'http://10.192.215.5:3000/api/login');
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.responseType = 'json';
             xhr.addEventListener('load', function () {
@@ -64949,6 +64990,11 @@ var Login = function (_Component) {
                     _this2.setState({
                         message: 'Successfully logged in!'
                     });
+                    //redirect
+                    _this2.props.history.push('/mainpage');
+                    //set token
+                    var token = xhr.response['token'];
+                    localStorage.setItem('jwtToken', token);
                 } else {
                     _this2.setState({
                         message: 'Unable to log in'
@@ -65011,7 +65057,7 @@ var Login = function (_Component) {
                                 'Password'
                             ),
                             _react2.default.createElement('br', null),
-                            _react2.default.createElement('input', { className: 'myInput', onChange: this.onChangePassword }),
+                            _react2.default.createElement('input', { type: 'password', className: 'myInput', onChange: this.onChangePassword }),
                             _react2.default.createElement('br', null),
                             _react2.default.createElement('br', null),
                             _react2.default.createElement(
@@ -65168,6 +65214,10 @@ var _axios = __webpack_require__(133);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _Navbar = __webpack_require__(216);
+
+var _Navbar2 = _interopRequireDefault(_Navbar);
+
 var _dashboard = __webpack_require__(813);
 
 var _dashboard2 = _interopRequireDefault(_dashboard);
@@ -65196,16 +65246,13 @@ var Dashboard = function (_Component) {
         return _this;
     }
 
-    // componentDidMount() {
-    //     let userUrl = 'http://10.192.127.59:3000/api/projects';
-    //     axios.get(url).then((response) => {
-
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
-
     _createClass(Dashboard, [{
+        key: 'logout',
+        value: function logout() {
+            localStorage.removeItem('jwtToken');
+            this.props.history.push('/mainpage');
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -65254,58 +65301,63 @@ var Dashboard = function (_Component) {
             }
 
             return _react2.default.createElement(
-                _semanticUiReact.Container,
-                { className: 'dashboard' },
+                'div',
+                null,
+                _react2.default.createElement(_Navbar2.default, null),
                 _react2.default.createElement(
-                    _semanticUiReact.Grid,
-                    { stackable: true, relaxed: true, columns: 3 },
+                    _semanticUiReact.Container,
+                    { className: 'dashboard' },
                     _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 5 },
+                        _semanticUiReact.Grid,
+                        { stackable: true, relaxed: true, columns: 3 },
                         _react2.default.createElement(
-                            _semanticUiReact.Card,
-                            { centered: true },
-                            _react2.default.createElement(_semanticUiReact.Image, { src: 'http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' }),
+                            _semanticUiReact.Grid.Column,
+                            { width: 5 },
                             _react2.default.createElement(
-                                _semanticUiReact.Card.Content,
-                                null,
-                                nameField,
-                                description
-                            ),
-                            _react2.default.createElement(
-                                _semanticUiReact.Card.Content,
-                                { extra: true },
+                                _semanticUiReact.Card,
+                                { centered: true },
+                                _react2.default.createElement(_semanticUiReact.Image, { src: 'http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' }),
                                 _react2.default.createElement(
-                                    'div',
-                                    { className: 'ui two buttons' },
+                                    _semanticUiReact.Card.Content,
+                                    null,
+                                    nameField,
+                                    description
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Card.Content,
+                                    { extra: true },
                                     _react2.default.createElement(
-                                        _semanticUiReact.Button,
-                                        { onClick: function onClick() {
-                                                return _this2.setState({ editing: !_this2.state.editing });
-                                            }, basic: true, color: 'green' },
-                                        editButton
-                                    ),
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Button,
-                                        { basic: true, color: 'red' },
-                                        'Log Out'
+                                        'div',
+                                        { className: 'ui two buttons' },
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Button,
+                                            { onClick: function onClick() {
+                                                    return _this2.setState({ editing: !_this2.state.editing });
+                                                }, basic: true, color: 'green' },
+                                            editButton
+                                        ),
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Button,
+                                            { basic: true, color: 'red', onClick: this.logout.bind(this) },
+                                            'Log Out'
+                                        )
                                     )
                                 )
                             )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid.Column,
+                            { width: 4 },
+                            _react2.default.createElement(_SkillFeed2.default, { skills: skills })
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid.Column,
+                            { width: 7 },
+                            _react2.default.createElement(_MessageFeed2.default, { events: null })
                         )
                     ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 4 },
-                        _react2.default.createElement(_SkillFeed2.default, { skills: skills })
-                    ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 7 },
-                        _react2.default.createElement(_MessageFeed2.default, { events: null })
-                    )
-                ),
-                _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: testArr })
+                    _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: testArr })
+                )
             );
         }
     }]);
@@ -65694,7 +65746,7 @@ exports.push([module.i, ".dashboard {\n  padding: 5em 0; }\n  .dashboard h1 {\n 
 
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -65724,202 +65776,191 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CreatePost = function (_Component) {
-				_inherits(CreatePost, _Component);
+	_inherits(CreatePost, _Component);
 
-				function CreatePost(props) {
-								_classCallCheck(this, CreatePost);
+	function CreatePost(props) {
+		_classCallCheck(this, CreatePost);
 
-								var _this = _possibleConstructorReturn(this, (CreatePost.__proto__ || Object.getPrototypeOf(CreatePost)).call(this));
+		var _this2 = _possibleConstructorReturn(this, (CreatePost.__proto__ || Object.getPrototypeOf(CreatePost)).call(this));
 
-								_this.state = {
-												project: {
-																name: '',
-																description: '',
-																tags: '',
-																required_skills: '',
-																creator_name: 'fixed',
-																creaor_id: '5a2c2a4a99aa9913d0a07218'
-												},
+		_this2.state = {
+			project: {
+				name: '',
+				description: '',
+				tag_names: '',
+				required_skills: ''
+			},
+			message: ''
+		};
+		return _this2;
+	}
 
-												message: ''
-								};
-								return _this;
-				}
+	_createClass(CreatePost, [{
+		key: 'onSubmitForm',
+		value: function onSubmitForm(e) {
+			e.preventDefault();
+			var _this = this;
 
-				_createClass(CreatePost, [{
-								key: 'onSubmitForm',
-								value: function onSubmitForm(e) {
-												var _this2 = this;
+			//parse first
+			var tags = this.state.project.tag_names.split(',');
+			var skills = this.state.project.required_skills.split(',');
+			var parsed_data = {
+				name: this.state.project.name,
+				description: this.state.project.description,
+				tag_names: tags,
+				required_skills: skills
+			};
+			console.log(parsed_data);
 
-												e.preventDefault();
-												console.log(this.state);
-												/*axios.post('/api/projects', {name: "fixed",
-            	creator_name : "fixed",
-            	creaor_id: '5a2c2a4a99aa9913d0a07218'})
-            .then(function(res){
-            	console.log(res);
-            })
-            .catch(function(err){
-            	console.log(err);
-            });*/
-												var name = encodeURIComponent(this.state.project.name);
-												var description = encodeURIComponent(this.state.project.description);
-												var required_skills = encodeURIComponent(this.state.project.required_skills);
-												var formData = 'name=' + name + '&description=' + description + '&required_skills={required_skills}&creaor_name={"1234"}&creaor_id={\'5a2c2a4a99aa9913d0a07218\'}';
+			var instance = _axios2.default.create({
+				headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4',
+					'Content-Type': 'application/json' }
+			});
 
-												// create an AJAX request (This should probably done with Axios instead) 
-												var xhr = new XMLHttpRequest();
-												xhr.open('post', '/api/projects');
-												xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-												xhr.responseType = 'json';
-												xhr.addEventListener('load', function () {
-																if (xhr.status === 200) {
-																				_this2.setState({
-																								message: 'Successfully logged in!'
-																				});
-																} else {
-																				_this2.setState({
-																								message: 'Unable to log in'
-																				});
-																}
-												});
-												xhr.send(formData);
-								}
-				}, {
-								key: 'onChangeTitle',
-								value: function onChangeTitle(e) {
-												var project = this.state.project;
-												project.name = e.target.value;
-												this.setState({
-																project: project
-												});
-								}
-				}, {
-								key: 'onChangeDescription',
-								value: function onChangeDescription(e) {
-												var project = this.state.project;
-												project.description = e.target.value;
-												this.setState({
-																project: project
-												});
-								}
-				}, {
-								key: 'onChangeTag',
-								value: function onChangeTag(e) {
-												var project = this.state.project;
-												project.tags = e.target.value;
-												this.setState({
-																project: project
-												});
-								}
-				}, {
-								key: 'onChangeSkill',
-								value: function onChangeSkill(e) {
-												var project = this.state.project;
-												project.required_skills = e.target.value;
-												this.setState({
-																project: project
-												});
-								}
-				}, {
-								key: 'render',
-								value: function render() {
-												return _react2.default.createElement(
-																'div',
-																{ className: 'myPost' },
-																_react2.default.createElement(
-																				'div',
-																				{ className: 'ui attached message' },
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'header' },
-																								'Post a new project here!'
-																				),
-																				_react2.default.createElement(
-																								'p',
-																								null,
-																								'Fill out the form in detail so that others can have a clear understanding of your project'
-																				)
-																),
-																_react2.default.createElement(
-																				'form',
-																				{ className: 'ui form attached fluid segment', action: '/', onSubmit: this.onSubmitForm.bind(this) },
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'field' },
-																								_react2.default.createElement(
-																												'label',
-																												null,
-																												'Project Title'
-																								),
-																								_react2.default.createElement('input', { placeholder: 'Project Title', type: 'text', onChange: this.onChangeTitle.bind(this) })
-																				),
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'field' },
-																								_react2.default.createElement(
-																												'label',
-																												null,
-																												'Description'
-																								),
-																								_react2.default.createElement('textarea', { rows: '10', onChange: this.onChangeDescription.bind(this) })
-																				),
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'two fields' },
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'field' },
-																												_react2.default.createElement(
-																																'label',
-																																null,
-																																'Tags'
-																												),
-																												_react2.default.createElement('input', { placeholder: 'Tags', type: 'text', onChange: this.onChangeTag.bind(this) })
-																								),
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'field' },
-																												_react2.default.createElement(
-																																'label',
-																																null,
-																																'Skills'
-																												),
-																												_react2.default.createElement('input', { placeholder: 'Skills', type: 'text', onChange: this.onChangeSkill.bind(this) })
-																								)
-																				),
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'inline field' },
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'ui checkbox' },
-																												_react2.default.createElement('input', { type: 'checkbox', id: 'terms' }),
-																												_react2.default.createElement(
-																																'label',
-																																{ htmlFor: 'terms' },
-																																'I agree to the terms and conditions'
-																												)
-																								)
-																				),
-																				_react2.default.createElement('input', { type: 'submit', className: 'ui blue submit button' })
-																),
-																_react2.default.createElement(
-																				'div',
-																				{ className: 'ui bottom attached warning message' },
-																				'Have any questions? See ',
-																				_react2.default.createElement(
-																								'a',
-																								{ href: '#' },
-																								'here'
-																				),
-																				'.'
-																)
-												);
-								}
-				}]);
+			var data = JSON.stringify({ "data": parsed_data });
+			//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
+			instance.post('http://10.192.127.59:3000/api/projects', data).then(function (res) {
+				console.log(res);
+				_this.props.history.push('/dashboard');
+			}).catch(function (err) {
+				console.log(err);
+			});
+		}
+	}, {
+		key: 'onChangeTitle',
+		value: function onChangeTitle(e) {
+			var project = this.state.project;
+			project.name = e.target.value;
+			this.setState({
+				project: project
+			});
+		}
+	}, {
+		key: 'onChangeDescription',
+		value: function onChangeDescription(e) {
+			var project = this.state.project;
+			project.description = e.target.value;
+			this.setState({
+				project: project
+			});
+		}
+	}, {
+		key: 'onChangeTag',
+		value: function onChangeTag(e) {
+			var project = this.state.project;
+			project.tag_names = e.target.value;
+			this.setState({
+				project: project
+			});
+		}
+	}, {
+		key: 'onChangeSkill',
+		value: function onChangeSkill(e) {
+			var project = this.state.project;
+			project.required_skills = e.target.value;
+			this.setState({
+				project: project
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'myPost' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui attached message' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'header' },
+						'Post a new project here!'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Fill out the form in detail so that others can have a clear understanding of your project'
+					)
+				),
+				_react2.default.createElement(
+					'form',
+					{ className: 'ui form attached fluid segment', onSubmit: this.onSubmitForm.bind(this) },
+					_react2.default.createElement(
+						'div',
+						{ className: 'field' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'Project Title'
+						),
+						_react2.default.createElement('input', { placeholder: 'Project Title', type: 'text', onChange: this.onChangeTitle.bind(this) })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'field' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'Description'
+						),
+						_react2.default.createElement('textarea', { rows: '10', onChange: this.onChangeDescription.bind(this) })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'two fields' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'field' },
+							_react2.default.createElement(
+								'label',
+								null,
+								'Tags'
+							),
+							_react2.default.createElement('input', { placeholder: 'Tags', type: 'text', onChange: this.onChangeTag.bind(this) })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'field' },
+							_react2.default.createElement(
+								'label',
+								null,
+								'Skills'
+							),
+							_react2.default.createElement('input', { placeholder: 'Skills', type: 'text', onChange: this.onChangeSkill.bind(this) })
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'inline field' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui checkbox' },
+							_react2.default.createElement('input', { type: 'checkbox', id: 'terms' }),
+							_react2.default.createElement(
+								'label',
+								{ htmlFor: 'terms' },
+								'I agree to the terms and conditions'
+							)
+						)
+					),
+					_react2.default.createElement('input', { type: 'submit', className: 'ui blue submit button' })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui bottom attached warning message' },
+					'Have any questions? See ',
+					_react2.default.createElement(
+						'a',
+						{ href: '#' },
+						'here'
+					),
+					'.'
+				)
+			);
+		}
+	}]);
 
-				return CreatePost;
+	return CreatePost;
 }(_react.Component);
 
 exports.default = CreatePost;

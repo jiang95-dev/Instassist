@@ -6,6 +6,7 @@ import SkillFeed from './SkillFeed.jsx'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import Navbar from '../Navbar/Navbar.jsx'
 import style from './dashboard.scss'
 
 export default class Dashboard extends Component {
@@ -18,14 +19,10 @@ export default class Dashboard extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     let userUrl = 'http://10.192.127.59:3000/api/projects';
-    //     axios.get(url).then((response) => {
-
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
+    logout(){
+        localStorage.removeItem('jwtToken');
+        this.props.history.push('/mainpage');
+    }
 
     render() {
         const testArr = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
@@ -64,32 +61,35 @@ export default class Dashboard extends Component {
         }
 
         return (
-            <Container className="dashboard">
-                    <Grid stackable relaxed columns={3}>
-                        <Grid.Column width={5}>
-                        <Card centered >
-                            <Image src='http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' />
-                            <Card.Content>
-                                {nameField}
-                                {description}
-                            </Card.Content>
-                            <Card.Content extra>
-                                <div className='ui two buttons'>
-                                    <Button onClick={() => this.setState({ editing: !this.state.editing })} basic color='green'>{editButton}</Button>
-                                    <Button basic color='red'>Log Out</Button>
-                                </div>
-                            </Card.Content>
-                        </Card> 
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <SkillFeed skills={skills} />
-                        </Grid.Column>
-                        <Grid.Column width={7}>
-                            <MessageFeed events={null} />
-                        </Grid.Column>
-                    </Grid>
-                <ProjectFeed style={{marginTop: '2em'}} projects={testArr} />
-            </Container>
+            <div>
+                <Navbar/>
+                <Container className="dashboard">
+                        <Grid stackable relaxed columns={3}>
+                            <Grid.Column width={5}>
+                            <Card centered >
+                                <Image src='http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' />
+                                <Card.Content>
+                                    {nameField}
+                                    {description}
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <div className='ui two buttons'>
+                                        <Button onClick={() => this.setState({ editing: !this.state.editing })} basic color='green'>{editButton}</Button>
+                                        <Button basic color='red' onClick={this.logout.bind(this)}>Log Out</Button>
+                                    </div>
+                                </Card.Content>
+                            </Card> 
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <SkillFeed skills={skills} />
+                            </Grid.Column>
+                            <Grid.Column width={7}>
+                                <MessageFeed events={null} />
+                            </Grid.Column>
+                        </Grid>
+                    <ProjectFeed style={{marginTop: '2em'}} projects={testArr} />
+                </Container>
+            </div>
         );
     }
 }
