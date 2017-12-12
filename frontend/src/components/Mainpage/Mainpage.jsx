@@ -22,35 +22,63 @@ class Mainpage extends Component {
         this.updateSearchResult = this.updateSearchResult.bind(this);
         
         this.cardClicked = this.cardClicked.bind(this);
+        this.modalClosed = this.modalClosed.bind(this);
     }
 
     /*for DV*/
-    cardClicked(obj){
+    cardClicked(obj, idx){
         console.log("card clicked");
-        console.log(obj);
+        // console.log(obj);
+        
+        var baseUrl_ty = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
+        // var baseUrl_lc = 'http://localhost:8080/'
+        var id = obj._id;
+        var url_ty = baseUrl_ty + id + "/popularity";
+        // var url_lc = baseUrl_lc + id + "popularity";
+        // console.log("url_ty: " + url_ty);
+
+
+        // update popularity
+        axios.put(url_ty)
+        .then((response) => {
+            console.log(response.data);
+            var list = this.state.postList;
+            list[idx].popularity += 1;
+            this.setState({
+                postList: list,
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("put popularity failed");
+        })
+
+        // update state in order to render modal 
         this.setState({
             modalOpen: true,
             selected: obj,
         })
+
+
     }
 
 
     filterResult(filterType){
         console.log(filterType);
-        var url = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+        var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
         switch (filterType){
             case 'time':
-                url += '?sort={"time_created": -1}'
+                urlFilter += '?sort={"time_created": -1}'
                 break;
             case 'popular':
-                url += '?sort={"popularity": -1}'
+                urlFilter += '?sort={"popularity": -1}'
                 break;
             case 'name':
-                url += '?sort={"name": 1}'
+                urlFilter += '?sort={"name": 1}'
                 break;
         } 
-        console.log(url)
-        axios.get(url)
+        console.log(urlFilter)
+        axios.get(urlFilter)
         .then((response) => {
             this.setState({
                 postList: response.data.data
@@ -67,10 +95,10 @@ class Mainpage extends Component {
         console.log(SearchKey);
         if (typeof SearchKey == "string"){
             if(SearchKey != ""){
-                let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
-                console.log(URLProject)
+                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
+                console.log(urlSearch)
                 
-                axios.get(URLProject)
+                axios.get(urlSearch)
                 .then((response) => {
                     this.setState({
                         postList: response.data.data
@@ -85,8 +113,8 @@ class Mainpage extends Component {
                     console.log("error");
                 })
             }else{
-                let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-                axios.get(URLProject)
+                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+                axios.get(urlSearch)
                 .then((response) => {
                     this.setState({
                         postList: response.data.data
@@ -104,7 +132,7 @@ class Mainpage extends Component {
     componentDidMount(){
         console.log('Mainpage page will mount!')      
         let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-        let URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags';
+        let URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags?sort={"popularity": -1}';
         axios.get(URLProject)
         .then((response) => {
             this.setState({
@@ -133,9 +161,9 @@ class Mainpage extends Component {
 
     filterHandler(id){
         if (id === -1){
-            let disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-            console.log(disUrl);
-            axios.get(disUrl)
+            let urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+            console.log(urlTag);
+            axios.get(urlTag)
             .then((response) => {
                 this.setState({
                     postList: response.data.data
@@ -148,9 +176,9 @@ class Mainpage extends Component {
             })
         }else{
             id = id.tid;
-            let disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/tags/'+id;
-            console.log(disUrl);
-            axios.get(disUrl)
+            let urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/tags/'+id;
+            console.log(urlTag);
+            axios.get(urlTag)
             .then((response) => {
                 this.setState({
                     postList: response.data.data.projects
@@ -164,10 +192,16 @@ class Mainpage extends Component {
         }
     }
 
+    modalClosed(){
+        this.setState({
+            modalOpen: false,
+        });
+    }
+
     render() {
         //Asy check
-        console.log("===Mainpage===");
-        console.log("modalOpen" + this.state.modalOpen);
+        // console.log("===Mainpage===");
+        // console.log("modalOpen" + this.state.modalOpen);
 
 
         if (!this.state.postList || !this.state.popularTagList) {
@@ -178,23 +212,24 @@ class Mainpage extends Component {
                 // console.log(obj)
                 if (obj.state != 0){
                     let projName = obj.name;
+                    console.log(projName);
                     let projTagList = obj.tags;
                     let projIntro = obj.description;
                     let projTimeStamp = obj.createdAt.substr(0, 9);
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{
                         return(
-                            <Label key={idx+'p'+idx_t} basic>{tag.name}</Label>
+                            <Label key={projName+idx_t+idx_t} basic>{tag.name}</Label>
                         )
                     })
                     return(
                         <Card 
-                        key={'c'+idx}
+                        key={projName+projTimeStamp+idx}
                         header={projName}
-                        meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
-                        extra= {projtag}
+                        meta={projTimeStamp + "  Viewed: "+ projViewCounter}
                         description={projIntro}
-                        onClick={() => {this.cardClicked(obj)}}
+                        extra={projtag}
+                        onClick={() => {this.cardClicked(obj, idx)}}
                         />
                     )
                 }
@@ -230,7 +265,7 @@ class Mainpage extends Component {
                             {postGrid}
                         </div>
                     </div>
-                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
+                    <ModalView open={this.state.modalOpen} selected={this.state.selected} onClose={this.modalClosed}/>
                 </div>
             )
         }
