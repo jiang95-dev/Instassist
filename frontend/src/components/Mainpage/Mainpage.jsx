@@ -183,7 +183,7 @@ class Mainpage extends Component {
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{
                         return(
-                            <Label key={idx+'p'+idx_t} as='a' basic>{tag.name}</Label>
+                            <Label key={idx+'p'+idx_t} basic>{tag.name}</Label>
                         )
                     })
                     return(
