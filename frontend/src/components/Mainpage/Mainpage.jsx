@@ -6,6 +6,7 @@ import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
 import ModalView from '../ModalView/ModalView.jsx'
 
+
 class Mainpage extends Component {
     constructor() {
         super();
@@ -207,7 +208,6 @@ class Mainpage extends Component {
 
             return(
                 <div>
-                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
                     <Navbar search={this.updateSearchResult}/>
                     <div className="Mainpage">
                         <div className="sidebar">
@@ -230,6 +230,7 @@ class Mainpage extends Component {
                             {postGrid}
                         </div>
                     </div>
+                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
                 </div>
             )
         }
