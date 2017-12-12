@@ -24,15 +24,6 @@ export default class Dashboard extends Component {
         this.props.history.push('/mainpage');
     }
 
-    // componentDidMount() {
-    //     let userUrl = 'http://10.192.127.59:3000/api/projects';
-    //     axios.get(url).then((response) => {
-
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
-
     render() {
         const testArr = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
         const skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"]
