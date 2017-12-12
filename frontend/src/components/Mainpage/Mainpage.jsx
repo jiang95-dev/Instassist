@@ -4,23 +4,39 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
+import ModalView from '../ModalView/ModalView.jsx'
 
 class Mainpage extends Component {
     constructor() {
         super();
         this.state = {
             popularTagList: null,
-            postList: null
+            postList: null,
+
+            modalOpen: false,
+            selected: null,
         }
         this.filterHandler = this.filterHandler.bind(this);
         this.filterResult = this.filterResult.bind(this);
         this.updateSearchResult = this.updateSearchResult.bind(this);
         
+        this.cardClicked = this.cardClicked.bind(this);
     }
+
+    /*for DV*/
+    cardClicked(obj){
+        console.log("card clicked");
+        console.log(obj);
+        this.setState({
+            modalOpen: true,
+            selected: obj,
+        })
+    }
+
 
     filterResult(filterType){
         console.log(filterType);
-        var url = 'http://10.192.215.5:3000/api/projects';
+        var url = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
         switch (filterType){
             case 'time':
                 url += '?sort={"time_created": -1}'
@@ -50,7 +66,7 @@ class Mainpage extends Component {
         console.log(SearchKey);
         if (typeof SearchKey == "string"){
             if(SearchKey != ""){
-                let URLProject = 'http://10.192.215.5:3000/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
+                let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
                 console.log(URLProject)
                 
                 axios.get(URLProject)
@@ -68,7 +84,7 @@ class Mainpage extends Component {
                     console.log("error");
                 })
             }else{
-                let URLProject = 'http://10.192.215.5:3000/api/projects';
+                let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
                 axios.get(URLProject)
                 .then((response) => {
                     this.setState({
@@ -86,8 +102,8 @@ class Mainpage extends Component {
 
     componentDidMount(){
         console.log('Mainpage page will mount!')      
-        let URLProject = 'http://10.192.215.5:3000/api/projects';
-        let URLTags = 'http://10.192.215.5:3000/api/tags';
+        let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+        let URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags';
         axios.get(URLProject)
         .then((response) => {
             this.setState({
@@ -116,7 +132,7 @@ class Mainpage extends Component {
 
     filterHandler(id){
         if (id === -1){
-            let disUrl = 'http://10.192.215.5:3000/api/projects';
+            let disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
             console.log(disUrl);
             axios.get(disUrl)
             .then((response) => {
@@ -131,7 +147,7 @@ class Mainpage extends Component {
             })
         }else{
             id = id.tid;
-            let disUrl = 'http://10.192.215.5:3000/api/tags/'+id;
+            let disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/tags/'+id;
             console.log(disUrl);
             axios.get(disUrl)
             .then((response) => {
@@ -149,9 +165,10 @@ class Mainpage extends Component {
 
     render() {
         //Asy check
-        console.log("Render!")
-        console.log(this.state.postList);
-        console.log(this.state.popularTagList);
+        console.log("===Mainpage===");
+        console.log("modalOpen" + this.state.modalOpen);
+
+
         if (!this.state.postList || !this.state.popularTagList) {
             console.log("Here");
             return <div />
@@ -175,6 +192,7 @@ class Mainpage extends Component {
                         meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
                         extra= {projtag}
                         description={projIntro}
+                        onClick={() => {this.cardClicked(obj)}}
                         />
                     )
                 }
@@ -188,6 +206,7 @@ class Mainpage extends Component {
 
             return(
                 <div>
+                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
                     <Navbar search={this.updateSearchResult}/>
                     <div className="Mainpage">
                         <div className="sidebar">

@@ -5,9 +5,9 @@ $maincolor : #4999E2;
     text-align: center;
     position: absolute;
     height: 100vh;
-    // top: 50%;
+/*    // top: 50%;
     // left: 50%;
-    // transform: translate(-50%, -50%);
+    // transform: translate(-50%, -50%);*/
 
 
     .postGrid{
@@ -22,7 +22,7 @@ $maincolor : #4999E2;
         flex-wrap: wrap;
         overflow: auto;
         max-height: 100%;  
-        // align-items: ;
+        /*// align-items: ;*/
         .ui.label{
             margin: 0 3px 6px 3px;
             height: 30px;
@@ -43,7 +43,7 @@ $maincolor : #4999E2;
         width: 200px;
         padding: 13vh 0 0 20px; 
         
-        // background-color: lightblue;
+        /*// background-color: lightblue;*/
         .centerdiv{
             display: block;
             margin: 0 auto;
