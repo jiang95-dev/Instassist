@@ -20,7 +20,7 @@ class Mainpage extends Component {
         this.filterResult = this.filterResult.bind(this);
         this.updateSearchResult = this.updateSearchResult.bind(this);
         
-        this.cardClicked = this.cardClicked.bind(this);
+        // this.cardClicked = this.cardClicked.bind(this);
     }
 
     /*for DV*/
@@ -192,7 +192,7 @@ class Mainpage extends Component {
                         meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
                         extra= {projtag}
                         description={projIntro}
-                        onClick={() => {this.cardClicked(obj)}}
+                        // onClick={() => {this.cardClicked(obj)}}
                         />
                     )
                 }
