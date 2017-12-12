@@ -63678,7 +63678,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Home {\n  border: 100px;\n  color: skyblue;\n  text-align: center;\n  position: absolute;\n  top: 20%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%); }\n  .Home .logo {\n    color: white;\n    font-size: 80px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .title {\n    color: white;\n    font-size: 20px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .stick {\n    border-bottom: 2px solid #A1CEF3;\n    padding-top: 30px;\n    margin-bottom: 30px;\n    width: 600px; }\n  .Home .footer-title {\n    color: #A1CEF3;\n    font-size: 20px; }\n  .Home .footer-body {\n    color: #A1CEF3;\n    padding-top: 10px; }\n  .Home .myInput {\n    margin-bottom: 20px; }\n\n.myTriangle {\n  color: white; }\n\n.continue {\n  position: absolute;\n  top: 90%;\n  left: 90%; }\n\n.continue-text {\n  float: left;\n  color: white;\n  font-size: 20px;\n  font-family: verdana;\n  font-weight: lighter; }\n\n.background {\n  height: 100vh;\n  background-color: #3A95E5; }\n", ""]);
+exports.push([module.i, ".Home {\n  border: 100px;\n  color: skyblue;\n  text-align: center;\n  position: absolute;\n  top: 20%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%); }\n  .Home .logo {\n    color: white;\n    font-size: 80px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .title {\n    color: white;\n    font-size: 20px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .stick {\n    border-bottom: 2px solid #A1CEF3;\n    padding-top: 30px;\n    margin-bottom: 30px;\n    width: 600px; }\n  .Home .footer-title {\n    color: #A1CEF3;\n    font-size: 20px; }\n  .Home .footer-body {\n    color: #A1CEF3;\n    padding-top: 10px; }\n  .Home .myInput {\n    margin-bottom: 20px; }\n\n.myTriangle {\n  color: white; }\n\n.continue {\n  position: absolute;\n  bottom: 0%;\n  right: 2%; }\n\n.continue-text {\n  float: left;\n  color: white;\n  font-size: 20px;\n  font-family: verdana;\n  font-weight: lighter; }\n\n.background {\n  height: 100vh;\n  background-color: #3A95E5; }\n", ""]);
 
 // exports
 
@@ -65300,12 +65300,12 @@ var Dashboard = function (_Component) {
         value: function fetchUser() {
             var _this2 = this;
 
-            var profileUrl = "http://10.192.215.5:3000/api/profile";
+            var profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
             _axios2.default.get(profileUrl, {
                 headers: { "x-access-token": this.token }
             }).then(function (response) {
                 _this2.id = response.data._id;
-                _this2.userUrl = "http://10.192.215.5:3000/api/user/" + _this2.id;
+                _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + _this2.id;
                 console.log(response.data);
                 var username = response.data.username ? response.data.username : "Anonymous";
 

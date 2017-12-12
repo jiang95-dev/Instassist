@@ -36,12 +36,12 @@ export default class Dashboard extends Component {
     }
 
     fetchUser() {
-        let profileUrl = "http://10.192.215.5:3000/api/profile";
+        let profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
         axios.get(profileUrl, {
             headers: { "x-access-token": this.token }
         }).then((response) => {
             this.id = response.data._id;
-            this.userUrl = "http://10.192.215.5:3000/api/user/" + this.id;
+            this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
             console.log(response.data)
             let username = response.data.username ? response.data.username : "Anonymous";
             
