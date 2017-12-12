@@ -64929,7 +64929,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px;\n  width: 100%;\n  position: fixed; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
 
 // exports
 
@@ -66235,20 +66235,20 @@ var Mainpage = function (_Component) {
             var _this3 = this;
 
             console.log(filterType);
-            var url = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+            var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
             switch (filterType) {
                 case 'time':
-                    url += '?sort={"time_created": -1}';
+                    urlFilter += '?sort={"time_created": -1}';
                     break;
                 case 'popular':
-                    url += '?sort={"popularity": -1}';
+                    urlFilter += '?sort={"popularity": -1}';
                     break;
                 case 'name':
-                    url += '?sort={"name": 1}';
+                    urlFilter += '?sort={"name": 1}';
                     break;
             }
-            console.log(url);
-            _axios2.default.get(url).then(function (response) {
+            console.log(urlFilter);
+            _axios2.default.get(urlFilter).then(function (response) {
                 _this3.setState({
                     postList: response.data.data
                 });
@@ -66266,10 +66266,10 @@ var Mainpage = function (_Component) {
             console.log(SearchKey);
             if (typeof SearchKey == "string") {
                 if (SearchKey != "") {
-                    var URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^' + SearchKey + '"}}';
-                    console.log(URLProject);
+                    var urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^' + SearchKey + '"}}';
+                    console.log(urlSearch);
 
-                    _axios2.default.get(URLProject).then(function (response) {
+                    _axios2.default.get(urlSearch).then(function (response) {
                         _this4.setState({
                             postList: response.data.data
                         });
@@ -66282,8 +66282,8 @@ var Mainpage = function (_Component) {
                         console.log("error");
                     });
                 } else {
-                    var _URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-                    _axios2.default.get(_URLProject).then(function (response) {
+                    var _urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+                    _axios2.default.get(_urlSearch).then(function (response) {
                         _this4.setState({
                             postList: response.data.data
                         });
@@ -66302,7 +66302,7 @@ var Mainpage = function (_Component) {
 
             console.log('Mainpage page will mount!');
             var URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-            var URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags';
+            var URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags?sort={"popularity": -1}';
             _axios2.default.get(URLProject).then(function (response) {
                 _this5.setState({
                     postList: response.data.data
@@ -66328,9 +66328,9 @@ var Mainpage = function (_Component) {
             var _this6 = this;
 
             if (id === -1) {
-                var disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-                console.log(disUrl);
-                _axios2.default.get(disUrl).then(function (response) {
+                var urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
+                console.log(urlTag);
+                _axios2.default.get(urlTag).then(function (response) {
                     _this6.setState({
                         postList: response.data.data
                     });
@@ -66341,9 +66341,9 @@ var Mainpage = function (_Component) {
                 });
             } else {
                 id = id.tid;
-                var _disUrl = 'https://mighty-oasis-90906.herokuapp.com/api/tags/' + id;
-                console.log(_disUrl);
-                _axios2.default.get(_disUrl).then(function (response) {
+                var _urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/tags/' + id;
+                console.log(_urlTag);
+                _axios2.default.get(_urlTag).then(function (response) {
                     _this6.setState({
                         postList: response.data.data.projects
                     });
@@ -66367,8 +66367,9 @@ var Mainpage = function (_Component) {
             var _this7 = this;
 
             //Asy check
-            console.log("===Mainpage===");
-            console.log("modalOpen" + this.state.modalOpen);
+            // console.log("===Mainpage===");
+            // console.log("modalOpen" + this.state.modalOpen);
+
 
             if (!this.state.postList || !this.state.popularTagList) {
                 console.log("Here");
@@ -66378,6 +66379,7 @@ var Mainpage = function (_Component) {
                     // console.log(obj)
                     if (obj.state != 0) {
                         var projName = obj.name;
+                        console.log(projName);
                         var projTagList = obj.tags;
                         var projIntro = obj.description;
                         var projTimeStamp = obj.createdAt.substr(0, 9);
@@ -66385,16 +66387,16 @@ var Mainpage = function (_Component) {
                         var projtag = projTagList.map(function (tag, idx_t) {
                             return _react2.default.createElement(
                                 _semanticUiReact.Label,
-                                { key: idx + 'p' + idx_t, basic: true },
+                                { key: projName + idx_t + idx_t, basic: true },
                                 tag.name
                             );
                         });
                         return _react2.default.createElement(_semanticUiReact.Card, {
-                            key: 'c' + idx,
+                            key: projName + projTimeStamp + idx,
                             header: projName,
                             meta: projTimeStamp + "  Viewed: " + projViewCounter,
-                            extra: projtag,
                             description: projIntro,
+                            extra: projtag,
                             onClick: function onClick() {
                                 _this7.cardClicked(obj, idx);
                             }
@@ -66538,7 +66540,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  background-color: white;\n  text-align: center;\n  position: absolute;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 3vw 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 7vh;\n    bottom: 7vh;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-size: 5em; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-size: 5em; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
 
 // exports
 
@@ -66869,7 +66871,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 2vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 0.5vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
 
 // exports
 
