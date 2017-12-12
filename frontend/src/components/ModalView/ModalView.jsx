@@ -112,6 +112,7 @@ class ModalView extends Component{
 
 	render(){	
 		console.log("===ModalView===");
+		// console.log(var);
 
 		var obj = this.state.selected;
 		var project_name = obj? obj.name : "No Project Selected";
