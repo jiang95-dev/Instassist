@@ -38,14 +38,13 @@ class Navbar extends Component{
 				</Link>
 			)
 		}
+		
 		return(
 			<div className="ui secondary menu navbar">
-				<Link to="/mainpage">
-					<div className="myLogo">Groupin</div>
-				</Link>
+				<Link to="/mainpage"><div className="myLogo">Groupin</div></Link>
 				<div className="item">
 				    <div className="ui icon input">
-				    	<input type="text" placeholder="Search..." className="myInput" onChange={this.inputChangeHandler}/>
+				    	<input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
 				        <i className="search link icon"></i>
 				    </div>
 				</div>
