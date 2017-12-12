@@ -6511,6 +6511,7 @@ var Navbar = function (_Component) {
 					)
 				);
 			}
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'ui secondary menu navbar' },
@@ -6529,7 +6530,7 @@ var Navbar = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'ui icon input' },
-						_react2.default.createElement('input', { type: 'text', placeholder: 'Search...', className: 'myInput', onChange: this.inputChangeHandler }),
+						_react2.default.createElement('input', { onChange: this.inputChangeHandler, type: 'text', placeholder: 'Search...', className: 'myInput' }),
 						_react2.default.createElement('i', { className: 'search link icon' })
 					)
 				),
@@ -64897,7 +64898,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px; }\n\n.myLogo {\n  padding: 10px;\n  color: white;\n  font-size: 20px; }\n\n.myInput {\n  width: 400px; }\n\n.myPlus {\n  color: white;\n  padding: 10px;\n  resize: 30px; }\n\n.myImage {\n  height: 40px;\n  width: 40px;\n  padding: 0px; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
 
 // exports
 
@@ -66141,76 +66142,192 @@ var Mainpage = function (_Component) {
         _this.state = {
             popularTagList: null,
             postList: null
-            // this.filterHandler = this.filterHandler.bind(this);
+        };
+        _this.filterHandler = _this.filterHandler.bind(_this);
+        _this.filterResult = _this.filterResult.bind(_this);
+        _this.updateSearchResult = _this.updateSearchResult.bind(_this);
 
-        };return _this;
+        return _this;
     }
 
     _createClass(Mainpage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'filterResult',
+        value: function filterResult(filterType) {
             var _this2 = this;
 
-            console.log('Mainpage page will mount!');
-            var URL = 'http://10.192.127.59:3000/api/projects';
-            _axios2.default.get(URL).then(function (response) {
+            console.log(filterType);
+            var url = 'http://10.192.215.5:3000/api/projects';
+            switch (filterType) {
+                case 'time':
+                    url += '?sort={"time_created": -1}';
+                    break;
+                case 'popular':
+                    url += '?sort={"popularity": -1}';
+                    break;
+                case 'name':
+                    url += '?sort={"name": 1}';
+                    break;
+            }
+            console.log(url);
+            _axios2.default.get(url).then(function (response) {
                 _this2.setState({
                     postList: response.data.data
                 });
                 console.log('Post data loaded!');
-                console.log(_this2.state.postList[0]);
+                console.log(_this2.state.postList);
             }).catch(function (error) {
                 console.log(error);
             });
         }
     }, {
+        key: 'updateSearchResult',
+        value: function updateSearchResult(SearchKey) {
+            var _this3 = this;
+
+            console.log(SearchKey);
+            if (typeof SearchKey == "string") {
+                if (SearchKey != "") {
+                    var URLProject = 'http://10.192.215.5:3000/api/projects?where={"name": {"$regex": "^' + SearchKey + '"}}';
+                    console.log(URLProject);
+
+                    _axios2.default.get(URLProject).then(function (response) {
+                        _this3.setState({
+                            postList: response.data.data
+                        });
+                        console.log('Post data loaded!');
+                        console.log(_this3.state.postList);
+                    }).catch(function (error) {
+                        _this3.setState({
+                            postList: []
+                        });
+                        console.log("error");
+                    });
+                } else {
+                    var _URLProject = 'http://10.192.215.5:3000/api/projects';
+                    _axios2.default.get(_URLProject).then(function (response) {
+                        _this3.setState({
+                            postList: response.data.data
+                        });
+                        console.log('Post data loaded!');
+                        console.log(_this3.state.postList);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this4 = this;
+
+            console.log('Mainpage page will mount!');
+            var URLProject = 'http://10.192.215.5:3000/api/projects';
+            var URLTags = 'http://10.192.215.5:3000/api/tags';
+            _axios2.default.get(URLProject).then(function (response) {
+                _this4.setState({
+                    postList: response.data.data
+                });
+                console.log('Post data loaded!');
+                console.log(_this4.state.postList);
+            }).catch(function (error) {
+                console.log(error);
+            });
+            _axios2.default.get(URLTags).then(function (response) {
+                _this4.setState({
+                    popularTagList: response.data.data
+                });
+                console.log('Post data loaded!');
+                console.log(_this4.state.postList);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'filterHandler',
+        value: function filterHandler(id) {
+            var _this5 = this;
+
+            if (id === -1) {
+                var disUrl = 'http://10.192.215.5:3000/api/projects';
+                console.log(disUrl);
+                _axios2.default.get(disUrl).then(function (response) {
+                    _this5.setState({
+                        postList: response.data.data
+                    });
+                    console.log("Data loaded");
+                    console.log(_this5.state.postList);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                id = id.tid;
+                var _disUrl = 'http://10.192.215.5:3000/api/tags/' + id;
+                console.log(_disUrl);
+                _axios2.default.get(_disUrl).then(function (response) {
+                    _this5.setState({
+                        postList: response.data.data.projects
+                    });
+                    console.log("Data loaded");
+                    console.log(_this5.state.postList);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this6 = this;
+
             //Asy check
+            console.log("Render!");
             console.log(this.state.postList);
-            if (!this.state.postList) {
+            console.log(this.state.popularTagList);
+            if (!this.state.postList || !this.state.popularTagList) {
+                console.log("Here");
                 return _react2.default.createElement('div', null);
             } else {
                 var postGrid = this.state.postList.map(function (obj, idx) {
-                    console.log(obj);
+                    // console.log(obj)
                     if (obj.state != 0) {
                         var projName = obj.name;
-                        var projTagList = obj.tag_names;
+                        var projTagList = obj.tags;
                         var projIntro = obj.description;
-                        var projTimeStamp = obj.time_created.substr(0, 9);
+                        var projTimeStamp = obj.createdAt.substr(0, 9);
                         var projViewCounter = obj.popularity;
-                        var tags = projTagList.map(function (tag, idx_t) {
+                        var projtag = projTagList.map(function (tag, idx_t) {
                             return _react2.default.createElement(
                                 _semanticUiReact.Label,
-                                { as: 'a', basic: true },
-                                tag
+                                { key: idx, as: 'a', basic: true },
+                                tag.name
                             );
                         });
                         return _react2.default.createElement(_semanticUiReact.Card, {
                             header: projName,
                             meta: projTimeStamp + "  Viewed: " + projViewCounter,
-                            extra: tags,
+                            extra: projtag,
                             description: projIntro
                         });
                     }
                 });
-
-                // let projName = "Test Post";
-                // let projTagList = ["Study", "Python", "C++","C++" ,"C++","C++"];
-                // let tags = projTagList.map((tag,idx_t) =>{
-                //     return(
-                //         <Label as='a' basic>{tag}</Label>
-                //     )
-                // })
-                // let projIntro = "asfasfsdfsadfasfasfeghagoijfiahfoahesfabseufhasfaosehfoasfjoasidjfa sjfa eaesf aesa fsaf fidasja pfpajsoiefja; sdlfjaosifjao ;spfja;sifeoj aeoijas ojg;jaie;jfasfaefoajoe;rsdhrthsrtegsergaf";
-                // let projTimeStamp = "Ceated on 11/30/2017";
-                // let projViewCounter = "345";
-
+                var popTags = this.state.popularTagList.map(function (obj, key) {
+                    if (key < 5 && key < _this6.state.popularTagList.length) {
+                        var tid = obj._id;
+                        return _react2.default.createElement(
+                            _semanticUiReact.Label,
+                            { as: 'a', key: key, onClick: function onClick() {
+                                    return _this6.filterHandler({ tid: tid });
+                                }, basic: true },
+                            obj.name
+                        );
+                    }
+                });
 
                 return _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_Navbar2.default, null),
+                    _react2.default.createElement(_Navbar2.default, { search: this.updateSearchResult }),
                     _react2.default.createElement(
                         'div',
                         { className: 'Mainpage' },
@@ -66218,7 +66335,7 @@ var Mainpage = function (_Component) {
                             'div',
                             { className: 'sidebar' },
                             _react2.default.createElement(
-                                'h4',
+                                'h3',
                                 { id: 'MainpageTitle' },
                                 'Popular Tags'
                             ),
@@ -66227,38 +66344,16 @@ var Mainpage = function (_Component) {
                                 { className: 'popularTags' },
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
+                                    { as: 'a', onClick: function onClick() {
+                                            return _this6.filterHandler(-1);
+                                        }, basic: true },
+                                    'All'
                                 ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
-                                )
+                                popTags
                             ),
                             _react2.default.createElement('hr', null),
                             _react2.default.createElement(
-                                'h4',
+                                'h3',
                                 { id: 'MainpageTitle' },
                                 'Filters'
                             ),
@@ -66267,23 +66362,31 @@ var Mainpage = function (_Component) {
                                 { className: 'filters' },
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
+                                    { as: 'a', onClick: function onClick() {
+                                            return _this6.filterResult('nofilter');
+                                        }, basic: true },
+                                    'No filter'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
+                                    { as: 'a', onClick: function onClick() {
+                                            return _this6.filterResult('name');
+                                        }, basic: true },
+                                    'Name'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
+                                    { as: 'a', onClick: function onClick() {
+                                            return _this6.filterResult('time');
+                                        }, basic: true },
+                                    'Recent'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
-                                    { as: 'a', basic: true },
-                                    'test'
+                                    { as: 'a', onClick: function onClick() {
+                                            return _this6.filterResult('popular');
+                                        }, basic: true },
+                                    'Popularity'
                                 )
                             )
                         ),
@@ -66306,7 +66409,7 @@ exports.default = Mainpage;
 
 // <Card 
 // header={projName}
-// meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
+// meta= {projTimeStamp}
 // extra= {tags}
 // description={projIntro}
 // />
@@ -66351,7 +66454,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  background-color: white;\n  text-align: center;\n  position: absolute; }\n  .Mainpage .postGrid {\n    position: fixed;\n    right: 0;\n    left: 15vw;\n    padding: 3vw 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 15vw;\n    padding: 20vh 0.5vw 0 0.5vw; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 7vh;\n    bottom: 7vh;\n    left: 15vw;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 7vw;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n  .Mainpage .ui.label {\n    margin: 0 3px 6px 3px;\n    height: 30px;\n    width: 40%;\n    text-align: center;\n    background-color: #4999E2;\n    color: white;\n    border-radius: 0.5vw;\n    border-color: white; }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  background-color: white;\n  text-align: center;\n  position: absolute;\n  height: 100vh; }\n  .Mainpage .postGrid {\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 3vw 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%; }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 7vh;\n    bottom: 7vh;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
 
 // exports
 
