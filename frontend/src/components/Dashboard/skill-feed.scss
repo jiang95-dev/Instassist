@@ -1,7 +1,7 @@
 .my-skills {
     .ui.circular.labels .label{
         border-radius: .5em;
-        padding: .5em !important;
+        padding: .5em .7em !important;
         font-weight: 200;
 
         &.new{
@@ -11,8 +11,12 @@
                 color: #fff!important;
             }
 
-            input {
+            &::before {
+                content: "+  |";
                 font-weight: bold;
+            }
+
+            input {
                 width: 3em;
                 border:none;
                 color:white;
