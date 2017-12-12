@@ -64929,7 +64929,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px;\n  position: fixed; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
 
 // exports
 
