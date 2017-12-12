@@ -85,7 +85,6 @@ $maincolor : #4999E2;
             background-color:$maincolor;
             color: white;
             border-radius: 0.5vw;
-            border-color: white;
         }
 
     }
@@ -126,6 +125,7 @@ $maincolor : #4999E2;
         overflow-wrap:break-word;
         .header{
             padding: 5% 5% 0 5%;
+            font-size: 5em;
         }
         .meta{
             font-size: 1em;
@@ -150,6 +150,7 @@ $maincolor : #4999E2;
     .ui.card:hover{
         transform: scale(1.007);
         // border-radius: 10px;
+        background-color: $maincolor;
         box-shadow: 0px 0px 20px 0px $maincolor;
     }
 
