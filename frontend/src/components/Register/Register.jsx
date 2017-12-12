@@ -35,7 +35,7 @@ class Register extends Component {
 
         // create an AJAX POST request (This should probably done with Axios instead) 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', '/api/register');
+        xhr.open('post', 'http://10.192.215.5:3000/api/register');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
@@ -81,7 +81,7 @@ class Register extends Component {
                             <input className="myInput" onChange={this.onChangeEmail} />
                             <br/><br/>
                             <label>Password</label><br/>
-                            <input className="myInput" onChange={this.onChangePassword} />
+                            <input type="password" className="myInput" onChange={this.onChangePassword} />
                             <br/><br/>
                             <p>{this.state.message}</p>
                             <Input type="submit" />

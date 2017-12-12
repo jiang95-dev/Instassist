@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 
 import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
+import axios from 'axios';
 //import CreatePost from '../CreatePost/CreatePost.jsx'
 
 class Login extends Component {
@@ -17,8 +18,7 @@ class Login extends Component {
                 password: '',
                 email: ''
             },
-
-            message: ''
+            message: '',
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -28,27 +28,34 @@ class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        
         const email = encodeURIComponent(this.state.user.email);
         const password = encodeURIComponent(this.state.user.password);
         const formData = `email=${email}&password=${password}`;
 
         // create an AJAX request (This should probably done with Axios instead) 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', '/api/login');
+        xhr.open('post', 'http://10.192.215.5:3000/api/login');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
                 this.setState({
                     message: 'Successfully logged in!'
-                })
+                });
+                //redirect
+                this.props.history.push('/mainpage');
+                //set token
+                var token = xhr.response['token'];
+                localStorage.setItem('jwtToken', token);
             } else {
                 this.setState({
                     message: 'Unable to log in'
-                })
+                });
             }
         });
         xhr.send(formData);
+        
     }
 
     onChangeEmail(e) {
@@ -79,7 +86,7 @@ class Login extends Component {
                             <input className="myInput" onChange={this.onChangeEmail} />
                             <br/><br/>
                             <label>Password</label><br/>
-                            <input className="myInput" onChange={this.onChangePassword} />
+                            <input type="password" className="myInput" onChange={this.onChangePassword} />
                             <br/><br/>
                             <p>{this.state.message}</p>
                             <Input type="submit" value="Group me in!" className="mySubmit"/>

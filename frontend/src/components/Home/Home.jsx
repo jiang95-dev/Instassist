@@ -28,7 +28,7 @@ class Home extends Component {
 
                     
                 </div>
-                <Link to="/dashboard">
+                <Link to="/mainpage">
                     <div className="continue">
                         <p className="continue-text">Continue</p>
                         <i className="triangle right icon big myTriangle"></i>
