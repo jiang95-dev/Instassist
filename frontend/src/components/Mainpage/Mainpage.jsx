@@ -6,6 +6,7 @@ import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
 import ModalView from '../ModalView/ModalView.jsx'
 
+
 class Mainpage extends Component {
     constructor() {
         super();
@@ -20,7 +21,7 @@ class Mainpage extends Component {
         this.filterResult = this.filterResult.bind(this);
         this.updateSearchResult = this.updateSearchResult.bind(this);
         
-        // this.cardClicked = this.cardClicked.bind(this);
+        this.cardClicked = this.cardClicked.bind(this);
     }
 
     /*for DV*/
@@ -193,7 +194,7 @@ class Mainpage extends Component {
                         meta= {projTimeStamp + "  Viewed: "+ projViewCounter}
                         extra= {projtag}
                         description={projIntro}
-                        // onClick={() => {this.cardClicked(obj)}}
+                        onClick={() => {this.cardClicked(obj)}}
                         />
                     )
                 }
@@ -207,7 +208,6 @@ class Mainpage extends Component {
 
             return(
                 <div>
-                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
                     <Navbar search={this.updateSearchResult}/>
                     <div className="Mainpage">
                         <div className="sidebar">
@@ -230,6 +230,7 @@ class Mainpage extends Component {
                             {postGrid}
                         </div>
                     </div>
+                    <ModalView open={this.state.modalOpen} selected={this.state.selected}/>
                 </div>
             )
         }

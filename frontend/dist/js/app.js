@@ -66185,7 +66185,7 @@ var Mainpage = function (_Component) {
         _this.filterResult = _this.filterResult.bind(_this);
         _this.updateSearchResult = _this.updateSearchResult.bind(_this);
 
-        // this.cardClicked = this.cardClicked.bind(this);
+        _this.cardClicked = _this.cardClicked.bind(_this);
         return _this;
     }
 
@@ -66360,8 +66360,10 @@ var Mainpage = function (_Component) {
                             header: projName,
                             meta: projTimeStamp + "  Viewed: " + projViewCounter,
                             extra: projtag,
-                            description: projIntro
-                            // onClick={() => {this.cardClicked(obj)}}
+                            description: projIntro,
+                            onClick: function onClick() {
+                                _this6.cardClicked(obj);
+                            }
                         });
                     }
                 });
@@ -66381,7 +66383,6 @@ var Mainpage = function (_Component) {
                 return _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(_ModalView2.default, { open: this.state.modalOpen, selected: this.state.selected }),
                     _react2.default.createElement(_Navbar2.default, { search: this.updateSearchResult }),
                     _react2.default.createElement(
                         'div',
@@ -66451,7 +66452,8 @@ var Mainpage = function (_Component) {
                             { className: 'postGrid' },
                             postGrid
                         )
-                    )
+                    ),
+                    _react2.default.createElement(_ModalView2.default, { open: this.state.modalOpen, selected: this.state.selected })
                 );
             }
         }
@@ -66684,6 +66686,7 @@ var ModalView = function (_Component) {
 		key: 'render',
 		value: function render() {
 			console.log("===ModalView===");
+			// console.log(var);
 
 			var obj = this.state.selected;
 			var project_name = obj ? obj.name : "No Project Selected";
@@ -66837,7 +66840,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.modal {\n  border-radius: 5vw; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 2vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 2vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
 
 // exports
 
