@@ -72999,6 +72999,7 @@ var Dashboard = function (_Component) {
         _this.addSkill = _this.addSkill.bind(_this);
         _this.closeModalHandler = _this.closeModalHandler.bind(_this);
         _this.openModalHandler = _this.openModalHandler.bind(_this);
+        _this.changeProjectVisibility = _this.changeProjectVisibility.bind(_this);
         _this.fetchUser();
         return _this;
     }
@@ -73023,7 +73024,7 @@ var Dashboard = function (_Component) {
                 console.log(response.data);
                 _this2.id = response.data._id;
                 // this.userUrl = "http://localhost:8000/api/user/" + this.id;
-                // this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
+                _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + _this2.id;
                 // console.log(response.data)
 
                 var username = response.data.username ? response.data.username : "Anonymous";
@@ -73031,7 +73032,7 @@ var Dashboard = function (_Component) {
                 var skills = response.data.skills;
                 var projects = response.data.projects;
 
-                // var url = "https://mighty-oasis-90906.herokuapp.com/api/chat";
+                var url = "https://mighty-oasis-90906.herokuapp.com/api/chat";
                 // var url = "http://localhost:8000/api/chat";
                 _axios2.default.get(url, {
                     headers: { "x-access-token": _this2.token }
@@ -73072,6 +73073,22 @@ var Dashboard = function (_Component) {
                     });
                 });
             }
+        }
+    }, {
+        key: 'changeProjectVisibility',
+        value: function changeProjectVisibility(project) {
+            console.log(project);
+            var newProjects = this.state.projects.map(function (p) {
+                if (p === project) {
+                    console.log("detect equality!");
+                    var newProject = Object.assign({}, project);
+                    newProject.status = newProject.status ^ 1;
+                    return newProject;
+                } else {
+                    return p;
+                }
+            });
+            this.setState({ projects: newProjects });
         }
     }, {
         key: 'addSkill',
@@ -73172,7 +73189,7 @@ var Dashboard = function (_Component) {
                         { stackable: true, relaxed: true, columns: 3 },
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
-                            { width: 5 },
+                            { computer: 5, mobile: 16 },
                             _react2.default.createElement(
                                 _semanticUiReact.Card,
                                 {
@@ -73217,16 +73234,16 @@ var Dashboard = function (_Component) {
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
-                            { width: 4 },
+                            { computer: 4, mobile: 16 },
                             _react2.default.createElement(_SkillFeed2.default, { skills: this.state.skills, addSkill: this.addSkill })
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.Grid.Column,
-                            { width: 7 },
+                            { computer: 7, mobile: 16 },
                             _react2.default.createElement(_MessageFeed2.default, { events: this.state.messages })
                         )
                     ),
-                    _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: this.state.projects, openModalHandler: this.openModalHandler })
+                    _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: this.state.projects, visibilityHandler: this.changeProjectVisibility, openModalHandler: this.openModalHandler })
                 ),
                 _react2.default.createElement(_PostModal2.default, { toOpen: this.state.toOpen, closeModalHandler: this.closeModalHandler })
             );
@@ -73329,12 +73346,14 @@ var ProjectFeed = function ProjectFeed(_ref) {
         feed = projects.map(function (project) {
             console.log(project);
             var tags = project.tags.map(function (tag, idx_t) {
+                console.log(project._id);
                 return _react2.default.createElement(
                     _semanticUiReact.Label,
-                    { key: project._id + '' + idx_t, basic: true },
+                    { key: project.name + project._id + idx_t, basic: true },
                     tag.name
                 );
             });
+            console.log(project.status);
             return _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
                 { key: project._id, style: { width: 'auto' } },
@@ -73349,13 +73368,26 @@ var ProjectFeed = function ProjectFeed(_ref) {
                         _react2.default.createElement(
                             _semanticUiReact.Card.Header,
                             null,
-                            project.name,
-                            _react2.default.createElement(_semanticUiReact.Icon, { className: 'hide', name: 'hide' })
+                            _react2.default.createElement(_semanticUiReact.Icon, {
+                                className: 'visibility',
+                                name: project.status ? 'hide' : 'unhide',
+                                onClick: function onClick(e) {
+                                    return visibilityHandler(project);
+                                } }),
+                            _react2.default.createElement(
+                                'span',
+                                { className: project.status ? 'h' : 's' },
+                                project.name
+                            )
                         ),
                         _react2.default.createElement(
                             _semanticUiReact.Card.Description,
                             null,
-                            project.description
+                            _react2.default.createElement(
+                                'span',
+                                { className: project.status ? 'h' : 's' },
+                                project.description
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -73439,7 +73471,7 @@ exports = module.exports = __webpack_require__(29)(undefined);
 
 
 // module
-exports.push([module.i, ".my-projects .row {\n  overflow: auto;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap; }\n\n.my-projects .card .hide {\n  text-align: right;\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  color: grey; }\n  .my-projects .card .hide:hover {\n    color: darkred !important; }\n\n.my-projects .card .ui.label {\n  margin: 0 3px 6px 3px;\n  height: 30px;\n  width: 80%;\n  text-align: center;\n  background-color: white;\n  color: black;\n  border-radius: 0.5vw;\n  border-color: black;\n  overflow: hidden; }\n", ""]);
+exports.push([module.i, ".my-projects .row {\n  overflow: auto;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap; }\n\n.my-projects .card .visibility {\n  text-align: right;\n  float: right;\n  color: grey; }\n  .my-projects .card .visibility:hover.hide {\n    color: crimson !important; }\n  .my-projects .card .visibility:hover.unhide {\n    color: green !important; }\n\n.my-projects .card span {\n  margin: 0; }\n\n.my-projects .card .h {\n  color: black; }\n\n.my-projects .card .s {\n  color: grey; }\n\n.my-projects .card .ui.label {\n  margin: 0 3px 6px 3px;\n  height: 30px;\n  width: 80%;\n  text-align: center;\n  background-color: white;\n  color: black;\n  border-radius: 0.5vw;\n  border-color: black;\n  overflow: hidden; }\n", ""]);
 
 // exports
 
@@ -74455,8 +74487,8 @@ var ModalView = function (_Component) {
 			var to = this.state.selected.creator._id;
 			var data = { 'content': value, 'projectId': this.state.selected._id };
 
-			var baseURL = 'http://localhost:8000/api';
-			// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
+			// var baseURL = 'http://localhost:8000/api'
+			var baseURL = 'https://mighty-oasis-90906.herokuapp.com/api';
 			var url = baseURL + '/chat/new/' + to;
 
 			instance.post(url, data).then(function (response) {
