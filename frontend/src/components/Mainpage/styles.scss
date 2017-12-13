@@ -126,21 +126,19 @@ $maincolor : #4999E2;
         width: 35vh;
         min-height: 200px;
         min-width: 200px;
-        // font-size: 1.5vh;
+        // font-size: calc((4vh + 2vmin)/4);
+        font-size: 75%;
         .ui.label{
-            // height: 3vh;
-            // width: auto;
-            // margin: 0 auto;
-            // font-size: 2vh;
             height: auto;
             width: auto;
-
+            // border-color: green;
+            // color: green;
+            // background-color: rgb(73,197,182);
         }
-        border-radius: 1vw;
+        border-radius: 5%;
         overflow-wrap:break-word;
         .header{
             padding: 5% 5% 0 5%;
-            font-size: 5em;
         }
         .meta{
             font-size: 1em;
@@ -148,13 +146,14 @@ $maincolor : #4999E2;
             color: rgba(255, 255, 255, 0.726);            
         }
         .description{
-            padding: 5% 5% 0 5%;
-            font-size: 2em;            
+            padding: 3% 3% 0 3%;
+            font-size: 3em;            
             color: white;  
-            overflow: hidden;          
+            overflow: auto;  
+            border-radius: 5%;     
         }
         > .extra{
-            // background-color: white;
+            // background-color: rgb(73,197,182);
             padding: 3% 7% 0% 7%;
         }
 
