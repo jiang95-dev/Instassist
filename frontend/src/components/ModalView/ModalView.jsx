@@ -24,14 +24,6 @@ class ModalView extends Component{
 		this.renderDetailAction = this.renderDetailAction.bind(this);
 		this.renderDetailContent = this.renderDetailContent.bind(this);
 
-		// subscribeToTimer((err, timestamp) => {
-		// 	console.log("subscribed to timer");
-		// });
-
-		// sentUserToken(localStorage.getItem('jwtToken'));
-		
-		// subscribeToRefresh();
-		// subscribeToId();
 	}
 
 
@@ -211,10 +203,10 @@ class MessageForm extends Component {
 		return (
 			<Form id="form-message" onSubmit={this.handleSubmit}>
 			    <TextArea 
-			    placeholder='Comments here...'  
-			    style={{ minHeight: 300 }}
-			    value={this.state.value}
-			    onChange={this.handleChange}
+					placeholder='Comments here...'  
+					style={{ minHeight: 300 }}
+					value={this.state.value}
+					onChange={this.handleChange}
 			    />
 				<Button id="button-submit" type="submit">
 					Send!
