@@ -73,14 +73,16 @@ class ModalView extends Component{
 		});
 
 		var to = this.state.selected.creator._id;
-		var data = {'content' : value};
+		var data = {'content' : value, 'projectId': this.state.selected._id};
 		
-		var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
+		var baseURL = 'http://localhost:8000/api'
+		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
 		var url = baseURL + '/chat/new/' + to;
 		
 		instance.post(url, data)
 		.then((response) => {
 			console.log("Create message success");
+			console.log(response);
 			var conversationId = response.data.conversationId;
 			messageSent(conversationId, to);
 		})
