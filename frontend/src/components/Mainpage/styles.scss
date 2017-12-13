@@ -2,9 +2,10 @@ $maincolor : #4999E2;
 
 .Mainpage {
     top: 60px;
+    left: 0;
     background-color: white;
     text-align: center;
-    position: fixed;
+    position: relative;
     height: 100vh;
 /*    // top: 50%;
     // left: 50%;
@@ -12,20 +13,24 @@ $maincolor : #4999E2;
 
 
     .postGrid{
-        top: 80px;
-        bottom: 20px;
-        position: fixed;
-        right: 0;
-        left: 250px;
+        //top: 10px;
+        //bottom: 20px;
+        //position: relative;
+        //right: 0;
+        //left: 250px;
         // right: 50px;
-        padding: 5vh 2vw;
-        display: flex;
+        //padding: 5vh 2vw;
+        top: 10px;
+        position: absolute;
+        left: 240px;
+        padding: 30px;
+        //display: flex;
         // width: 90vw;
-        margin: auto;
+        //margin: auto;
         // flex-direction: row;
-        flex-wrap: wrap;
-        overflow: auto;
-        max-height: 100%;  
+        //flex-wrap: wrap;
+        //overflow: auto;
+        //max-height: 100%;  
         /*// align-items: ;*/
         .ui.label{
             margin: 0 3px 6px 3px;
@@ -44,11 +49,12 @@ $maincolor : #4999E2;
         h3{
             color: $maincolor;
         }
-        position: relative;
+        position: fixed;
         float: left;
-        height: 100vh;
-        width: 200px;
-        padding: 13vh 0 0 20px; 
+        width: 220px;
+        margin: 40px 0px 15px 20px;
+        padding: 10px 10px 30px 0px;
+        border-right: 5px solid #4999E2;
         
         /*// background-color: lightblue;*/
         .centerdiv{
