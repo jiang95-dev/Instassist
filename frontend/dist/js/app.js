@@ -66178,14 +66178,12 @@ var Mainpage = function (_Component) {
         _this.state = {
             popularTagList: null,
             postList: null,
-
             modalOpen: false,
             selected: null
         };
         _this.filterHandler = _this.filterHandler.bind(_this);
         _this.filterResult = _this.filterResult.bind(_this);
         _this.updateSearchResult = _this.updateSearchResult.bind(_this);
-
         _this.cardClicked = _this.cardClicked.bind(_this);
         return _this;
     }
@@ -66197,7 +66195,7 @@ var Mainpage = function (_Component) {
         key: 'cardClicked',
         value: function cardClicked(obj) {
             console.log("card clicked");
-            console.log(obj);
+            console.log(this.state.modalOpen);
             this.setState({
                 modalOpen: true,
                 selected: obj
@@ -66343,7 +66341,7 @@ var Mainpage = function (_Component) {
                 return _react2.default.createElement('div', null);
             } else {
                 var postGrid = this.state.postList.map(function (obj, idx) {
-                    // console.log(obj)
+                    // console.log(idx);
                     if (obj.state != 0) {
                         var projName = obj.name;
                         console.log(projName);
@@ -66354,20 +66352,23 @@ var Mainpage = function (_Component) {
                         var projtag = projTagList.map(function (tag, idx_t) {
                             return _react2.default.createElement(
                                 _semanticUiReact.Label,
-                                { key: projName + idx_t + idx_t, basic: true },
+                                { key: projName + '' + idx + '' + idx_t, basic: true },
                                 tag.name
                             );
                         });
-                        return _react2.default.createElement(_semanticUiReact.Card, {
-                            key: projName + projTimeStamp + idx,
-                            header: projName,
-                            meta: projTimeStamp + "  Viewed: " + projViewCounter,
-                            description: projIntro,
-                            extra: projtag,
-                            onClick: function onClick() {
-                                _this6.cardClicked(obj);
-                            }
-                        });
+                        return (
+                            // <div key={projName+projTimeStamp+''+idx}>
+                            _react2.default.createElement(_semanticUiReact.Card, {
+                                key: projName + projTimeStamp + '' + idx,
+                                header: projName,
+                                meta: projTimeStamp + "  Viewed: " + projViewCounter,
+                                description: projIntro,
+                                extra: projtag,
+                                onClick: function onClick() {
+                                    _this6.cardClicked(obj);
+                                }
+                            })
+                        );
                     }
                 });
                 var popTags = this.state.popularTagList.map(function (obj, key) {
@@ -66375,7 +66376,7 @@ var Mainpage = function (_Component) {
                         var tid = obj._id;
                         return _react2.default.createElement(
                             _semanticUiReact.Label,
-                            { as: 'a', key: 't' + key, onClick: function onClick() {
+                            { as: 'a', key: tid + '' + key, onClick: function onClick() {
                                     return _this6.filterHandler({ tid: tid });
                                 }, basic: true },
                             obj.name
@@ -66507,7 +66508,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-size: 5em; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 2vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    margin: auto;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: #4999E2; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    min-height: 200px;\n    min-width: 200px;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-size: 5em; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      font-size: 2em;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 3% 7% 0% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
 
 // exports
 
