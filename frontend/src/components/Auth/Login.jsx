@@ -7,6 +7,9 @@ import axios from 'axios';
 import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
 
+
+import { sentUserId, subscribeToRefresh } from '../../app.jsx'
+
 class Login extends Component {
 
     constructor() {
@@ -47,6 +50,15 @@ class Login extends Component {
                 //set token
                 var token = xhr.response['token'];
                 localStorage.setItem('jwtToken', token);
+
+
+                // subscribe to socket
+                // tell it my user id
+                sentUserToken(token);
+                subscribeToRefresh(()=>{
+                    /*call back*/
+                });
+
             } else {
                 this.setState({
                     message: 'Unable to log in'

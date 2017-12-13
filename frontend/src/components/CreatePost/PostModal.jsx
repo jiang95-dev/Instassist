@@ -12,7 +12,7 @@ class PostModal extends Component{
 
 	render(){
 		return (
-			<Modal open={this.props.toOpen} onClose={this.props.closeModalHandler} >
+			<Modal open={this.props.toOpen} onClose={this.props.closeModalHandler}>
 			    <CreatePost closeModalHandler={this.props.closeModalHandler}/>
 			</Modal>
 

@@ -9,6 +9,23 @@ const router = express.Router();
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
+// io.on('connection', function(client){
+//     console.log('a user connected');
+
+//     client.on('subscribeToTimer', (interval) => {
+//         console.log('client is subscribing to timer with interval ', interval);
+        
+//         setInterval(() => {
+//           client.emit('timer', new Date());
+//         }, interval);
+//   });
+// });
+// const port = 8000;
+// io.listen(port);
+// console.log('listening on port ', port)
+
 app.use(express.static('./backend/static/'));
 app.use(express.static('./frontend/dist/'));
 
@@ -34,6 +51,14 @@ app.route('/dashboard').get(function(req,res) {
 app.route('/mainpage').get(function(req,res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 })
+
+app.route('/createpost').get(function(req,res) {
+  return res.sendFile(path.join(__dirname, './backend/static/index.html'));
+})
+// app.route('/message').get(function(req,res) {
+//   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
+// })
+
 
 
 var allowCrossDomain = function (req, res, next) {
