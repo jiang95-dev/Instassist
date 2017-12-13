@@ -9,6 +9,8 @@ import axios from 'axios'
 import Navbar from '../Navbar/Navbar.jsx'
 import style from './dashboard.scss'
 import PostModal from '../CreatePost/PostModal.jsx'
+import Chatbox from '../Chatbox/Chatbox.jsx'
+
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -149,6 +151,7 @@ export default class Dashboard extends Component {
         return (
             <div>
                 <Navbar/>
+                <Chatbox/>
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
                             <Grid.Column width={5}>

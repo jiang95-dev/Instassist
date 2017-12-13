@@ -23830,7 +23830,7 @@ var PostModal = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				_semanticUiReact.Modal,
-				{ open: this.props.toOpen, onClose: this.props.closeModalHandler, closeOnRootNodeClick: false },
+				{ open: this.props.toOpen, onClose: this.props.closeModalHandler },
 				_react2.default.createElement(_CreatePost2.default, { closeModalHandler: this.props.closeModalHandler })
 			);
 		}
@@ -65749,6 +65749,10 @@ var _PostModal = __webpack_require__(414);
 
 var _PostModal2 = _interopRequireDefault(_PostModal);
 
+var _Chatbox = __webpack_require__(828);
+
+var _Chatbox2 = _interopRequireDefault(_Chatbox);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65928,6 +65932,7 @@ var Dashboard = function (_Component) {
                 'div',
                 null,
                 _react2.default.createElement(_Navbar2.default, null),
+                _react2.default.createElement(_Chatbox2.default, null),
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'dashboard' },
@@ -67272,6 +67277,272 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 // module
 exports.push([module.i, "body .alert {\n  color: red; }\n\n.myInput {\n  border-radius: 20px;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 500px; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n\n.rounded {\n  border-radius: 10px !important;\n  overflow: hidden; }\n\n.ui.projects.card {\n  -webkit-transition: all .25s ease-in-out;\n  transition: all .25s ease-in-out;\n  background-color: white;\n  text-align: left;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  height: 45vh;\n  width: 22vw;\n  min-height: 200px;\n  min-width: 200px;\n  font-size: 75%;\n  overflow-wrap: break-word; }\n  .ui.projects.card .ui.label {\n    height: auto;\n    width: auto; }\n  .ui.projects.card .header {\n    padding: 5% 5% 0 5%;\n    color: black; }\n  .ui.projects.card .meta {\n    font-size: 1em;\n    padding-left: 5%;\n    color: rgba(0, 0, 0, 0.726); }\n  .ui.projects.card .description {\n    padding: 3% 3% 0 3%;\n    font-size: 3em;\n    overflow: auto;\n    border-radius: 5%;\n    color: black; }\n  .ui.projects.card > .extra {\n    padding: 3% 7% 0% 7%;\n    color: black; }\n  .ui.projects.card .content > .header:not(.ui) {\n    font-size: 2em;\n    color: black; }\n  .ui.projects.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 828 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(21);
+
+var _reactRouterDom = __webpack_require__(33);
+
+var _chatbox = __webpack_require__(832);
+
+var _chatbox2 = _interopRequireDefault(_chatbox);
+
+var _Messages = __webpack_require__(831);
+
+var _Messages2 = _interopRequireDefault(_Messages);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Chatbox = function (_Component) {
+    _inherits(Chatbox, _Component);
+
+    function Chatbox() {
+        _classCallCheck(this, Chatbox);
+
+        var _this = _possibleConstructorReturn(this, (Chatbox.__proto__ || Object.getPrototypeOf(Chatbox)).call(this));
+
+        _this.state = {
+            user: 'Xintong Wu'
+        };
+        return _this;
+    }
+
+    _createClass(Chatbox, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'chatbox' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'chatTitle' },
+                    this.state.user
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'chatContent' },
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null),
+                    _react2.default.createElement(_Messages2.default, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Input, { type: 'text', className: 'chatInput' }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Button,
+                        { positive: true },
+                        'Send'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Chatbox;
+}(_react.Component);
+
+exports.default = Chatbox;
+
+/***/ }),
+/* 829 */,
+/* 830 */,
+/* 831 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(21);
+
+var _reactRouterDom = __webpack_require__(33);
+
+var _messages = __webpack_require__(834);
+
+var _messages2 = _interopRequireDefault(_messages);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Messages = function (_Component) {
+    _inherits(Messages, _Component);
+
+    function Messages() {
+        _classCallCheck(this, Messages);
+
+        var _this = _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).call(this));
+
+        _this.state = {
+            content: 'You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers',
+            user: ''
+        };
+        return _this;
+    }
+
+    _createClass(Messages, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _semanticUiReact.Feed,
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Feed.Event,
+                    { className: 'myFeedEvent' },
+                    _react2.default.createElement(
+                        _semanticUiReact.Feed.Label,
+                        null,
+                        _react2.default.createElement('img', { src: 'https://freeiconshop.com/wp-content/uploads/edd/person-flat.png' })
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Feed.Content,
+                        null,
+                        this.state.content
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Messages;
+}(_react.Component);
+
+exports.default = Messages;
+
+/***/ }),
+/* 832 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(833);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(32)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js?-url!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js!./chatbox.scss", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js?-url!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js!./chatbox.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 833 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(31)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".chatbox {\n  position: absolute;\n  width: 400px;\n  height: 400px;\n  background-color: #00B4E8;\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  z-index: 10;\n  padding: 10px 10px 10px 10px;\n  border-radius: 10px; }\n  .chatbox .chatTitle {\n    text-align: center;\n    font-size: 30px;\n    padding: 10px 0 10px 0; }\n  .chatbox .chatContent {\n    height: 300px;\n    overflow: auto; }\n  .chatbox .chatInput {\n    width: 75%;\n    height: 35px; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 834 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(835);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(32)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js?-url!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js!./messages.scss", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js?-url!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js!./messages.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 835 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(31)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".myFeedEvent {\n  border-bottom: 1px solid grey; }\n", ""]);
 
 // exports
 
