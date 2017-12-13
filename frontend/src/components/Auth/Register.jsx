@@ -82,7 +82,7 @@ class Register extends Component {
                                 </Header.Content>
                             </Header>
                             <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
-                            <Input icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
+                            <Input type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
                         </Card.Content>
                         <Card.Content>
