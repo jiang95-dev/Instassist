@@ -219,7 +219,7 @@ export default class Dashboard extends Component {
                                 <SkillFeed skills={this.state.skills} addSkill={this.addSkill} />
                             </Grid.Column>
                             <Grid.Column width={7}>
-                                {/* <MessageFeed events={this.state.messages} /> */}
+                                <MessageFeed events={this.state.messages} />
                             </Grid.Column>
                         </Grid>
                     <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} visibilityHandler={this.changeProjectVisibility} openModalHandler={this.openModalHandler}/>
