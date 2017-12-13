@@ -41,7 +41,7 @@ class Login extends Component {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
+            if (xhr.response['auth']) {
                 this.setState({
                     message: 'Successfully logged in!'
                 });
