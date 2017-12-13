@@ -90,7 +90,7 @@ class Mainpage extends Component {
         console.log(SearchKey);
         if (typeof SearchKey == "string"){
             if(SearchKey != ""){
-                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
+                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": ".*'+SearchKey+'.*", "$options": "i"}}';
                 console.log(urlSearch)
                 
                 axios.get(urlSearch)

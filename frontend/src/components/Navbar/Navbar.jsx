@@ -53,8 +53,16 @@ class Navbar extends Component{
 					<Link to="/mainpage"><div className="myLogo">Groupin</div></Link>
 					<div className="item">
 					    <div className="ui icon input">
-					    	<Input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
-					        {/* <i className="search link icon"></i> */}
+							{/* <i className="search link icon"></i> */}
+							<Input 
+								icon='search'
+								iconPosition='left' 
+								transparent={true} 
+								onChange={this.inputChangeHandler}  
+								type="text" 
+								placeholder="Search..." 
+								className="myInput"
+							/>
 					    </div>
 					</div>
 					<div className="right menu">
