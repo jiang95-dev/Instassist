@@ -223,6 +223,7 @@ class Mainpage extends Component {
                     return(
                         // <div key={projName+projTimeStamp+''+idx}>
                         <Card 
+                        className="projects rounded"
                         key={projName+projTimeStamp+''+idx}
                         header={projName}
                         meta={projTimeStamp + "  Viewed: "+ projViewCounter}

@@ -152,7 +152,11 @@ export default class Dashboard extends Component {
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
                             <Grid.Column width={5}>
-                            <Card centered raised={this.state.editing}>
+                            <Card
+                                centered
+                                raised={this.state.editing}
+                                className="rounded"
+                            >
                                 <Image src='http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' />
                                 <Card.Content>
                                     {nameField}
@@ -160,13 +164,20 @@ export default class Dashboard extends Component {
                                 </Card.Content>
                                 <Card.Content extra>
                                     <div className='ui two buttons'>
-                                        <Button onClick={() => {
-                                            if (this.state.editing) {
-                                                this.updateProfile(true);
-                                            } else {
-                                                this.setState({editing :true});
-                                            }}} basic color='green'>{editButton}</Button>
-                                        <Button basic color='red' onClick={this.logOut}>Log Out</Button>
+                                        <Button style={{ borderBottomLeftRadius: '8px' }}
+                                            onClick={() => {
+                                                if (this.state.editing) {
+                                                    this.updateProfile(true);
+                                                } else {
+                                                    this.setState({ editing: true });
+                                                }
+                                            }} basic color='green'
+                                        >
+                                            {editButton}
+                                        </Button>
+                                        <Button style={{ borderBottomRightRadius: '8px' }} basic color='red' onClick={this.logOut}>
+                                            Log Out
+                                        </Button>
                                     </div>
                                 </Card.Content>
                             </Card> 
