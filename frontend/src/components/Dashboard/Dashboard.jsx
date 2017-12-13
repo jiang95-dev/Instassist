@@ -44,6 +44,7 @@ export default class Dashboard extends Component {
         axios.get(profileUrl, {
             headers: { "x-access-token": this.token }
         }).then((response) => {
+            console.log(response.data);
             this.id = response.data._id;
             this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
             console.log(response.data)
@@ -107,9 +108,6 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        const testArr = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
-        const skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"]
-        
         let nameField;
         let description;
         let editButton;
@@ -162,7 +160,12 @@ export default class Dashboard extends Component {
                                 </Card.Content>
                                 <Card.Content extra>
                                     <div className='ui two buttons'>
-                                        <Button onClick={() => this.setState({ editing: !this.state.editing })} basic color='green'>{editButton}</Button>
+                                        <Button onClick={() => {
+                                            if (this.state.editing) {
+                                                this.updateProfile(true);
+                                            } else {
+                                                this.setState({editing :true});
+                                            }}} basic color='green'>{editButton}</Button>
                                         <Button basic color='red' onClick={this.logOut}>Log Out</Button>
                                     </div>
                                 </Card.Content>

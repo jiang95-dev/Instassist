@@ -13,14 +13,12 @@ class Mainpage extends Component {
         this.state = {
             popularTagList: null,
             postList: null,
-
             modalOpen: false,
             selected: null,
         }
         this.filterHandler = this.filterHandler.bind(this);
         this.filterResult = this.filterResult.bind(this);
         this.updateSearchResult = this.updateSearchResult.bind(this);
-        
         this.cardClicked = this.cardClicked.bind(this);
         this.modalClosed = this.modalClosed.bind(this);
     }
@@ -209,7 +207,7 @@ class Mainpage extends Component {
             return <div />
         } else {            
             let postGrid = this.state.postList.map((obj,idx) =>{
-                // console.log(obj)
+                // console.log(idx);
                 if (obj.state != 0){
                     let projName = obj.name;
                     console.log(projName);
@@ -219,12 +217,13 @@ class Mainpage extends Component {
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{
                         return(
-                            <Label key={projName+idx_t+idx_t} basic>{tag.name}</Label>
+                            <Label key={projName+''+idx+''+idx_t} basic>{tag.name}</Label>
                         )
                     })
                     return(
+                        // <div key={projName+projTimeStamp+''+idx}>
                         <Card 
-                        key={projName+projTimeStamp+idx}
+                        key={projName+projTimeStamp+''+idx}
                         header={projName}
                         meta={projTimeStamp + "  Viewed: "+ projViewCounter}
                         description={projIntro}
@@ -237,7 +236,7 @@ class Mainpage extends Component {
             let popTags = this.state.popularTagList.map((obj, key)=>{
                 if (key < 5 && key < this.state.popularTagList.length){
                     let tid = obj._id;
-                    return (<Label as='a' key={'t'+key} onClick={()=>this.filterHandler({tid})} basic>{obj.name}</Label>)                    
+                    return (<Label as='a' key={tid+''+key} onClick={()=>this.filterHandler({tid})} basic>{obj.name}</Label>)                    
                 }
             });
 
