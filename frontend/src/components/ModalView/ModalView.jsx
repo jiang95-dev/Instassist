@@ -94,7 +94,7 @@ class ModalView extends Component{
 
 	renderDetailContent(description, skills){
 		return (
-			<Modal.Content as="div" className="content bg-blue" scrolling>
+			<Modal.Content as="div" className="content bg-grey" scrolling>
 				<div className="description">
 					<p>{description}</p>
 				</div>
@@ -107,7 +107,7 @@ class ModalView extends Component{
 
 	renderDetailAction(){
 		return (
-			<Modal.Actions className="bg-blue">
+			<Modal.Actions className="bg-grey">
 				<Button id="button-join" onClick={this.handleJoin}>
 				Join the team!
 				</Button>
@@ -117,7 +117,7 @@ class ModalView extends Component{
 
 	renderMessageAction(){
 		return (
-			<Modal.Actions className="bg-blue">
+			<Modal.Actions className="bg-grey">
 			<MessageForm handleSubmit={this.handleSubmit}/>
 			</Modal.Actions>
 		);
@@ -153,7 +153,7 @@ class ModalView extends Component{
 		  	<Modal className="default-modal"
 		  	open={this.state.modalOpen}
 		  	onClose={this.handleClose}>
-				<Header as="h1" className="header bg-blue">
+				<Header as="h1" className="header bg-grey">
 					<span> {project_name} </span>
 					<Header.Subheader size="tiny">
 					<div  className="extra">

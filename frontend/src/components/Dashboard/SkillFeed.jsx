@@ -23,7 +23,7 @@ class SkillFeed extends Component {
         return (
             <section className="my-skills">
                 <h1>My Skills</h1>
-                <Label.Group circular size="medium" color="blue">
+                <Label.Group circular size="medium">
                     {labels}
                     <Label className="new" >
                         <input 

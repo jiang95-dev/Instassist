@@ -10,8 +10,9 @@ body{
 
 .ui.button:hover{
     transform: scale(1.007);
-    background-color: $mainColor;
-    box-shadow: 0px 0px 20px 0px $mainColor;
+	background-color: $mainColor;
+	color: $altFontColor;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .ui.label{
@@ -22,7 +23,7 @@ body{
     border-width: 0.1vw;
 }
 
-.bg-blue{
+.bg-grey{
 	background-color: $mainColor !important;
 }
 

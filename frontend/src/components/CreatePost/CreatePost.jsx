@@ -247,7 +247,7 @@ class CreatePost extends Component {
 				      		<label htmlFor="terms">I agree to the terms and conditions</label>
 				    	</div>
 				  	</div>
-				  	<input type="submit" className="ui blue submit button"/>
+				  	<input type="submit" className="ui submit button"/>
 				</form>
 				<div className="ui bottom attached warning message">
 			  		Have any questions? See <a href="#">here</a>.
