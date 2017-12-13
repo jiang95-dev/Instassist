@@ -184,7 +184,7 @@ export default class Dashboard extends Component {
                 <Navbar/>
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
-                            <Grid.Column width={5}>
+                            <Grid.Column computer={5} mobile={16}>
                             <Card
                                 centered
                                 raised={this.state.editing}
@@ -215,10 +215,10 @@ export default class Dashboard extends Component {
                                 </Card.Content>
                             </Card> 
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column computer={4} mobile={16}>
                                 <SkillFeed skills={this.state.skills} addSkill={this.addSkill} />
                             </Grid.Column>
-                            <Grid.Column width={7}>
+                            <Grid.Column computer={7} mobile={16}>
                                 <MessageFeed events={this.state.messages} />
                             </Grid.Column>
                         </Grid>
