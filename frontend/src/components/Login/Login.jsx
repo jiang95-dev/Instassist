@@ -9,7 +9,7 @@ import axios from 'axios';
 //import CreatePost from '../CreatePost/CreatePost.jsx'
 
 
-import { sentUserId, subscribeToRefresh } from '../../app.jsx'
+import { sentUserId, subscribeToRefresh, connectSocket  } from '../../app.jsx'
 
 class Login extends Component {
 
@@ -55,10 +55,7 @@ class Login extends Component {
 
                 // subscribe to socket
                 // tell it my user id
-                sentUserToken(token);
-                subscribeToRefresh(()=>{
-                    /*call back*/
-                });
+                connectSocket(token);
 
             } else {
                 this.setState({

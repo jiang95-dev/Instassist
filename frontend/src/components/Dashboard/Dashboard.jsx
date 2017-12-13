@@ -10,6 +10,8 @@ import Navbar from '../Navbar/Navbar.jsx'
 import style from './dashboard.scss'
 import PostModal from '../CreatePost/PostModal.jsx'
 
+import { disconnetSocket } from '../../app.jsx'
+
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -97,6 +99,7 @@ export default class Dashboard extends Component {
     logOut(){
         localStorage.removeItem('jwtToken');
         this.props.history.push('/mainpage');
+        disconnetSocket();
     }
 
     closeModalHandler(e){

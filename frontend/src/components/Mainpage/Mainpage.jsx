@@ -21,9 +21,6 @@ class Mainpage extends Component {
         this.updateSearchResult = this.updateSearchResult.bind(this);
         this.cardClicked = this.cardClicked.bind(this);
         this.modalClosed = this.modalClosed.bind(this);
-
-
-        console.log(localStorage.getItem("jwtToken"));
     }
 
     /*for DV*/

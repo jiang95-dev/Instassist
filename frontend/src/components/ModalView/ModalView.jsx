@@ -74,14 +74,12 @@ class ModalView extends Component{
 		  headers: {'X-Access-Token': localStorage.getItem("jwtToken")}, 
 		});
 
-		// var to = this.state.selected.creator;
-		var to = "5a30b9556a3d52002116e4f8";
+		var to = this.state.selected.creator;
 		var data = {'content' : value};
 		
 		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
 		var baseURL = 'http://localhost:8000/api'
 		var url = baseURL + '/chat/new/' + to;
-		// console.log(localStorage.getItem("jwtToken"));
 		
 		instance.post(url, data)
 		.then((response) => {
@@ -93,14 +91,6 @@ class ModalView extends Component{
 			console.log(error);
 		})
 		
-		// var to = this.state.selected["creator_id"];
-		// var content = value;
-		// var data = 
-		// {
-		// 	"to" : to,
-		// 	"content" : content
-		// };
-		// axios.post(ip + endpoint + this.state.selected["creator_id"], data);
 	
 	}
 
