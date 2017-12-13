@@ -60,6 +60,13 @@
     }
 
     > .extra{
+        position: absolute;
+        background: white;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
         padding: 3% 7% 0% 7%;
         color:$fontColor;        
     }
