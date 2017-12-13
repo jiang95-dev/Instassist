@@ -10,7 +10,7 @@ const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
         feed = projects.map(project => {
             console.log(project)
             return (
-                <Grid.Column key={project._id} computer={4} mobile={16}>
+                <Grid.Column key={project._id} style={{ width: 'auto' }}>
                     <Card
                         className="rounded projects"
                         header={project.name}
@@ -24,8 +24,8 @@ const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
     return (
         <section style={style} className="my-projects">
             <h1>My Projects</h1>
-            <Grid className="row" columns="equal">
-                <Grid.Column key="add" computer={4} mobile={16}>
+            <Grid className="row">
+                <Grid.Column key="add" style={{ width: 'auto' }}>
                     <Card className="rounded projects" onClick={openModalHandler}>
                         <p style={{ height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' }}> + </p>
                     </Card>

@@ -13,10 +13,12 @@ $maincolor : #6C7A89;
 }
 
 .myLogo{
-	padding: 15px 0 0 20px;
 	color: white;
-	font-size: 40px;
-	margin-left: 15px;
+	font-size: 32px;
+	font-weight: 500;
+	line-height: 26px;
+	margin-top: 10px;
+	margin-left: 24px;
 	font-family: 'Maven Pro', sans-serif;
 }
 
@@ -43,12 +45,13 @@ $maincolor : #6C7A89;
 
 .myPlus{
 	color: white;
-	padding: 13px 15px 0 0;
-	resize: 30px;
+	margin-top: 15px !important;
+    margin-right: 14px !important;
 }
 
 .myImage{
-	height: 50px;
-	width: 50px;
-	margin-right: 13px;
+	height: 43px;
+    width: 43px;
+    margin-right: 24px;
+    vertical-align: middle;
 }

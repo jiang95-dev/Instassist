@@ -6503,7 +6503,7 @@ var Navbar = function (_Component) {
 					} });
 				var avatar = _react2.default.createElement(
 					_reactRouterDom.Link,
-					{ to: '/dashboard' },
+					{ to: '/dashboard', style: { lineHeight: '46px' } },
 					_react2.default.createElement('img', { alt: 'image', src: 'https://freeiconshop.com/wp-content/uploads/edd/person-flat.png', className: 'myImage' })
 				);
 			} else {
@@ -64947,7 +64947,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700|News+Cycle|Quicksand);", ""]);
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #6C7A89 !important;\n  height: 60px;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24); }\n\n.myLogo {\n  padding: 15px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  margin-left: 15px;\n  font-family: 'Maven Pro', sans-serif; }\n\n.myInput {\n  width: 400px;\n  margin-left: 50px;\n  color: white; }\n\n.ui.input {\n  color: white;\n  font-size: 1.1em; }\n\n.ui.menu .item > .input input {\n  font-family: 'Maven Pro', sans-serif; }\n  .ui.menu .item > .input input:focus {\n    color: white; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #6C7A89 !important;\n  height: 60px;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24); }\n\n.myLogo {\n  color: white;\n  font-size: 32px;\n  font-weight: 500;\n  line-height: 26px;\n  margin-top: 10px;\n  margin-left: 24px;\n  font-family: 'Maven Pro', sans-serif; }\n\n.myInput {\n  width: 400px;\n  margin-left: 50px;\n  color: white; }\n\n.ui.input {\n  color: white;\n  font-size: 1.1em; }\n\n.ui.menu .item > .input input {\n  font-family: 'Maven Pro', sans-serif; }\n  .ui.menu .item > .input input:focus {\n    color: white; }\n\n.myPlus {\n  color: white;\n  margin-top: 15px !important;\n  margin-right: 14px !important; }\n\n.myImage {\n  height: 43px;\n  width: 43px;\n  margin-right: 24px;\n  vertical-align: middle; }\n", ""]);
 
 // exports
 
@@ -65611,7 +65611,7 @@ var ProjectFeed = function ProjectFeed(_ref) {
             console.log(project);
             return _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                { key: project._id, computer: 4, mobile: 16 },
+                { key: project._id, style: { width: 'auto' } },
                 _react2.default.createElement(_semanticUiReact.Card, {
                     className: 'rounded projects',
                     header: project.name,
@@ -65631,10 +65631,10 @@ var ProjectFeed = function ProjectFeed(_ref) {
         ),
         _react2.default.createElement(
             _semanticUiReact.Grid,
-            { className: 'row', columns: 'equal' },
+            { className: 'row' },
             _react2.default.createElement(
                 _semanticUiReact.Grid.Column,
-                { key: 'add', computer: 4, mobile: 16 },
+                { key: 'add', style: { width: 'auto' } },
                 _react2.default.createElement(
                     _semanticUiReact.Card,
                     { className: 'rounded projects', onClick: openModalHandler },
@@ -65692,7 +65692,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".my-projects .row {\n  overflow: auto;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap; }\n\n.my-projects .card {\n  height: 250px; }\n", ""]);
+exports.push([module.i, ".my-projects .row {\n  overflow: auto;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap; }\n", ""]);
 
 // exports
 
@@ -66433,17 +66433,21 @@ var Mainpage = function (_Component) {
                         });
                         return (
                             // <div key={projName+projTimeStamp+''+idx}>
-                            _react2.default.createElement(_semanticUiReact.Card, {
-                                className: 'projects rounded',
-                                key: projName + projTimeStamp + '' + idx,
-                                header: projName,
-                                meta: projTimeStamp + "  Viewed: " + projViewCounter,
-                                description: projIntro,
-                                extra: projtag,
-                                onClick: function onClick() {
-                                    _this7.cardClicked(obj, idx);
-                                }
-                            })
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { style: { width: 'auto' } },
+                                _react2.default.createElement(_semanticUiReact.Card, {
+                                    className: 'projects rounded',
+                                    key: projName + projTimeStamp + '' + idx,
+                                    header: projName,
+                                    meta: projTimeStamp + "  Viewed: " + projViewCounter,
+                                    description: projIntro,
+                                    extra: projtag,
+                                    onClick: function onClick() {
+                                        _this7.cardClicked(obj, idx);
+                                    }
+                                })
+                            )
                         );
                     }
                 });
@@ -66529,7 +66533,11 @@ var Mainpage = function (_Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'postGrid' },
-                            postGrid
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid,
+                                null,
+                                postGrid
+                            )
                         )
                     ),
                     _react2.default.createElement(_ModalView2.default, { open: this.state.modalOpen, selected: this.state.selected, onClose: this.modalClosed })
@@ -66583,7 +66591,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 2vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    margin: auto;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 0;\n    overflow: auto;\n    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: black; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n    .Mainpage .sidebar:hover {\n      -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n              box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden;\n      border: none; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border: none; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: white;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: white;\n    border-radius: 0.5vw;\n    border-color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  top: 60px;\n  left: 0;\n  text-align: center;\n  position: relative;\n  height: 100vh;\n  background-color: #e2e1e0;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    background-color: #e2e1e0;\n    top: 0;\n    left: 200px;\n    z-index: 0;\n    right: 0;\n    position: absolute;\n    padding: 40px 50px;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: fixed;\n    top: 60px;\n    bottom: 0;\n    left: 0;\n    z-index: 2;\n    padding: 60px 0 40px 0;\n    overflow: auto;\n    width: 200px;\n    background-color: white;\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: black; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n    .Mainpage .sidebar:hover {\n      -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n              box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden;\n      border: none; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border: none; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: white;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: white;\n    border-radius: 0.5vw;\n    border-color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
 
 // exports
 
@@ -67064,7 +67072,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e2e1e0; }\n  body .alert {\n    color: red; }\n\n.myInput {\n  border-radius: 20px;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 500px; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n\n.rounded {\n  border-radius: 10px !important;\n  overflow: hidden; }\n\n.ui.projects.card {\n  -webkit-transition: all .25s ease-in-out;\n  transition: all .25s ease-in-out;\n  background-color: white;\n  text-align: left;\n  margin: 0 10px 20px 10px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  height: 45vh;\n  width: 35vh;\n  min-height: 200px;\n  min-width: 200px;\n  font-size: 75%;\n  overflow-wrap: break-word; }\n  .ui.projects.card .ui.label {\n    height: auto;\n    width: auto; }\n  .ui.projects.card .header {\n    padding: 5% 5% 0 5%;\n    color: black; }\n  .ui.projects.card .meta {\n    font-size: 1em;\n    padding-left: 5%;\n    color: rgba(0, 0, 0, 0.726); }\n  .ui.projects.card .description {\n    padding: 3% 3% 0 3%;\n    font-size: 3em;\n    overflow: auto;\n    border-radius: 5%;\n    color: black; }\n  .ui.projects.card > .extra {\n    padding: 3% 7% 0% 7%;\n    color: black; }\n  .ui.projects.card .content > .header:not(.ui) {\n    font-size: 2em;\n    color: black; }\n  .ui.projects.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
+exports.push([module.i, "body .alert {\n  color: red; }\n\n.myInput {\n  border-radius: 20px;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 500px; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n\n.rounded {\n  border-radius: 10px !important;\n  overflow: hidden; }\n\n.ui.projects.card {\n  -webkit-transition: all .25s ease-in-out;\n  transition: all .25s ease-in-out;\n  background-color: white;\n  text-align: left;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  height: 40vh;\n  width: 34vh;\n  min-height: 200px;\n  min-width: 200px;\n  font-size: 75%;\n  overflow-wrap: break-word; }\n  .ui.projects.card .ui.label {\n    height: auto;\n    width: auto; }\n  .ui.projects.card .header {\n    padding: 5% 5% 0 5%;\n    color: black; }\n  .ui.projects.card .meta {\n    font-size: 1em;\n    padding-left: 5%;\n    color: rgba(0, 0, 0, 0.726); }\n  .ui.projects.card .description {\n    padding: 3% 3% 0 3%;\n    font-size: 3em;\n    overflow: auto;\n    border-radius: 5%;\n    color: black; }\n  .ui.projects.card > .extra {\n    padding: 3% 7% 0% 7%;\n    color: black; }\n  .ui.projects.card .content > .header:not(.ui) {\n    font-size: 2em;\n    color: black; }\n  .ui.projects.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
 
 // exports
 

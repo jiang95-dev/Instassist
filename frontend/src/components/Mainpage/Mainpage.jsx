@@ -222,15 +222,17 @@ class Mainpage extends Component {
                     })
                     return(
                         // <div key={projName+projTimeStamp+''+idx}>
-                        <Card 
-                        className="projects rounded"
-                        key={projName+projTimeStamp+''+idx}
-                        header={projName}
-                        meta={projTimeStamp + "  Viewed: "+ projViewCounter}
-                        description={projIntro}
-                        extra={projtag}
-                        onClick={() => {this.cardClicked(obj, idx)}}
-                        />
+                        <Grid.Column style={{width:'auto'}}>
+                            <Card
+                                className="projects rounded"
+                                key={projName + projTimeStamp + '' + idx}
+                                header={projName}
+                                meta={projTimeStamp + "  Viewed: " + projViewCounter}
+                                description={projIntro}
+                                extra={projtag}
+                                onClick={() => { this.cardClicked(obj, idx) }}
+                            />
+                        </Grid.Column>
                     )
                 }
             });
@@ -262,7 +264,9 @@ class Mainpage extends Component {
                         </div>
                         {/* <div className="vr"/> */}
                         <div className="postGrid">
+                            <Grid>
                             {postGrid}
+                            </Grid>
                         </div>
                     </div>
                     <ModalView open={this.state.modalOpen} selected={this.state.selected} onClose={this.modalClosed}/>

@@ -32,7 +32,7 @@ class Navbar extends Component{
 				<i className="plus icon large myPlus link" onClick={() => this.setState({toOpen : true})}></i>
 			);
 			var avatar = (
-				<Link to="/dashboard">
+				<Link to="/dashboard" style={{ lineHeight: '46px' }}>
 					<img alt="image" src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" className="myImage"/>
 				</Link>
 			);
