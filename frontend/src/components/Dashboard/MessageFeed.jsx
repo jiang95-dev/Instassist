@@ -4,7 +4,7 @@ import { Message, Feed } from 'semantic-ui-react'
 const MessageFeed = ({events}) => {
     let feed;
     if (events) { 
-        var msgs;
+        var msgs = [];
         events.forEach( (c) => {
             console.log(c);
             c.forEach( (m) => {

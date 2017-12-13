@@ -12652,24 +12652,6 @@ var _main2 = _interopRequireDefault(_main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket_url = 'http://10.180.131.152:8000';
-var socket = (0, _socket2.default)(socket_url);
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMzBkZTkwNmEzZDUyMDAyMTE2ZTUzOCIsImlhdCI6MTUxMzE1MjE1MywiZXhwIjoxNTEzMjM4NTUzfQ.VnQkGp94oIepvZFFovYh7AQC3xHs3pHi91cuzHCdxBo';
-function sentUserToken(token) {
-    console.log("sending token!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    socket.emit("user token", localStorage.getItem("jwtToken"));
-}
-
-function subscribeToRefresh() {
-    console.log("subscribing to !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    socket.on('refresh messages', function () {
-        console.log("I'm asked to refresh!");
-    });
-}
-
-sentUserToken();
-subscribeToRefresh();
-
 _reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     null,
@@ -72224,7 +72206,7 @@ exports = module.exports = __webpack_require__(29)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #6C7A89 !important;\n  height: 60px;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24); }\n\n.ui.input {\n  color: white;\n  font-size: 1.1em; }\n\n.ui.menu .item > .input input:focus {\n  color: white; }\n\n.ui.menu:not(.vertical) .right.item, .ui.menu:not(.vertical) .right.menu {\n  margin-top: 5px;\n  margin-right: 24px; }\n\n.myLogo {\n  color: white;\n  font-size: 32px;\n  font-weight: 500;\n  line-height: 26px;\n  margin-top: 14px;\n  margin-left: 24px; }\n\n.myInput {\n  margin-left: 50px;\n  color: white;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 400px; }\n\n.myPlus {\n  color: white;\n  margin-top: 15px !important;\n  margin-right: 14px !important; }\n\n.myImage {\n  height: 43px;\n  width: 43px;\n  vertical-align: middle; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #6C7A89 !important;\n  height: 60px;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24); }\n\n.ui.input {\n  color: white;\n  font-size: 1.1em; }\n\n.ui.menu .item > .input input:focus {\n  color: white; }\n\n.ui.menu:not(.vertical) .right.item, .ui.menu:not(.vertical) .right.menu {\n  margin-top: 5px;\n  margin-right: 24px; }\n\n.myLogo {\n  color: white;\n  font-size: 32px;\n  font-weight: 500;\n  line-height: 26px;\n  margin-top: 14px;\n  margin-left: 24px; }\n\n.myInput {\n  margin-left: 50px;\n  color: white;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  max-width: 400px; }\n\n.myPlus {\n  color: white;\n  margin-top: 15px !important;\n  margin-right: 14px !important; }\n\n.myImage {\n  height: 43px;\n  width: 43px;\n  vertical-align: middle; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n", ""]);
 
 // exports
 
@@ -73041,7 +73023,7 @@ var Dashboard = function (_Component) {
                 console.log(response.data);
                 _this2.id = response.data._id;
                 _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + _this2.id;
-                console.log(response.data);
+                // console.log(response.data)
 
                 var username = response.data.username ? response.data.username : "Anonymous";
                 var description = response.data.description;
@@ -73051,6 +73033,7 @@ var Dashboard = function (_Component) {
                 _axios2.default.get("https://mighty-oasis-90906.herokuapp.com/api/chat", {
                     headers: { "x-access-token": _this2.token }
                 }).then(function (response) {
+                    console.log("load messages");
                     console.log(response.data);
                     _this2.setState({
                         username: username,
@@ -73060,6 +73043,8 @@ var Dashboard = function (_Component) {
                         /**/
                         messages: response.data
                     });
+                }).catch(function (err) {
+                    console.log(err);
                 });
             });
         }
@@ -73274,7 +73259,7 @@ var MessageFeed = function MessageFeed(_ref) {
 
     var feed = void 0;
     if (events) {
-        var msgs;
+        var msgs = [];
         events.forEach(function (c) {
             console.log(c);
             c.forEach(function (m) {
@@ -74467,7 +74452,6 @@ var ModalView = function (_Component) {
 			var to = this.state.selected.creator._id;
 			var data = { 'content': value };
 
-			// var baseURL = 'http://localhost:8000/api';
 			var baseURL = 'https://mighty-oasis-90906.herokuapp.com/api';
 			var url = baseURL + '/chat/new/' + to;
 

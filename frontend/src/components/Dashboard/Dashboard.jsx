@@ -52,7 +52,7 @@ export default class Dashboard extends Component {
             console.log(response.data);
             this.id = response.data._id;
             this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
-            console.log(response.data)
+            // console.log(response.data)
 
             let username = response.data.username ? response.data.username : "Anonymous";
             let description = response.data.description;
@@ -62,6 +62,7 @@ export default class Dashboard extends Component {
             axios.get("https://mighty-oasis-90906.herokuapp.com/api/chat", {
                 headers : { "x-access-token": this.token }
             }).then((response) =>  {
+                console.log("load messages");
                 console.log(response.data);
                 this.setState({
                     username: username,
@@ -71,6 +72,8 @@ export default class Dashboard extends Component {
                     /**/
                     messages : response.data,
                 });
+            }).catch((err) => {
+                console.log(err);
             })
         });
     }

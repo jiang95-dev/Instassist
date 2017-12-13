@@ -75,7 +75,6 @@ class ModalView extends Component{
 		var to = this.state.selected.creator._id;
 		var data = {'content' : value};
 		
-		// var baseURL = 'http://localhost:8000/api';
 		var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
 		var url = baseURL + '/chat/new/' + to;
 		
