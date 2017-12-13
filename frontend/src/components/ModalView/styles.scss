@@ -1,4 +1,4 @@
-$maincolor : #4999E2;
+@import '../../styles/_vars';
 
 body{
 	margin: 0;
@@ -10,12 +10,12 @@ body{
 
 .ui.button:hover{
     transform: scale(1.007);
-    background-color: $maincolor;
-    box-shadow: 0px 0px 20px 0px $maincolor;
+    background-color: $mainColor;
+    box-shadow: 0px 0px 20px 0px $mainColor;
 }
 
 .ui.label{
-    background-color:$maincolor;
+    background-color:$mainColor;
     color: white;
     border-radius: 0.5vw;
     border-color: white;
@@ -23,7 +23,7 @@ body{
 }
 
 .bg-blue{
-	background-color: $maincolor !important;
+	background-color: $mainColor !important;
 }
 
 .header{
@@ -86,7 +86,7 @@ body{
 	}
 	#button-join{
 		background-color: white;
-		color: $maincolor;
+		color: $mainColor;
 		border-radius: 2vw;
 		width: 30vw;
 	}
@@ -104,7 +104,7 @@ body{
 
 	#button-submit{
 		background-color: white;
-		color: $maincolor;
+		color: $mainColor;
 		border-radius: 2vw;
 		width: 30vw;
 		margin: 1rem
