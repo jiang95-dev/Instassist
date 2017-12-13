@@ -7,6 +7,32 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+	<script>
+var socket_url = 'http://localhost:8000';
+const socket = io(socket_url);
+function connectSocket(token){
+	socket.emit("user token", token);
+	socket.on('refresh messages', ()=>{
+		var icon = document.getElementsByClassName("myImage")[0]
+		icon.src = "notification.png";
+		icon.onClick = () => {icon.src = "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png"}
+		console.log("I'm asked to refresh!");
+	})
+}
+
+function imageOnClick(){
+	console.log("image cliekced");
+	var icon =  document.getElementsByClassName("myImage")[0];
+	icon.src = "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png";
+}
+
+var token = localStorage.getItem('jwtToken', token);
+if(token) connectSocket(token);
+function disconnetSocket(){
+	socket.emit('disconnet');
+}		
+	</script>
   <div id="react-app"></div>
   <script src="/js/app.js"></script>
 </body>

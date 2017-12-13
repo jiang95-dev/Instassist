@@ -12,6 +12,8 @@ import PostModal from '../CreatePost/PostModal.jsx'
 import Chatbox from '../Chatbox/Chatbox.jsx'
 
 
+import { disconnetSocket } from '../../app.jsx'
+
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -42,6 +44,7 @@ export default class Dashboard extends Component {
     }
 
     fetchUser() {
+        // let profileUrl = "http://localhost:8000";
         let profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
         axios.get(profileUrl, {
             headers: { "x-access-token": this.token }
@@ -56,7 +59,9 @@ export default class Dashboard extends Component {
                 username: username,
                 description: response.data.description,
                 skills: response.data.skills,
-                projects: response.data.projects
+                projects: response.data.projects,
+                /**/
+                messages : response.data.conversations,
             });
         });
     }
@@ -99,6 +104,7 @@ export default class Dashboard extends Component {
     logOut(){
         localStorage.removeItem('jwtToken');
         this.props.history.push('/mainpage');
+        disconnetSocket();
     }
 
     closeModalHandler(e){
@@ -151,7 +157,6 @@ export default class Dashboard extends Component {
         return (
             <div>
                 <Navbar/>
-                <Chatbox/>
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
                             <Grid.Column width={5}>
@@ -189,7 +194,7 @@ export default class Dashboard extends Component {
                                 <SkillFeed skills={this.state.skills} addSkill={this.addSkill} />
                             </Grid.Column>
                             <Grid.Column width={7}>
-                                <MessageFeed events={null} />
+                                <MessageFeed events={this.state.messages} />
                             </Grid.Column>
                         </Grid>
                     <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} openModalHandler={this.openModalHandler}/>

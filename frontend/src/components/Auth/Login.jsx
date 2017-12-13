@@ -8,7 +8,7 @@ import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
 
 
-import { sentUserId, subscribeToRefresh } from '../../app.jsx'
+import { connectSocket  } from '../../../../socketEvents.jsx'
 
 class Login extends Component {
 
@@ -54,10 +54,7 @@ class Login extends Component {
 
                 // subscribe to socket
                 // tell it my user id
-                sentUserToken(token);
-                subscribeToRefresh(()=>{
-                    /*call back*/
-                });
+                connectSocket(token);
 
             } else {
                 this.setState({

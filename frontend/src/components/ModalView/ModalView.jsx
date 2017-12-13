@@ -4,7 +4,7 @@ import { Button, Header, Image, Modal, Label, Form, TextArea,Icon } from 'semant
 import styles from './styles.scss';
 import NestedModal from './NestedModal.jsx'
 
-import { messageSent } from '../../../../socketEvents.jsx'
+//import { messageSent } from '../../../../socketEvents.jsx'
 
 
 class ModalView extends Component{
@@ -53,6 +53,12 @@ class ModalView extends Component{
 	}
 	
 	handleSubmit(value){
+
+		function messageSent(conversationId, to) {
+			console.log("conv:"+conversationId);
+			console.log("to:"+to);
+    		socket.emit('new message', conversationId, to);
+		}
 		console.log("On Submit!");
 		// console.log("selected item: "); console.log(this.state.selected)
 		// console.log("value: " + value);
@@ -66,14 +72,12 @@ class ModalView extends Component{
 		  headers: {'X-Access-Token': localStorage.getItem("jwtToken")}, 
 		});
 
-		// var to = this.state.selected.creator;
-		var to = "5a30b9556a3d52002116e4f8";
+		var to = this.state.selected.creator._id;
 		var data = {'content' : value};
 		
-		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
-		var baseURL = 'http://localhost:8000/api'
+		// var baseURL = 'http://localhost:8000/api';
+		var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
 		var url = baseURL + '/chat/new/' + to;
-		// console.log(localStorage.getItem("jwtToken"));
 		
 		instance.post(url, data)
 		.then((response) => {
@@ -85,14 +89,6 @@ class ModalView extends Component{
 			console.log(error);
 		})
 		
-		// var to = this.state.selected["creator_id"];
-		// var content = value;
-		// var data = 
-		// {
-		// 	"to" : to,
-		// 	"content" : content
-		// };
-		// axios.post(ip + endpoint + this.state.selected["creator_id"], data);
 	
 	}
 
@@ -135,8 +131,6 @@ class ModalView extends Component{
 		var project_name = obj? obj.name : "No Project Selected";
 		var description = obj? obj.description : "No Description";
 		var creator = obj? obj.creator.username : "Spider Man" ;// It need to be changed!
-
-
 		var time = obj? obj.createdAt.substr(0, 9) : "A long long time ago"
 		var tags = obj? obj['tags'].map( (t, idx) => {
 				return ( <Label key={idx}> {t.name} </Label> )

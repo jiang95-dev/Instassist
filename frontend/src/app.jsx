@@ -30,6 +30,7 @@ sentUserToken();
 subscribeToRefresh();
 
 
+
 ReactDom.render(
     <Router>
         <Switch>
@@ -38,8 +39,6 @@ ReactDom.render(
             <Route exact path="/register" component={Register}/>
             <Route exact path="/dashboard" component={Dashboard}/>
             <Route exact path="/mainpage" component={Mainpage}/>
-
-            {/* <Route exact path="/message" component={MessageView}/> */}
         </Switch>
     </Router>,
     document.getElementById('react-app')

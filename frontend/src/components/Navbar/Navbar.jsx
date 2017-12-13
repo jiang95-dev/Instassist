@@ -33,7 +33,7 @@ class Navbar extends Component{
 			);
 			var avatar = (
 				<Link to="/dashboard" style={{ lineHeight: '46px' }}>
-					<img alt="image" src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" className="myImage"/>
+					<img alt="image" src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" onClick={imageOnClick} className="myImage"/>
 				</Link>
 			);
 		}else{

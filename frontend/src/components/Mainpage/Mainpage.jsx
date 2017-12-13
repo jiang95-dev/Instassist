@@ -21,9 +21,6 @@ class Mainpage extends Component {
         this.updateSearchResult = this.updateSearchResult.bind(this);
         this.cardClicked = this.cardClicked.bind(this);
         this.modalClosed = this.modalClosed.bind(this);
-
-
-        console.log(localStorage.getItem("jwtToken"));
     }
 
     /*for DV*/
@@ -31,13 +28,13 @@ class Mainpage extends Component {
         console.log("card clicked");
         // console.log(obj);
         
-        var baseUrl_ty = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
+        var baseURL = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
         var id = obj._id;
-        var url_ty = baseUrl_ty + id + "/popularity";
+        var url = baseURL + id + "/popularity";
 
 
         // update popularity
-        axios.put(url_ty)
+        axios.put(url)
         .then((response) => {
             console.log(response.data);
             var list = this.state.postList;

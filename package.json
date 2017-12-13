@@ -10,6 +10,7 @@
   "author": "Simon Lu <shlu2@illinois.edu>",
   "license": "ISC",
   "dependencies": {
+    "nodemon" : "^1.12.1",
     "async": "^2.6.0",
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",
