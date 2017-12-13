@@ -75,8 +75,8 @@ class ModalView extends Component{
 		var to = this.state.selected.creator._id;
 		var data = {'content' : value};
 		
-		var baseURL = 'http://localhost:8000/api';
-		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
+		// var baseURL = 'http://localhost:8000/api';
+		var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
 		var url = baseURL + '/chat/new/' + to;
 		
 		instance.post(url, data)
@@ -131,8 +131,6 @@ class ModalView extends Component{
 		var project_name = obj? obj.name : "No Project Selected";
 		var description = obj? obj.description : "No Description";
 		var creator = obj? obj.creator.username : "Spider Man" ;// It need to be changed!
-
-
 		var time = obj? obj.createdAt.substr(0, 9) : "A long long time ago"
 		var tags = obj? obj['tags'].map( (t, idx) => {
 				return ( <Label key={idx}> {t.name} </Label> )
