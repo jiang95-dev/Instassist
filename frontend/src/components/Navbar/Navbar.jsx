@@ -3,13 +3,17 @@ import { Dropdown, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
-//import avatar from '../../assets/avatar.jpeg'
+import PostModal from '../CreatePost/PostModal.jsx'
 
 class Navbar extends Component{
 
 	constructor(){
 		super();
+		this.state = {
+			toOpen : false
+		}
 		this.inputChangeHandler = this.inputChangeHandler.bind(this);
+		this.closeModalHandler = this.closeModalHandler.bind(this);
 	}
 
 	inputChangeHandler(event){
@@ -18,10 +22,14 @@ class Navbar extends Component{
         this.props.search(searchkey);
     }
 
+    closeModalHandler(e){
+    	this.setState({toOpen : false});
+    }
+
 	render(){
 		if(localStorage.getItem('jwtToken') != null){
 			var create = (
-				<Link to="/createpost"><i className="plus icon large myPlus link"></i></Link>
+				<i className="plus icon large myPlus link" onClick={() => this.setState({toOpen : true})}></i>
 			);
 			var avatar = (
 				<Link to="/dashboard">
@@ -40,18 +48,21 @@ class Navbar extends Component{
 		}
 		
 		return(
-			<div className="ui secondary menu navbar">
-				<Link to="/mainpage"><div className="myLogo">Groupin</div></Link>
-				<div className="item">
-				    <div className="ui icon input">
-				    	<input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
-				        <i className="search link icon"></i>
-				    </div>
+			<div>
+				<div className="ui secondary menu navbar">
+					<Link to="/mainpage"><div className="myLogo">Groupin</div></Link>
+					<div className="item">
+					    <div className="ui icon input">
+					    	<input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
+					        <i className="search link icon"></i>
+					    </div>
+					</div>
+					<div className="right menu">
+					    {create}
+					    {avatar}
+					</div>
 				</div>
-				<div className="right menu">
-				    {create}
-				    {avatar}
-				</div>
+				<PostModal toOpen={this.state.toOpen} closeModalHandler={this.closeModalHandler}/>
 			</div>
 		);
 	}

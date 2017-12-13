@@ -6452,6 +6452,10 @@ var _styles = __webpack_require__(800);
 
 var _styles2 = _interopRequireDefault(_styles);
 
+var _PostModal = __webpack_require__(875);
+
+var _PostModal2 = _interopRequireDefault(_PostModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6459,8 +6463,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-//import avatar from '../../assets/avatar.jpeg'
 
 var Navbar = function (_Component) {
 	_inherits(Navbar, _Component);
@@ -6470,7 +6472,11 @@ var Navbar = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this));
 
+		_this.state = {
+			toOpen: false
+		};
 		_this.inputChangeHandler = _this.inputChangeHandler.bind(_this);
+		_this.closeModalHandler = _this.closeModalHandler.bind(_this);
 		return _this;
 	}
 
@@ -6482,14 +6488,19 @@ var Navbar = function (_Component) {
 			this.props.search(searchkey);
 		}
 	}, {
+		key: 'closeModalHandler',
+		value: function closeModalHandler(e) {
+			this.setState({ toOpen: false });
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			if (localStorage.getItem('jwtToken') != null) {
-				var create = _react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/createpost' },
-					_react2.default.createElement('i', { className: 'plus icon large myPlus link' })
-				);
+				var create = _react2.default.createElement('i', { className: 'plus icon large myPlus link', onClick: function onClick() {
+						return _this2.setState({ toOpen: true });
+					} });
 				var avatar = _react2.default.createElement(
 					_reactRouterDom.Link,
 					{ to: '/dashboard' },
@@ -6514,32 +6525,37 @@ var Navbar = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui secondary menu navbar' },
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/mainpage' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'myLogo' },
-						'Groupin'
-					)
-				),
+				null,
 				_react2.default.createElement(
 					'div',
-					{ className: 'item' },
+					{ className: 'ui secondary menu navbar' },
+					_react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/mainpage' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'myLogo' },
+							'Groupin'
+						)
+					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'ui icon input' },
-						_react2.default.createElement('input', { onChange: this.inputChangeHandler, type: 'text', placeholder: 'Search...', className: 'myInput' }),
-						_react2.default.createElement('i', { className: 'search link icon' })
+						{ className: 'item' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui icon input' },
+							_react2.default.createElement('input', { onChange: this.inputChangeHandler, type: 'text', placeholder: 'Search...', className: 'myInput' }),
+							_react2.default.createElement('i', { className: 'search link icon' })
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'right menu' },
+						create,
+						avatar
 					)
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'right menu' },
-					create,
-					avatar
-				)
+				_react2.default.createElement(_PostModal2.default, { toOpen: this.state.toOpen, closeModalHandler: this.closeModalHandler })
 			);
 		}
 	}]);
@@ -23837,10 +23853,6 @@ var _Dashboard = __webpack_require__(806);
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-var _CreatePost = __webpack_require__(816);
-
-var _CreatePost2 = _interopRequireDefault(_CreatePost);
-
 var _Mainpage = __webpack_require__(819);
 
 var _Mainpage2 = _interopRequireDefault(_Mainpage);
@@ -23884,7 +23896,6 @@ _reactDom2.default.render(_react2.default.createElement(
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _Register2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _Dashboard2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/createpost', component: _CreatePost2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/mainpage', component: _Mainpage2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/message', component: _MessageView2.default })
     )
@@ -63707,7 +63718,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Home {\n  border: 100px;\n  color: skyblue;\n  text-align: center;\n  position: absolute;\n  top: 20%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%); }\n  .Home .logo {\n    color: white;\n    font-size: 80px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .title {\n    color: white;\n    font-size: 20px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .stick {\n    border-bottom: 2px solid #A1CEF3;\n    padding-top: 30px;\n    margin-bottom: 30px;\n    width: 600px; }\n  .Home .footer-title {\n    color: #A1CEF3;\n    font-size: 20px; }\n  .Home .footer-body {\n    color: #A1CEF3;\n    padding-top: 10px; }\n  .Home .myInput {\n    margin-bottom: 20px; }\n\n.myTriangle {\n  color: white; }\n\n.continue {\n  position: absolute;\n  top: 90%;\n  left: 90%; }\n\n.continue-text {\n  float: left;\n  color: white;\n  font-size: 20px;\n  font-family: verdana;\n  font-weight: lighter; }\n\n.background {\n  height: 100vh;\n  background-color: #3A95E5; }\n", ""]);
+exports.push([module.i, ".Home {\n  border: 100px;\n  color: skyblue;\n  text-align: center;\n  position: absolute;\n  top: 20%;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%); }\n  .Home .logo {\n    color: white;\n    font-size: 80px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .title {\n    color: white;\n    font-size: 20px;\n    font-family: verdana;\n    font-weight: lighter; }\n  .Home .stick {\n    border-bottom: 2px solid #A1CEF3;\n    padding-top: 30px;\n    margin-bottom: 30px;\n    width: 600px; }\n  .Home .footer-title {\n    color: #A1CEF3;\n    font-size: 20px; }\n  .Home .footer-body {\n    color: #A1CEF3;\n    padding-top: 10px; }\n  .Home .myInput {\n    margin-bottom: 20px; }\n\n.myTriangle {\n  color: white; }\n\n.continue {\n  position: absolute;\n  bottom: 0%;\n  right: 2%; }\n\n.continue-text {\n  float: left;\n  color: white;\n  font-size: 20px;\n  font-family: verdana;\n  font-weight: lighter; }\n\n.background {\n  height: 100vh;\n  background-color: #3A95E5; }\n", ""]);
 
 // exports
 
@@ -64958,7 +64969,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px;\n  width: 100%;\n  position: fixed; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background-color: #3A95E5 !important;\n  padding: 5px;\n  height: 60px;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 100; }\n\n.myLogo {\n  padding: 10px 0 0 20px;\n  color: white;\n  font-size: 40px;\n  top: 20px;\n  left: 20px; }\n\n.myInput {\n  width: 400px;\n  padding-left: 10px; }\n\n.myPlus {\n  color: white;\n  padding: 13px 15px 0 0;\n  resize: 30px; }\n\n.myImage {\n  height: 50px;\n  width: 50px;\n  margin-right: 13px; }\n", ""]);
 
 // exports
 
@@ -65283,6 +65294,10 @@ var _dashboard = __webpack_require__(814);
 
 var _dashboard2 = _interopRequireDefault(_dashboard);
 
+var _PostModal = __webpack_require__(875);
+
+var _PostModal2 = _interopRequireDefault(_PostModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65304,7 +65319,8 @@ var Dashboard = function (_Component) {
             username: "",
             description: "",
             projects: [],
-            skills: []
+            skills: [],
+            toOpen: false
         };
 
         _this.token = localStorage.getItem('jwtToken');
@@ -65313,6 +65329,8 @@ var Dashboard = function (_Component) {
         _this.userUrl = null;
         _this.logOut = _this.logOut.bind(_this);
         _this.addSkill = _this.addSkill.bind(_this);
+        _this.closeModalHandler = _this.closeModalHandler.bind(_this);
+        _this.openModalHandler = _this.openModalHandler.bind(_this);
         _this.fetchUser();
         return _this;
     }
@@ -65329,12 +65347,13 @@ var Dashboard = function (_Component) {
         value: function fetchUser() {
             var _this2 = this;
 
-            var profileUrl = "http://10.192.215.5:3000/api/profile";
+            var profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
             _axios2.default.get(profileUrl, {
                 headers: { "x-access-token": this.token }
             }).then(function (response) {
+                console.log(response.data);
                 _this2.id = response.data._id;
-                _this2.userUrl = "http://10.192.215.5:3000/api/user/" + _this2.id;
+                _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + _this2.id;
                 console.log(response.data);
                 var username = response.data.username ? response.data.username : "Anonymous";
 
@@ -65394,12 +65413,19 @@ var Dashboard = function (_Component) {
             this.props.history.push('/mainpage');
         }
     }, {
+        key: 'closeModalHandler',
+        value: function closeModalHandler(e) {
+            this.setState({ toOpen: false });
+        }
+    }, {
+        key: 'openModalHandler',
+        value: function openModalHandler(e) {
+            this.setState({ toOpen: true });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this5 = this;
-
-            var testArr = [{ name: 'Yushi' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }];
-            var skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"];
 
             var nameField = void 0;
             var description = void 0;
@@ -65479,7 +65505,11 @@ var Dashboard = function (_Component) {
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
                                             { onClick: function onClick() {
-                                                    return _this5.setState({ editing: !_this5.state.editing });
+                                                    if (_this5.state.editing) {
+                                                        _this5.updateProfile(true);
+                                                    } else {
+                                                        _this5.setState({ editing: true });
+                                                    }
                                                 }, basic: true, color: 'green' },
                                             editButton
                                         ),
@@ -65503,8 +65533,9 @@ var Dashboard = function (_Component) {
                             _react2.default.createElement(_MessageFeed2.default, { events: null })
                         )
                     ),
-                    _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: this.state.projects })
-                )
+                    _react2.default.createElement(_ProjectFeed2.default, { style: { marginTop: '2em' }, projects: this.state.projects, openModalHandler: this.openModalHandler })
+                ),
+                _react2.default.createElement(_PostModal2.default, { toOpen: this.state.toOpen, closeModalHandler: this.closeModalHandler })
             );
         }
     }]);
@@ -65587,7 +65618,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectFeed = function ProjectFeed(_ref) {
     var style = _ref.style,
         projects = _ref.projects,
-        create = _ref.create;
+        create = _ref.create,
+        openModalHandler = _ref.openModalHandler;
 
     var feed = void 0;
     if (projects) {
@@ -65619,16 +65651,12 @@ var ProjectFeed = function ProjectFeed(_ref) {
                 _semanticUiReact.Grid.Column,
                 { key: 'add', computer: 4, mobile: 16 },
                 _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/createpost' },
+                    _semanticUiReact.Card,
+                    { onClick: openModalHandler },
                     _react2.default.createElement(
-                        _semanticUiReact.Card,
-                        null,
-                        _react2.default.createElement(
-                            'p',
-                            { style: { height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' } },
-                            ' + '
-                        )
+                        'p',
+                        { style: { height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' } },
+                        ' + '
                     )
                 )
             ),
@@ -65873,7 +65901,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".dashboard {\n  padding: 2em 0; }\n  .dashboard h1 {\n    color: #3A95E5;\n    padding: .3em;\n    border-bottom: 2px solid #3A95E5; }\n\n.description, .user-name {\n  -webkit-transition-property: all;\n  -webkit-transition-duration: 2s;\n  -webkit-transition-timing-function: ease;\n  transition-property: all;\n  transition-duration: 2s;\n  transition-timing-function: ease; }\n  .description input, .user-name input {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    padding: 0;\n    font: inherit;\n    border: none;\n    background: transparent;\n    border-bottom: 2px dashed lightgrey; }\n    .description input:focus, .user-name input:focus {\n      outline: none; }\n\n.user-name {\n  font-size: 2em !important; }\n  .user-name input {\n    width: 70%;\n    overflow-wrap: break-word; }\n\n.description {\n  font-size: 1.2em !important; }\n  .description input {\n    width: 100%;\n    overflow-wrap: break-word;\n    padding-bottom: .3em; }\n", ""]);
+exports.push([module.i, ".dashboard {\n  margin-top: 80px;\n  padding: 2em 0; }\n  .dashboard h1 {\n    color: #3A95E5;\n    padding: .3em;\n    border-bottom: 2px solid #3A95E5; }\n\n.description, .user-name {\n  -webkit-transition-property: all;\n  -webkit-transition-duration: 2s;\n  -webkit-transition-timing-function: ease;\n  transition-property: all;\n  transition-duration: 2s;\n  transition-timing-function: ease; }\n  .description input, .user-name input {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    padding: 0;\n    font: inherit;\n    border: none;\n    background: transparent;\n    border-bottom: 1px dashed lightgrey; }\n    .description input:focus, .user-name input:focus {\n      outline: none; }\n\n.user-name {\n  font-size: 2em !important; }\n  .user-name input {\n    width: 70%;\n    overflow-wrap: break-word;\n    padding-bottom: .05em; }\n\n.description {\n  font-size: 1.2em !important; }\n  .description input {\n    width: 100%;\n    overflow-wrap: break-word;\n    padding-bottom: .3em; }\n", ""]);
 
 // exports
 
@@ -65962,7 +65990,8 @@ var CreatePost = function (_Component) {
 			//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
 			instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data).then(function (res) {
 				console.log(res);
-				_this.props.history.push('/dashboard');
+				_this.props.closeModalHandler();
+				//_this.props.history.push('/dashboard');
 			}).catch(function (err) {
 				console.log(err);
 			});
@@ -66207,14 +66236,12 @@ var Mainpage = function (_Component) {
         _this.state = {
             popularTagList: null,
             postList: null,
-
             modalOpen: false,
             selected: null
         };
         _this.filterHandler = _this.filterHandler.bind(_this);
         _this.filterResult = _this.filterResult.bind(_this);
         _this.updateSearchResult = _this.updateSearchResult.bind(_this);
-
         _this.cardClicked = _this.cardClicked.bind(_this);
         _this.modalClosed = _this.modalClosed.bind(_this);
         return _this;
@@ -66405,7 +66432,7 @@ var Mainpage = function (_Component) {
                 return _react2.default.createElement('div', null);
             } else {
                 var postGrid = this.state.postList.map(function (obj, idx) {
-                    // console.log(obj)
+                    // console.log(idx);
                     if (obj.state != 0) {
                         var projName = obj.name;
                         console.log(projName);
@@ -66416,20 +66443,23 @@ var Mainpage = function (_Component) {
                         var projtag = projTagList.map(function (tag, idx_t) {
                             return _react2.default.createElement(
                                 _semanticUiReact.Label,
-                                { key: projName + idx_t + idx_t, basic: true },
+                                { key: projName + '' + idx + '' + idx_t, basic: true },
                                 tag.name
                             );
                         });
-                        return _react2.default.createElement(_semanticUiReact.Card, {
-                            key: projName + projTimeStamp + idx,
-                            header: projName,
-                            meta: projTimeStamp + "  Viewed: " + projViewCounter,
-                            description: projIntro,
-                            extra: projtag,
-                            onClick: function onClick() {
-                                _this7.cardClicked(obj, idx);
-                            }
-                        });
+                        return (
+                            // <div key={projName+projTimeStamp+''+idx}>
+                            _react2.default.createElement(_semanticUiReact.Card, {
+                                key: projName + projTimeStamp + '' + idx,
+                                header: projName,
+                                meta: projTimeStamp + "  Viewed: " + projViewCounter,
+                                description: projIntro,
+                                extra: projtag,
+                                onClick: function onClick() {
+                                    _this7.cardClicked(obj, idx);
+                                }
+                            })
+                        );
                     }
                 });
                 var popTags = this.state.popularTagList.map(function (obj, key) {
@@ -66437,7 +66467,7 @@ var Mainpage = function (_Component) {
                         var tid = obj._id;
                         return _react2.default.createElement(
                             _semanticUiReact.Label,
-                            { as: 'a', key: 't' + key, onClick: function onClick() {
+                            { as: 'a', key: tid + '' + key, onClick: function onClick() {
                                     return _this7.filterHandler({ tid: tid });
                                 }, basic: true },
                             obj.name
@@ -66569,7 +66599,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 3vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 90vw;\n    margin: auto;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    border-radius: 1vw;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-size: 5em; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 5% 5% 0 5%;\n      color: white;\n      overflow: hidden; }\n    .Mainpage .ui.card > .extra {\n      padding: 2% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 2vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    margin: auto;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: white;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: #4999E2; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw;\n      border-color: #4999E2;\n      overflow: hidden; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: #4999E2;\n      color: white;\n      border-radius: 0.5vw; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: #4999E2;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    height: 0.3vh;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: #4999E2;\n    border-radius: 0.5vw; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: #4999E2;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);\n    height: 35vh;\n    width: 35vh;\n    min-height: 200px;\n    min-width: 200px;\n    font-size: 75%;\n    border-radius: 5%;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: rgba(255, 255, 255, 0.726); }\n    .Mainpage .ui.card .description {\n      padding: 3% 3% 0 3%;\n      font-size: 3em;\n      color: white;\n      overflow: auto;\n      border-radius: 5%; }\n    .Mainpage .ui.card > .extra {\n      padding: 3% 7% 0% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: #4999E2;\n    -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n            box-shadow: 0px 0px 20px 0px #4999E2; }\n", ""]);
 
 // exports
 
@@ -74510,6 +74540,64 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
+
+/***/ }),
+/* 875 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(24);
+
+var _reactRouterDom = __webpack_require__(33);
+
+var _CreatePost = __webpack_require__(816);
+
+var _CreatePost2 = _interopRequireDefault(_CreatePost);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PostModal = function (_Component) {
+	_inherits(PostModal, _Component);
+
+	function PostModal() {
+		_classCallCheck(this, PostModal);
+
+		return _possibleConstructorReturn(this, (PostModal.__proto__ || Object.getPrototypeOf(PostModal)).call(this));
+	}
+
+	_createClass(PostModal, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_semanticUiReact.Modal,
+				{ open: this.props.toOpen, onClose: this.props.closeModalHandler, closeOnRootNodeClick: false },
+				_react2.default.createElement(_CreatePost2.default, { closeModalHandler: this.props.closeModalHandler })
+			);
+		}
+	}]);
+
+	return PostModal;
+}(_react.Component);
+
+exports.default = PostModal;
 
 /***/ })
 /******/ ]);

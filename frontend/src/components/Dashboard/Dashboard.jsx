@@ -8,6 +8,7 @@ import axios from 'axios'
 
 import Navbar from '../Navbar/Navbar.jsx'
 import style from './dashboard.scss'
+import PostModal from '../CreatePost/PostModal.jsx'
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ export default class Dashboard extends Component {
             username: "",
             description: "",
             projects: [],
-            skills: []
+            skills: [],
+            toOpen: false
         }
 
         this.token = localStorage.getItem('jwtToken');
@@ -26,6 +28,8 @@ export default class Dashboard extends Component {
         this.userUrl = null;
         this.logOut = this.logOut.bind(this);
         this.addSkill = this.addSkill.bind(this);
+        this.closeModalHandler = this.closeModalHandler.bind(this);
+        this.openModalHandler = this.openModalHandler.bind(this);
         this.fetchUser();
     }
 
@@ -36,12 +40,13 @@ export default class Dashboard extends Component {
     }
 
     fetchUser() {
-        let profileUrl = "http://10.192.215.5:3000/api/profile";
+        let profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
         axios.get(profileUrl, {
             headers: { "x-access-token": this.token }
         }).then((response) => {
+            console.log(response.data);
             this.id = response.data._id;
-            this.userUrl = "http://10.192.215.5:3000/api/user/" + this.id;
+            this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
             console.log(response.data)
             let username = response.data.username ? response.data.username : "Anonymous";
             
@@ -94,10 +99,15 @@ export default class Dashboard extends Component {
         this.props.history.push('/mainpage');
     }
 
+    closeModalHandler(e){
+        this.setState({toOpen : false});
+    }
+
+    openModalHandler(e){
+        this.setState({toOpen : true});
+    }
+
     render() {
-        const testArr = [{ name: 'Yushi' }, { name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' },{ name: 'Mathew' }]
-        const skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"]
-        
         let nameField;
         let description;
         let editButton;
@@ -150,7 +160,12 @@ export default class Dashboard extends Component {
                                 </Card.Content>
                                 <Card.Content extra>
                                     <div className='ui two buttons'>
-                                        <Button onClick={() => this.setState({ editing: !this.state.editing })} basic color='green'>{editButton}</Button>
+                                        <Button onClick={() => {
+                                            if (this.state.editing) {
+                                                this.updateProfile(true);
+                                            } else {
+                                                this.setState({editing :true});
+                                            }}} basic color='green'>{editButton}</Button>
                                         <Button basic color='red' onClick={this.logOut}>Log Out</Button>
                                     </div>
                                 </Card.Content>
@@ -163,8 +178,9 @@ export default class Dashboard extends Component {
                                 <MessageFeed events={null} />
                             </Grid.Column>
                         </Grid>
-                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} />
+                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} openModalHandler={this.openModalHandler}/>
                 </Container>
+                <PostModal toOpen={this.state.toOpen} closeModalHandler={this.closeModalHandler}/>
             </div>
         );
     }

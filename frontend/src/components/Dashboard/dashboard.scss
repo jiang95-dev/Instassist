@@ -1,4 +1,5 @@
 .dashboard {
+    margin-top: 80px;
     padding: 2em 0;
 
     h1 {
@@ -22,7 +23,7 @@
         font: inherit;
         border:none;
         background: transparent;
-        border-bottom: 2px dashed lightgrey;
+        border-bottom: 1px dashed lightgrey;
 
         &:focus { outline:none; }
     }
@@ -34,6 +35,7 @@
     input {
         width: 70%;
         overflow-wrap: break-word;
+        padding-bottom: .05em;
     }
 }
 
