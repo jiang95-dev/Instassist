@@ -9,7 +9,7 @@
 <body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 	<script>
-var socket_url = 'http://localhost:8000';
+var socket_url = 'https://mighty-oasis-90906.herokuapp.com';
 const socket = io(socket_url);
 function connectSocket(token){
 	socket.emit("user token", token);
