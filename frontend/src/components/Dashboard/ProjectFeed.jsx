@@ -10,10 +10,12 @@ const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHand
         feed = projects.map(project => {
             console.log(project)
             let tags = project.tags.map((tag, idx_t) => {
+                console.log(project._id)
                 return (
-                    <Label key={project._id + '' + idx_t} basic>{tag.name}</Label>
+                    <Label key={project.name + project._id + idx_t} basic>{tag.name}</Label>
                 )
             })
+            console.log(project.status);
             return (
                 <Grid.Column key={project._id} style={{ width: 'auto' }}>
                     <Card
@@ -21,11 +23,18 @@ const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHand
                     >
                         <Card.Content>
                             <Card.Header>
+                                <Icon 
+                                className="visibility" 
+                                name={project.status ? 'hide' : 'unhide' } 
+                                onClick={e => visibilityHandler(project)}/>
+                                <span className={project.status ? 'h' : 's'}>
                                 {project.name}
-                                <Icon className="hide" name='hide' />
+                                </span>
                             </Card.Header>
                             <Card.Description>
+                                <span className={project.status ? 'h' : 's'}>
                                 {project.description}
+                                </span>
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>

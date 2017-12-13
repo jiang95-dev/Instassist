@@ -34,6 +34,7 @@ export default class Dashboard extends Component {
         this.addSkill = this.addSkill.bind(this);
         this.closeModalHandler = this.closeModalHandler.bind(this);
         this.openModalHandler = this.openModalHandler.bind(this);
+        this.changeProjectVisibility = this.changeProjectVisibility.bind(this);
         this.fetchUser();
     }
 
@@ -98,6 +99,21 @@ export default class Dashboard extends Component {
                     });
             });
         }
+    }
+
+    changeProjectVisibility(project) {
+        console.log(project);
+        let newProjects = this.state.projects.map(p => {
+            if (p === project) {
+                console.log("detect equality!")
+                let newProject = Object.assign({}, project);
+                newProject.status = newProject.status ^ 1;
+                return newProject;
+            } else {
+                return p;
+            }
+        });
+        this.setState({projects: newProjects});
     }
 
     addSkill(newSkill) {
@@ -174,7 +190,7 @@ export default class Dashboard extends Component {
                 <Navbar/>
                 <Container className="dashboard">
                         <Grid stackable relaxed columns={3}>
-                            <Grid.Column width={5}>
+                            <Grid.Column computer={5} mobile={16}>
                             <Card
                                 centered
                                 raised={this.state.editing}
@@ -205,14 +221,14 @@ export default class Dashboard extends Component {
                                 </Card.Content>
                             </Card> 
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column computer={4} mobile={16}>
                                 <SkillFeed skills={this.state.skills} addSkill={this.addSkill} />
                             </Grid.Column>
-                            <Grid.Column width={7}>
+                            <Grid.Column computer={7} mobile={16}>
                                 <MessageFeed events={this.state.messages} />
                             </Grid.Column>
                         </Grid>
-                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} openModalHandler={this.openModalHandler}/>
+                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} visibilityHandler={this.changeProjectVisibility} openModalHandler={this.openModalHandler}/>
                 </Container>
                 <PostModal toOpen={this.state.toOpen} closeModalHandler={this.closeModalHandler}/>
             </div>
