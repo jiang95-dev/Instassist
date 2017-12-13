@@ -39,6 +39,8 @@ class ModalView extends Component{
 			message: false,
 			pop: false,
 		})
+
+		this.props.onClose();
 	}
 
 	handleJoin(){

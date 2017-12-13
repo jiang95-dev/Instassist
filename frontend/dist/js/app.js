@@ -66185,6 +66185,7 @@ var Mainpage = function (_Component) {
         _this.filterResult = _this.filterResult.bind(_this);
         _this.updateSearchResult = _this.updateSearchResult.bind(_this);
         _this.cardClicked = _this.cardClicked.bind(_this);
+        _this.modalClosed = _this.modalClosed.bind(_this);
         return _this;
     }
 
@@ -66193,9 +66194,34 @@ var Mainpage = function (_Component) {
 
     _createClass(Mainpage, [{
         key: 'cardClicked',
-        value: function cardClicked(obj) {
+        value: function cardClicked(obj, idx) {
+            var _this2 = this;
+
             console.log("card clicked");
-            console.log(this.state.modalOpen);
+            // console.log(obj);
+
+            var baseUrl_ty = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
+            // var baseUrl_lc = 'http://localhost:8080/'
+            var id = obj._id;
+            var url_ty = baseUrl_ty + id + "/popularity";
+            // var url_lc = baseUrl_lc + id + "popularity";
+            // console.log("url_ty: " + url_ty);
+
+
+            // update popularity
+            _axios2.default.put(url_ty).then(function (response) {
+                console.log(response.data);
+                var list = _this2.state.postList;
+                list[idx].popularity += 1;
+                _this2.setState({
+                    postList: list
+                });
+            }).catch(function (error) {
+                console.log(error);
+                console.log("put popularity failed");
+            });
+
+            // update state in order to render modal 
             this.setState({
                 modalOpen: true,
                 selected: obj
@@ -66204,7 +66230,7 @@ var Mainpage = function (_Component) {
     }, {
         key: 'filterResult',
         value: function filterResult(filterType) {
-            var _this2 = this;
+            var _this3 = this;
 
             console.log(filterType);
             var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
@@ -66221,11 +66247,11 @@ var Mainpage = function (_Component) {
             }
             console.log(urlFilter);
             _axios2.default.get(urlFilter).then(function (response) {
-                _this2.setState({
+                _this3.setState({
                     postList: response.data.data
                 });
                 console.log('Post data loaded!');
-                console.log(_this2.state.postList);
+                console.log(_this3.state.postList);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -66233,7 +66259,7 @@ var Mainpage = function (_Component) {
     }, {
         key: 'updateSearchResult',
         value: function updateSearchResult(SearchKey) {
-            var _this3 = this;
+            var _this4 = this;
 
             console.log(SearchKey);
             if (typeof SearchKey == "string") {
@@ -66242,13 +66268,13 @@ var Mainpage = function (_Component) {
                     console.log(urlSearch);
 
                     _axios2.default.get(urlSearch).then(function (response) {
-                        _this3.setState({
+                        _this4.setState({
                             postList: response.data.data
                         });
                         console.log('Post data loaded!');
-                        console.log(_this3.state.postList);
+                        console.log(_this4.state.postList);
                     }).catch(function (error) {
-                        _this3.setState({
+                        _this4.setState({
                             postList: []
                         });
                         console.log("error");
@@ -66256,11 +66282,11 @@ var Mainpage = function (_Component) {
                 } else {
                     var _urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
                     _axios2.default.get(_urlSearch).then(function (response) {
-                        _this3.setState({
+                        _this4.setState({
                             postList: response.data.data
                         });
                         console.log('Post data loaded!');
-                        console.log(_this3.state.postList);
+                        console.log(_this4.state.postList);
                     }).catch(function (error) {
                         console.log(error);
                     });
@@ -66270,26 +66296,26 @@ var Mainpage = function (_Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this4 = this;
+            var _this5 = this;
 
             console.log('Mainpage page will mount!');
             var URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
             var URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags?sort={"popularity": -1}';
             _axios2.default.get(URLProject).then(function (response) {
-                _this4.setState({
+                _this5.setState({
                     postList: response.data.data
                 });
                 console.log('Post data loaded!');
-                console.log(_this4.state.postList);
+                console.log(_this5.state.postList);
             }).catch(function (error) {
                 console.log(error);
             });
             _axios2.default.get(URLTags).then(function (response) {
-                _this4.setState({
+                _this5.setState({
                     popularTagList: response.data.data
                 });
                 console.log('Post data loaded!');
-                console.log(_this4.state.postList);
+                console.log(_this5.state.postList);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -66297,17 +66323,17 @@ var Mainpage = function (_Component) {
     }, {
         key: 'filterHandler',
         value: function filterHandler(id) {
-            var _this5 = this;
+            var _this6 = this;
 
             if (id === -1) {
                 var urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
                 console.log(urlTag);
                 _axios2.default.get(urlTag).then(function (response) {
-                    _this5.setState({
+                    _this6.setState({
                         postList: response.data.data
                     });
                     console.log("Data loaded");
-                    console.log(_this5.state.postList);
+                    console.log(_this6.state.postList);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -66316,20 +66342,27 @@ var Mainpage = function (_Component) {
                 var _urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/tags/' + id;
                 console.log(_urlTag);
                 _axios2.default.get(_urlTag).then(function (response) {
-                    _this5.setState({
+                    _this6.setState({
                         postList: response.data.data.projects
                     });
                     console.log("Data loaded");
-                    console.log(_this5.state.postList);
+                    console.log(_this6.state.postList);
                 }).catch(function (error) {
                     console.log(error);
                 });
             }
         }
     }, {
+        key: 'modalClosed',
+        value: function modalClosed() {
+            this.setState({
+                modalOpen: false
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this6 = this;
+            var _this7 = this;
 
             //Asy check
             // console.log("===Mainpage===");
@@ -66365,19 +66398,19 @@ var Mainpage = function (_Component) {
                                 description: projIntro,
                                 extra: projtag,
                                 onClick: function onClick() {
-                                    _this6.cardClicked(obj);
+                                    _this7.cardClicked(obj, idx);
                                 }
                             })
                         );
                     }
                 });
                 var popTags = this.state.popularTagList.map(function (obj, key) {
-                    if (key < 5 && key < _this6.state.popularTagList.length) {
+                    if (key < 5 && key < _this7.state.popularTagList.length) {
                         var tid = obj._id;
                         return _react2.default.createElement(
                             _semanticUiReact.Label,
                             { as: 'a', key: tid + '' + key, onClick: function onClick() {
-                                    return _this6.filterHandler({ tid: tid });
+                                    return _this7.filterHandler({ tid: tid });
                                 }, basic: true },
                             obj.name
                         );
@@ -66405,7 +66438,7 @@ var Mainpage = function (_Component) {
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
                                     { as: 'a', onClick: function onClick() {
-                                            return _this6.filterHandler(-1);
+                                            return _this7.filterHandler(-1);
                                         }, basic: true },
                                     'All'
                                 ),
@@ -66423,28 +66456,28 @@ var Mainpage = function (_Component) {
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
                                     { as: 'a', onClick: function onClick() {
-                                            return _this6.filterResult('nofilter');
+                                            return _this7.filterResult('nofilter');
                                         }, basic: true },
                                     'No filter'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
                                     { as: 'a', onClick: function onClick() {
-                                            return _this6.filterResult('name');
+                                            return _this7.filterResult('name');
                                         }, basic: true },
                                     'Name'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
                                     { as: 'a', onClick: function onClick() {
-                                            return _this6.filterResult('time');
+                                            return _this7.filterResult('time');
                                         }, basic: true },
                                     'Recent'
                                 ),
                                 _react2.default.createElement(
                                     _semanticUiReact.Label,
                                     { as: 'a', onClick: function onClick() {
-                                            return _this6.filterResult('popular');
+                                            return _this7.filterResult('popular');
                                         }, basic: true },
                                     'Popularity'
                                 )
@@ -66457,7 +66490,7 @@ var Mainpage = function (_Component) {
                             postGrid
                         )
                     ),
-                    _react2.default.createElement(_ModalView2.default, { open: this.state.modalOpen, selected: this.state.selected })
+                    _react2.default.createElement(_ModalView2.default, { open: this.state.modalOpen, selected: this.state.selected, onClose: this.modalClosed })
                 );
             }
         }
@@ -66593,6 +66626,8 @@ var ModalView = function (_Component) {
 				message: false,
 				pop: false
 			});
+
+			this.props.onClose();
 		}
 	}, {
 		key: 'handleJoin',
@@ -66837,7 +66872,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 0.5vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0; }\n\n.ui.button:hover {\n  -webkit-transform: scale(1.007);\n          transform: scale(1.007);\n  background-color: #4999E2;\n  -webkit-box-shadow: 0px 0px 20px 0px #4999E2;\n          box-shadow: 0px 0px 20px 0px #4999E2; }\n\n.ui.label {\n  background-color: #4999E2;\n  color: white;\n  border-radius: 0.5vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-blue {\n  background-color: #4999E2 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #4999E2;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #4999E2;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
 
 // exports
 
