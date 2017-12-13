@@ -65300,12 +65300,13 @@ var Dashboard = function (_Component) {
         value: function fetchUser() {
             var _this2 = this;
 
-            var profileUrl = "https://mighty-oasis-90906.herokuapp.com:3000/api/profile";
+            var profileUrl = "https://mighty-oasis-90906.herokuapp.com/api/profile";
             _axios2.default.get(profileUrl, {
                 headers: { "x-access-token": this.token }
             }).then(function (response) {
+                console.log(response.data);
                 _this2.id = response.data._id;
-                _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com:3000/api/user/" + _this2.id;
+                _this2.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + _this2.id;
                 console.log(response.data);
                 var username = response.data.username ? response.data.username : "Anonymous";
 
@@ -65368,9 +65369,6 @@ var Dashboard = function (_Component) {
         key: 'render',
         value: function render() {
             var _this5 = this;
-
-            var testArr = [{ name: 'Yushi' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }, { name: 'Mathew' }];
-            var skills = ["Java", "Javascript", "React", "Final Project", "PHP is the best language"];
 
             var nameField = void 0;
             var description = void 0;
@@ -65450,7 +65448,11 @@ var Dashboard = function (_Component) {
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
                                             { onClick: function onClick() {
-                                                    return _this5.setState({ editing: !_this5.state.editing });
+                                                    if (_this5.state.editing) {
+                                                        _this5.updateProfile(true);
+                                                    } else {
+                                                        _this5.setState({ editing: true });
+                                                    }
                                                 }, basic: true, color: 'green' },
                                             editButton
                                         ),
@@ -65844,7 +65846,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".dashboard {\n  margin-top: 80px;\n  padding: 2em 0; }\n  .dashboard h1 {\n    color: #3A95E5;\n    padding: .3em;\n    border-bottom: 2px solid #3A95E5; }\n\n.description, .user-name {\n  -webkit-transition-property: all;\n  -webkit-transition-duration: 2s;\n  -webkit-transition-timing-function: ease;\n  transition-property: all;\n  transition-duration: 2s;\n  transition-timing-function: ease; }\n  .description input, .user-name input {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    padding: 0;\n    font: inherit;\n    border: none;\n    background: transparent;\n    border-bottom: 2px dashed lightgrey; }\n    .description input:focus, .user-name input:focus {\n      outline: none; }\n\n.user-name {\n  font-size: 2em !important; }\n  .user-name input {\n    width: 70%;\n    overflow-wrap: break-word; }\n\n.description {\n  font-size: 1.2em !important; }\n  .description input {\n    width: 100%;\n    overflow-wrap: break-word;\n    padding-bottom: .3em; }\n", ""]);
+exports.push([module.i, ".dashboard {\n  margin-top: 80px;\n  padding: 2em 0; }\n  .dashboard h1 {\n    color: #3A95E5;\n    padding: .3em;\n    border-bottom: 2px solid #3A95E5; }\n\n.description, .user-name {\n  -webkit-transition-property: all;\n  -webkit-transition-duration: 2s;\n  -webkit-transition-timing-function: ease;\n  transition-property: all;\n  transition-duration: 2s;\n  transition-timing-function: ease; }\n  .description input, .user-name input {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    padding: 0;\n    font: inherit;\n    border: none;\n    background: transparent;\n    border-bottom: 1px dashed lightgrey; }\n    .description input:focus, .user-name input:focus {\n      outline: none; }\n\n.user-name {\n  font-size: 2em !important; }\n  .user-name input {\n    width: 70%;\n    overflow-wrap: break-word;\n    padding-bottom: .05em; }\n\n.description {\n  font-size: 1.2em !important; }\n  .description input {\n    width: 100%;\n    overflow-wrap: break-word;\n    padding-bottom: .3em; }\n", ""]);
 
 // exports
 
