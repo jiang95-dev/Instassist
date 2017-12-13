@@ -67,10 +67,10 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className="info">
-                            <div className="stick"></div>
+                            <div className="stick-top"></div>
                             <p className="footer-title">{this.state.msg.name}</p>
                             <p className="footer-body">{this.state.msg.description}</p>
-                            <div className="stick"></div>
+                            <div className="stick-bottom"></div>
                         </div>
                         
                     </div>

@@ -30,11 +30,19 @@ $maincolor : #6C7A89;
 		// position: fixed;
 		margin: 0 auto;
 		transition: all 3s ease;
-		.stick{
+		.stick-top{
 			border-bottom:2px solid rgba(255, 255, 255, 0.3);
 			padding-top: 30px;
-			margin-bottom: 30px;
+			// margin-bottom: 30px;
 			width: 600px;
+			margin: 30px auto;
+		}
+		.stick-bottom{
+			border-bottom:2px solid rgba(255, 255, 255, 0.3);
+			padding-top: 30px;
+			// margin-bottom: 30px;
+			width: 600px;
+			margin: 30px auto;
 		}
 
 		.footer-title{
