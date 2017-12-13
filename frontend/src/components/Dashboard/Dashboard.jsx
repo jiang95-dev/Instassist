@@ -53,16 +53,25 @@ export default class Dashboard extends Component {
             this.id = response.data._id;
             this.userUrl = "https://mighty-oasis-90906.herokuapp.com/api/user/" + this.id;
             console.log(response.data)
+
             let username = response.data.username ? response.data.username : "Anonymous";
-            
-            this.setState({
-                username: username,
-                description: response.data.description,
-                skills: response.data.skills,
-                projects: response.data.projects,
-                /**/
-                messages : response.data.conversations,
-            });
+            let description = response.data.description;
+            let skills = response.data.skills;
+            let projects = response.data.projects
+
+            axios.get("https://mighty-oasis-90906.herokuapp.com/api/chat", {
+                headers : { "x-access-token": this.token }
+            }).then((response) =>  {
+                console.log(response.data);
+                this.setState({
+                    username: username,
+                    description: description,
+                    skills: skills,
+                    projects: projects,
+                    /**/
+                    messages : response.data,
+                });
+            })
         });
     }
 
