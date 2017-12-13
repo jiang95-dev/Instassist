@@ -17,5 +17,17 @@
                 color: darkred !important;
             }
         }
-    } 
+
+        .ui.label{
+            margin: 0 3px 6px 3px;
+            height: 30px;
+            width: 80%;
+            text-align: center;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            border-color: black;
+            overflow: hidden;
+        } 
+    }
 }

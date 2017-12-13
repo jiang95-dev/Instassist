@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Grid, Message, Icon } from 'semantic-ui-react'
+import { Card, Grid, Message, Icon, Label } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import style from './project-feed.scss'
@@ -9,6 +9,11 @@ const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHand
     if (projects) {
         feed = projects.map(project => {
             console.log(project)
+            let tags = project.tags.map((tag, idx_t) => {
+                return (
+                    <Label key={project._id + '' + idx_t} basic>{tag.name}</Label>
+                )
+            })
             return (
                 <Grid.Column key={project._id} style={{ width: 'auto' }}>
                     <Card
@@ -22,6 +27,9 @@ const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHand
                             <Card.Description>
                                 description={project.description}
                             </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            {tags}
                         </Card.Content>
                     </Card>
                 </Grid.Column>
