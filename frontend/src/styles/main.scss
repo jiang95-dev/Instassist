@@ -1,12 +1,21 @@
 @import '_vars';
 @import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700|News+Cycle|Quicksand');
 
+html, body {
+    font-size: 12pt;
+	margin: 0;
+}
+
 #react-app *:not(.icon) {
     font-family: 'Maven Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
     //text-shadow: rgba(0,0,0,.01) 0 0 1px;
 
     h2, h3, h4, h5, a {
         font-weight: 200 !important;
+    }
+
+    a{
+        color: $mainColor !important;
     }
 }
 
@@ -73,7 +82,6 @@
         padding: 3% 7% 0% 7%;
         background-color: white;
         color:$fontColor;        
-        height: 43px;
     }
 
     .content > .header:not(.ui){
