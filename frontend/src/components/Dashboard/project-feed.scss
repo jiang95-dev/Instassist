@@ -6,5 +6,16 @@
 
     .card {
         //height: 260px !important;
+        .hide {
+            text-align: right;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: grey;
+
+            &:hover {
+                color: darkred !important;
+            }
+        }
     } 
 }

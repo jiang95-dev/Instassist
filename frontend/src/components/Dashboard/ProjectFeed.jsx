@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Card, Grid, Message } from 'semantic-ui-react'
+import { Card, Grid, Message, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import style from './project-feed.scss'
 
-const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
+const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHandler }) => {
     let feed;
     if (projects) {
         feed = projects.map(project => {
@@ -13,9 +13,17 @@ const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
                 <Grid.Column key={project._id} style={{ width: 'auto' }}>
                     <Card
                         className="rounded projects"
-                        header={project.name}
-                        description={project.description}
-                    />
+                    >
+                        <Card.Content>
+                            <Card.Header>
+                                {project.name}
+                                <Icon className="hide" name='hide' />
+                            </Card.Header>
+                            <Card.Description>
+                                description={project.description}
+                            </Card.Description>
+                        </Card.Content>
+                    </Card>
                 </Grid.Column>
             )
         });
