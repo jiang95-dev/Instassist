@@ -23,11 +23,11 @@ class MessageView extends Component{
 		this.renderMessageContent = this.renderMessageContent.bind(this);
 
 
-		subscribeToTimer((err, timestamp) => {
-			this.setState({ 
-				timestamp 
-			});
-		});
+		// subscribeToTimer((err, timestamp) => {
+		// 	this.setState({ 
+		// 		timestamp 
+		// 	});
+		// });
 
 		
 	}

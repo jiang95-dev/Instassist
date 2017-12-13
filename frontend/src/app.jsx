@@ -12,22 +12,21 @@ import MessageView from './components/MessageView/MessageView.jsx';
 
 import styles from './styles/main.scss';
 
-
-import openSocket from 'socket.io-client';
-
-var socket_url = 'http://localhost:8000'
-var conversation = 1
-const  socket = openSocket(socket_url);
-function subscribeToTimer(cb) {
-    socket.on('timer', timestamp => cb(null, timestamp));
-    socket.emit('subscribeToTimer', 1000);
-    socket.emit("msg");
-    socket.emit('new message', "hello");
-}
+import { subscribeToTimer, messageSent, sentUserToken, subscribeToRefresh, subscribeToId } from '../../socketEvents.jsx' ;
 
 
+var fake_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMzBiOTU1NmEzZDUyMDAyMTE2ZTRmOCIsImlhdCI6MTUxMzE0MjYyMywiZXhwIjoxNTEzMjI5MDIzfQ.FtHsmA34xm0cft8lX6oAzGFSOL-603uLE2IGYQpN9is"
 
-export { subscribeToTimer };
+subscribeToTimer((err, timestamp) => {
+    console.log("subscribed to timer");
+});
+
+sentUserToken(fake_token);
+
+subscribeToRefresh();
+subscribeToId();
+
+
 
 
 

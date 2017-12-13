@@ -23822,11 +23822,6 @@ if(false) {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.subscribeToTimer = undefined;
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -23865,26 +23860,20 @@ var _main = __webpack_require__(825);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _socket = __webpack_require__(851);
-
-var _socket2 = _interopRequireDefault(_socket);
+var _socketEvents = __webpack_require__(876);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket_url = 'http://localhost:8000';
-var conversation = 1;
-var socket = (0, _socket2.default)(socket_url);
-function subscribeToTimer(cb) {
-    socket.on('timer', function (timestamp) {
-        return cb(null, timestamp);
-    });
-    socket.emit('subscribeToTimer', 1000);
-    socket.emit("msg");
-    socket.emit('new message', "hello");
-}
+var fake_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMzBiOTU1NmEzZDUyMDAyMTE2ZTRmOCIsImlhdCI6MTUxMzE0MjYyMywiZXhwIjoxNTEzMjI5MDIzfQ.FtHsmA34xm0cft8lX6oAzGFSOL-603uLE2IGYQpN9is";
 
-exports.subscribeToTimer = subscribeToTimer;
+(0, _socketEvents.subscribeToTimer)(function (err, timestamp) {
+    console.log("subscribed to timer");
+});
 
+(0, _socketEvents.sentUserToken)(fake_token);
+
+(0, _socketEvents.subscribeToRefresh)();
+(0, _socketEvents.subscribeToId)();
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
@@ -65009,6 +64998,8 @@ var _axios = __webpack_require__(58);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _app = __webpack_require__(415);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65016,8 +65007,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 //import CreatePost from '../CreatePost/CreatePost.jsx'
+
 
 var Login = function (_Component) {
     _inherits(Login, _Component);
@@ -65067,6 +65058,13 @@ var Login = function (_Component) {
                     //set token
                     var token = xhr.response['token'];
                     localStorage.setItem('jwtToken', token);
+
+                    // subscribe to socket
+                    // tell it my user id
+                    sentUserToken(token);
+                    (0, _app.subscribeToRefresh)(function () {
+                        /*call back*/
+                    });
                 } else {
                     _this2.setState({
                         message: 'Unable to log in'
@@ -66244,6 +66242,8 @@ var Mainpage = function (_Component) {
         _this.updateSearchResult = _this.updateSearchResult.bind(_this);
         _this.cardClicked = _this.cardClicked.bind(_this);
         _this.modalClosed = _this.modalClosed.bind(_this);
+
+        console.log(localStorage.getItem("jwtToken"));
         return _this;
     }
 
@@ -66290,7 +66290,7 @@ var Mainpage = function (_Component) {
         value: function filterResult(filterType) {
             var _this3 = this;
 
-            console.log(filterType);
+            // console.log(filterType);
             var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
             switch (filterType) {
                 case 'time':
@@ -66303,13 +66303,13 @@ var Mainpage = function (_Component) {
                     urlFilter += '?sort={"name": 1}';
                     break;
             }
-            console.log(urlFilter);
+            // console.log(urlFilter)
             _axios2.default.get(urlFilter).then(function (response) {
                 _this3.setState({
                     postList: response.data.data
                 });
-                console.log('Post data loaded!');
-                console.log(_this3.state.postList);
+                // console.log('Post data loaded!');
+                // console.log(this.state.postList);            
             }).catch(function (error) {
                 console.log(error);
             });
@@ -66319,7 +66319,7 @@ var Mainpage = function (_Component) {
         value: function updateSearchResult(SearchKey) {
             var _this4 = this;
 
-            console.log(SearchKey);
+            // console.log(SearchKey);
             if (typeof SearchKey == "string") {
                 if (SearchKey != "") {
                     var urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^' + SearchKey + '"}}';
@@ -66356,15 +66356,15 @@ var Mainpage = function (_Component) {
         value: function componentDidMount() {
             var _this5 = this;
 
-            console.log('Mainpage page will mount!');
+            // console.log('Mainpage page will mount!')      
             var URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
             var URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags?sort={"popularity": -1}';
             _axios2.default.get(URLProject).then(function (response) {
                 _this5.setState({
                     postList: response.data.data
                 });
-                console.log('Post data loaded!');
-                console.log(_this5.state.postList);
+                // console.log('Post data loaded!');
+                // console.log(this.state.postList);            
             }).catch(function (error) {
                 console.log(error);
             });
@@ -66372,8 +66372,8 @@ var Mainpage = function (_Component) {
                 _this5.setState({
                     popularTagList: response.data.data
                 });
-                console.log('Post data loaded!');
-                console.log(_this5.state.postList);
+                // console.log('Post data loaded!');
+                // console.log(this.state.postList);            
             }).catch(function (error) {
                 console.log(error);
             });
@@ -66385,7 +66385,7 @@ var Mainpage = function (_Component) {
 
             if (id === -1) {
                 var urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-                console.log(urlTag);
+                // console.log(urlTag);
                 _axios2.default.get(urlTag).then(function (response) {
                     _this6.setState({
                         postList: response.data.data
@@ -66428,14 +66428,14 @@ var Mainpage = function (_Component) {
 
 
             if (!this.state.postList || !this.state.popularTagList) {
-                console.log("Here");
+                // console.log("Here");
                 return _react2.default.createElement('div', null);
             } else {
                 var postGrid = this.state.postList.map(function (obj, idx) {
                     // console.log(idx);
                     if (obj.state != 0) {
                         var projName = obj.name;
-                        console.log(projName);
+                        // console.log(projName);
                         var projTagList = obj.tags;
                         var projIntro = obj.description;
                         var projTimeStamp = obj.createdAt.substr(0, 9);
@@ -66635,6 +66635,8 @@ var _NestedModal = __webpack_require__(824);
 
 var _NestedModal2 = _interopRequireDefault(_NestedModal);
 
+var _socketEvents = __webpack_require__(876);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66664,6 +66666,15 @@ var ModalView = function (_Component) {
 		_this.renderMessageAction = _this.renderMessageAction.bind(_this);
 		_this.renderDetailAction = _this.renderDetailAction.bind(_this);
 		_this.renderDetailContent = _this.renderDetailContent.bind(_this);
+
+		// subscribeToTimer((err, timestamp) => {
+		// 	console.log("subscribed to timer");
+		// });
+
+		// sentUserToken(localStorage.getItem('jwtToken'));
+
+		// subscribeToRefresh();
+		// subscribeToId();
 		return _this;
 	}
 
@@ -66699,25 +66710,36 @@ var ModalView = function (_Component) {
 		key: 'handleSubmit',
 		value: function handleSubmit(value) {
 			console.log("On Submit!");
-			console.log(this.state.selected);
-			console.log(value);
+			// console.log("selected item: "); console.log(this.state.selected)
+			// console.log("value: " + value);
 
-			this.setState({
-				pop: true
-			});
+			this.setState({ pop: true });
 
 			if (!value) {
 				return;
 			}
 
-			var ip = '10.192.215.5';
-			// var endpoint = '/chat/new/'
-			// var instance = axios.create({
-			//   baseURL: '10.192.215.5',
-			//   timeout: 1000,
-			//   headers: {'X-Access-Token': 'foobar'}
-			// });
+			var instance = _axios2.default.create({
+				timeout: 1000,
+				headers: { 'X-Access-Token': localStorage.getItem("jwtToken") }
+			});
 
+			// var to = this.state.selected.creator;
+			var to = "5a30b9556a3d52002116e4f8";
+			var data = { 'content': value };
+
+			// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
+			var baseURL = 'http://localhost:8000/api';
+			var url = baseURL + '/chat/new/' + to;
+			// console.log(localStorage.getItem("jwtToken"));
+
+			instance.post(url, data).then(function (response) {
+				console.log("Create message success");
+				var conversationId = response.data.conversationId;
+				(0, _socketEvents.messageSent)(conversationId, to);
+			}).catch(function (error) {
+				console.log(error);
+			});
 
 			// var to = this.state.selected["creator_id"];
 			// var content = value;
@@ -66781,7 +66803,9 @@ var ModalView = function (_Component) {
 			var obj = this.state.selected;
 			var project_name = obj ? obj.name : "No Project Selected";
 			var description = obj ? obj.description : "No Description";
-			var creator = obj ? obj.creator_name : "Spider Man";
+			var creator = obj ? obj.creator_name : "Spider Man"; // It need to be changed!
+
+
 			var time = obj ? obj.createdAt.substr(0, 9) : "A long long time ago";
 			var tags = obj ? obj['tags'].map(function (t, idx) {
 				return _react2.default.createElement(
@@ -67145,11 +67169,12 @@ var MessageView = function (_Component) {
 		_this.renderReplyAction = _this.renderReplyAction.bind(_this);
 		_this.renderMessageContent = _this.renderMessageContent.bind(_this);
 
-		(0, _app.subscribeToTimer)(function (err, timestamp) {
-			_this.setState({
-				timestamp: timestamp
-			});
-		});
+		// subscribeToTimer((err, timestamp) => {
+		// 	this.setState({ 
+		// 		timestamp 
+		// 	});
+		// });
+
 
 		return _this;
 	}
@@ -74598,6 +74623,56 @@ var PostModal = function (_Component) {
 }(_react.Component);
 
 exports.default = PostModal;
+
+/***/ }),
+/* 876 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subscribeToTimer", function() { return subscribeToTimer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "messageSent", function() { return messageSent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sentUserToken", function() { return sentUserToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subscribeToRefresh", function() { return subscribeToRefresh; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subscribeToId", function() { return subscribeToId; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client__ = __webpack_require__(851);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io_client__);
+
+
+var socket_url = 'http://localhost:8000'
+const socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()(socket_url);
+
+function subscribeToTimer(cb) {
+    console.log("subscribing to timer!!!!!!!!!!!!!");
+    socket.on('timer', timestamp => cb(null, timestamp));
+}
+
+function sentUserToken(token) {
+    console.log("sending token!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    socket.emit("user token", token);
+}
+
+function messageSent(conversationId, to) {
+    socket.emit('new message', conversationId, "5a2f69e2e7e1148d6b19fa7c");
+}
+
+
+// conversation id: 5a30bb611fa77333474a309a
+function subscribeToRefresh(cb) {
+	console.log("subscribing to refresh!");
+	socket.on('refresh messages', ()=>{
+		console.log("I'm asked to refresh!");
+		cb();
+	});
+}
+
+/*no use*/
+function subscribeToId() {
+	socket.on('my user id', (id) => {
+		console.log("my id is: " + id)
+	});
+}
+
 
 /***/ })
 /******/ ]);
