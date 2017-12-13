@@ -8,7 +8,7 @@ import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
 
 
-import { sentUserId, subscribeToRefresh, connectSocket  } from '../../app.jsx'
+import { connectSocket  } from '../../../../socketEvents.jsx'
 
 class Login extends Component {
 

@@ -28,6 +28,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(express.static('./backend/static/'));
 app.use(express.static('./frontend/dist/'));
+app.use(express.static('./frontend/src/assets/'))
 
 app.use(bodyParser.urlencoded({
   extended: true

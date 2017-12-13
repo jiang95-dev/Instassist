@@ -8,7 +8,7 @@ class Messages extends Component {
 	constructor() {
         super();
         this.state = { 
-            content: 'You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers You added Elliot Fu to the group Coworkers',
+            content: 'You added Elliot Fu to the group Coworkers',
             user: ''
         }
     }

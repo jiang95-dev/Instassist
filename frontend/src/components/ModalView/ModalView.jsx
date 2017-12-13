@@ -4,7 +4,7 @@ import { Button, Header, Image, Modal, Label, Form, TextArea,Icon } from 'semant
 import styles from './styles.scss';
 import NestedModal from './NestedModal.jsx'
 
-import { messageSent } from '../../../../socketEvents.jsx'
+//import { messageSent } from '../../../../socketEvents.jsx'
 
 
 class ModalView extends Component{
@@ -61,6 +61,12 @@ class ModalView extends Component{
 	}
 	
 	handleSubmit(value){
+
+		function messageSent(conversationId, to) {
+			console.log("conv:"+conversationId);
+			console.log("to:"+to);
+    		socket.emit('new message', conversationId, to);
+		}
 		console.log("On Submit!");
 		// console.log("selected item: "); console.log(this.state.selected)
 		// console.log("value: " + value);
@@ -74,11 +80,11 @@ class ModalView extends Component{
 		  headers: {'X-Access-Token': localStorage.getItem("jwtToken")}, 
 		});
 
-		var to = this.state.selected.creator;
+		var to = this.state.selected.creator._id;
 		var data = {'content' : value};
 		
+		var baseURL = 'http://localhost:8000/api';
 		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
-		var baseURL = 'http://localhost:8000/api'
 		var url = baseURL + '/chat/new/' + to;
 		
 		instance.post(url, data)

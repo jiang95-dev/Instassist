@@ -6,9 +6,9 @@ const socket = openSocket(socket_url);
 
 
 function connectSocket(token){
-	console.log("connect to socket");
-	const socket = openSocket(socket_url);
-	localStorage.setItem("socket", socket);
+	// console.log("connect to socket");
+	// const socket = openSocket(socket_url);
+	// localStorage.setItem("socket", socket);
 	socket.emit("user token", token);
 	socket.on('refresh messages', ()=>{
 		console.log("I'm asked to refresh!");
