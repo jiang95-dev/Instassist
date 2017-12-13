@@ -4,6 +4,7 @@ import { Button, Header, Image, Modal, Label, Form, TextArea,Icon } from 'semant
 import styles from './styles.scss';
 import NestedModal from './NestedModal.jsx'
 
+import { messageSent } from '../../../../socketEvents.jsx'
 
 
 class ModalView extends Component{
@@ -22,6 +23,15 @@ class ModalView extends Component{
 		this.renderMessageAction = this.renderMessageAction.bind(this);
 		this.renderDetailAction = this.renderDetailAction.bind(this);
 		this.renderDetailContent = this.renderDetailContent.bind(this);
+
+		// subscribeToTimer((err, timestamp) => {
+		// 	console.log("subscribed to timer");
+		// });
+
+		// sentUserToken(localStorage.getItem('jwtToken'));
+		
+		// subscribeToRefresh();
+		// subscribeToId();
 	}
 
 
@@ -52,23 +62,36 @@ class ModalView extends Component{
 	
 	handleSubmit(value){
 		console.log("On Submit!");
-		console.log(this.state.selected)
-		console.log(value);
-
-		this.setState({
-			pop: true,
-		})
+		// console.log("selected item: "); console.log(this.state.selected)
+		// console.log("value: " + value);
+		
+		this.setState({	pop: true,	})
 
 		if (!value) {return;}
 
-		var ip = '10.192.215.5'
-		// var endpoint = '/chat/new/'
-		// var instance = axios.create({
-		//   baseURL: '10.192.215.5',
-		//   timeout: 1000,
-		//   headers: {'X-Access-Token': 'foobar'}
-		// });
+		var instance = axios.create({
+		  timeout: 1000,
+		  headers: {'X-Access-Token': localStorage.getItem("jwtToken")}, 
+		});
 
+		// var to = this.state.selected.creator;
+		var to = "5a30b9556a3d52002116e4f8";
+		var data = {'content' : value};
+		
+		// var baseURL= 'https://mighty-oasis-90906.herokuapp.com/api'
+		var baseURL = 'http://localhost:8000/api'
+		var url = baseURL + '/chat/new/' + to;
+		// console.log(localStorage.getItem("jwtToken"));
+		
+		instance.post(url, data)
+		.then((response) => {
+			console.log("Create message success");
+			var conversationId = response.data.conversationId;
+			messageSent(conversationId, to);
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 		
 		// var to = this.state.selected["creator_id"];
 		// var content = value;
@@ -119,7 +142,9 @@ class ModalView extends Component{
 		var obj = this.state.selected;
 		var project_name = obj? obj.name : "No Project Selected";
 		var description = obj? obj.description : "No Description";
-		var creator = obj? obj.creator_name : "Spider Man"
+		var creator = obj? obj.creator.username : "Spider Man" ;// It need to be changed!
+
+
 		var time = obj? obj.createdAt.substr(0, 9) : "A long long time ago"
 		var tags = obj? obj['tags'].map( (t, idx) => {
 				return ( <Label key={idx}> {t.name} </Label> )

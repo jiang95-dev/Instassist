@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Button, Input, Card } from 'semantic-ui-react'
+import { Button, Input, Card, Header, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import axios from 'axios';
 
 import styles from './styles.scss'
 import Navbar from '../Navbar/Navbar.jsx'
-import axios from 'axios';
-//import CreatePost from '../CreatePost/CreatePost.jsx'
+
+
+import { sentUserId, subscribeToRefresh } from '../../app.jsx'
 
 class Login extends Component {
 
@@ -39,7 +41,7 @@ class Login extends Component {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
+            if (xhr.response['auth']) {
                 this.setState({
                     message: 'Successfully logged in!'
                 });
@@ -48,6 +50,15 @@ class Login extends Component {
                 //set token
                 var token = xhr.response['token'];
                 localStorage.setItem('jwtToken', token);
+
+
+                // subscribe to socket
+                // tell it my user id
+                sentUserToken(token);
+                subscribeToRefresh(()=>{
+                    /*call back*/
+                });
+
             } else {
                 this.setState({
                     message: 'Unable to log in'
@@ -79,20 +90,22 @@ class Login extends Component {
             <div>
                 <Navbar/>
                 <form className="Login" action="/" onSubmit={this.onSubmit}>
-                    <div className="ui card">
-                        <div>
-                            <h1>Sign In</h1>
-                            <label>Email</label><br/>
-                            <input className="myInput" onChange={this.onChangeEmail} />
-                            <br/><br/>
-                            <label>Password</label><br/>
-                            <input type="password" className="myInput" onChange={this.onChangePassword} />
-                            <br/><br/>
+                    <Card className="rounded">
+                        <Card.Content>
+                            <Header as='h1'>
+                                <Header.Content>
+                                    Sign In
+                                </Header.Content>
+                            </Header>
+                            <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
+                            <Input icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
-                            <Input type="submit" value="Group me in!" className="mySubmit"/>
-                            <h4>No account? Register <Link to="/register">here</Link> ! </h4>
-                        </div>
-                    </div>
+                        </Card.Content>
+                        <Card.Content>
+                            <Input inverted type="submit" value="Group me in!" className="mySubmit" />
+                            <h4 style={{ fontWeight: '200' }}>No account? Register <Link to="/register">here</Link> ! </h4>
+                        </Card.Content>
+                    </Card>
                 </form>
             </div>
         )

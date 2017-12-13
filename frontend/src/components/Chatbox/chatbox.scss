@@ -1,0 +1,31 @@
+.chatbox{
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	background-color: #00B4E8;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 10;
+	padding: 10px 10px 10px 10px;
+	border-radius: 10px;
+	
+	.chatTitle{
+		text-align: center;
+		font-size: 30px;	
+		padding: 10px 0 10px 0;	
+	}
+
+	.chatContent{
+		height: 300px;
+		overflow: auto;
+	}
+
+	.chatInput{
+		//bottom: 10%;
+		width: 75%;
+		height: 35px;
+	}
+}
+
+

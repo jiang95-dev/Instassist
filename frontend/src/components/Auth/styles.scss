@@ -1,0 +1,55 @@
+@import '../../styles/_vars';
+
+.Login, .Register {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+
+    .ui.card{
+    	background-color: $mainColor !important;
+    	//border-radius: 20px; 
+        padding: 50px 20px;
+        width: 300px;
+
+        .content {
+            color: $altFontColor !important;
+            text-align: center;
+
+            a {
+                color: $altFontColor;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            font-weight: 200 !important;
+
+            .icon {
+                color: $altFontColor !important;
+            }
+
+            * {
+                margin: auto;
+                padding: 0;
+                display: inline-block !important;
+            }
+        }
+
+        .ui.input {
+            margin-top: 20px;
+            color: grey;
+        }
+    }
+
+    .myInput{
+    	width: 200px;
+    }
+
+    .mySubmit{
+        //background: transparent;
+        margin: auto !important;        
+    }
+}
+
+
