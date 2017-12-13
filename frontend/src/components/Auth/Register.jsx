@@ -81,13 +81,13 @@ class Register extends Component {
                                     Sign Up
                                 </Header.Content>
                             </Header>
-                            <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
-                            <Input type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
+                            <Input className="auth-info" icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
+                            <Input className="auth-info" type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
                         </Card.Content>
                         <Card.Content>
                             <Input inverted type="submit" value="Group me up!" className="mySubmit" />
-                            <h4 style={{ fontWeight: '200' }}>Already have an account? Sign in <Link to="/login">here</Link> ! </h4>
+                            <h4 style={{ fontWeight: '200' }}>Already have an account? Sign in <Link id="login" to="/login">here</Link>!</h4>
                         </Card.Content>
                     </Card>
                 </form>

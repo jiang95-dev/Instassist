@@ -94,13 +94,13 @@ class Login extends Component {
                                     Sign In
                                 </Header.Content>
                             </Header>
-                            <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
-                            <Input type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
+                            <Input className="auth-info" icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
+                            <Input className="auth-info" type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
                         </Card.Content>
                         <Card.Content>
                             <Input inverted type="submit" value="Group me in!" className="mySubmit" />
-                            <h4 style={{ fontWeight: '200' }}>No account? Register <Link to="/register">here</Link> ! </h4>
+                            <h4 style={{ fontWeight: '200' }}>No account? Register <Link id="register" to="/register">here</Link>!</h4>
                         </Card.Content>
                     </Card>
                 </form>

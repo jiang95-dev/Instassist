@@ -16,8 +16,12 @@
             color: $altFontColor !important;
             text-align: center;
 
-            a {
-                color: $altFontColor;
+            a, #login, #register {
+                color: $altFontColor !important;
+            }
+
+            .auth-info {
+                width: 100%;
             }
         }
         
