@@ -1,11 +1,11 @@
-$maincolor : #4999E2;
+@import '../../styles/_vars';
 
 .ui.modal{
 	border-radius: 5vw;
 }
 
 .ui.label{
-    background-color:$maincolor;
+    background-color:$mainColor;
     color: white;
     border-radius: 2vw;
     border-color: white;
@@ -13,7 +13,7 @@ $maincolor : #4999E2;
 }
 
 .bg-blue{
-	background-color: $maincolor !important;
+	background-color: $mainColor !important;
 }
 
 .header{
@@ -54,7 +54,7 @@ $maincolor : #4999E2;
 	.actions{
 		.button{
 			background-color: white;
-			color: $maincolor;
+			color: $mainColor;
 			border-radius: 2vw;
 			width: 15%;
 /*			padding: 0 10% 0 10%;

@@ -63,7 +63,7 @@ class Mainpage extends Component {
         var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
         switch (filterType){
             case 'time':
-                urlFilter += '?sort={"time_created": -1}'
+                urlFilter += '?sort={"createdAt": -1}'
                 break;
             case 'popular':
                 urlFilter += '?sort={"popularity": -1}'
@@ -210,9 +210,9 @@ class Mainpage extends Component {
                     // console.log(projName);
                     let projTagList = obj.tags;
                     let projIntro = obj.description;
-                    if (projIntro.length > 132){
-                        projIntro = projIntro.substr(0, 131);
-                    }
+                    // if (projIntro.length > 132){
+                    //     projIntro = projIntro.substr(0, 131);
+                    // }
                     let projTimeStamp = obj.createdAt.substr(0, 9);
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{

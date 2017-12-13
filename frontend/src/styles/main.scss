@@ -4,6 +4,10 @@
 #react-app *:not(.icon) {
     font-family: 'Maven Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
     //text-shadow: rgba(0,0,0,.01) 0 0 1px;
+
+    h2, h3, h4, h5, a {
+        font-weight: 200 !important;
+    }
 }
 
 .rounded {
@@ -12,10 +16,10 @@
 }
 
 .ui.projects.card {
-    height: 40vh;
-    width: 34vh;
-    min-height: 200px;
-    min-width: 200px;
+    height: 36vh;
+    width: 31vh;
+    min-height: 250px;
+    min-width: 250px;
     text-align: left;
     overflow-wrap:break-word;
 
@@ -34,6 +38,7 @@
     .ui.label{
         height: auto;
         width: auto;
+        font-weight: 500;
     }
 
     .header{
@@ -53,11 +58,18 @@
         overflow: auto;  
         border-radius: 5%;
         color:$fontColor;
+        height: auto;
     }
 
     > .extra{
+        position: relative;
+        bottom: 0;
         padding: 3% 7% 0% 7%;
+        width: 100%;
+        background-color: white;
+        z-index: 100;
         color:$fontColor;        
+        height: 43px;
     }
 
     .content > .header:not(.ui){

@@ -24,14 +24,6 @@ class ModalView extends Component{
 		this.renderDetailAction = this.renderDetailAction.bind(this);
 		this.renderDetailContent = this.renderDetailContent.bind(this);
 
-		// subscribeToTimer((err, timestamp) => {
-		// 	console.log("subscribed to timer");
-		// });
-
-		// sentUserToken(localStorage.getItem('jwtToken'));
-		
-		// subscribeToRefresh();
-		// subscribeToId();
 	}
 
 
@@ -138,7 +130,7 @@ class ModalView extends Component{
 		var obj = this.state.selected;
 		var project_name = obj? obj.name : "No Project Selected";
 		var description = obj? obj.description : "No Description";
-		var creator = obj? obj.creator_name : "Spider Man" // It need to be changed!
+		var creator = obj? obj.creator.username : "Spider Man" ;// It need to be changed!
 
 
 		var time = obj? obj.createdAt.substr(0, 9) : "A long long time ago"
@@ -207,10 +199,10 @@ class MessageForm extends Component {
 		return (
 			<Form id="form-message" onSubmit={this.handleSubmit}>
 			    <TextArea 
-			    placeholder='Comments here...'  
-			    style={{ minHeight: 300 }}
-			    value={this.state.value}
-			    onChange={this.handleChange}
+					placeholder='Comments here...'  
+					style={{ minHeight: 300 }}
+					value={this.state.value}
+					onChange={this.handleChange}
 			    />
 				<Button id="button-submit" type="submit">
 					Send!

@@ -41,7 +41,7 @@ class Login extends Component {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
+            if (xhr.response['auth']) {
                 this.setState({
                     message: 'Successfully logged in!'
                 });
@@ -95,7 +95,7 @@ class Login extends Component {
                                 </Header.Content>
                             </Header>
                             <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
-                            <Input icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
+                            <Input type="password" icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
                         </Card.Content>
                         <Card.Content>
