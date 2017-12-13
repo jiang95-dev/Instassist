@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import Home from './components/Home/Home.jsx';
-import Register from './components/Register/Register.jsx';
-import Login from './components/Login/Login.jsx';
+import Register from './components/Auth/Register.jsx';
+import Login from './components/Auth/Login.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Mainpage from './components/Mainpage/Mainpage.jsx';
 
