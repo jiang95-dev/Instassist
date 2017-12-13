@@ -65929,7 +65929,18 @@ var CreatePost = function (_Component) {
 				tag_names: '',
 				required_skills: ''
 			},
-			message: ''
+			errors: {
+				name: 'Project title is required!',
+				description: 'Project description is required!',
+				tag_names: 'Tags are required!',
+				required_skills: 'Skills are required!'
+			},
+			modified: {
+				name: false,
+				description: false,
+				tag_names: false,
+				required_skills: false
+			}
 		};
 		return _this2;
 	}
@@ -65938,6 +65949,17 @@ var CreatePost = function (_Component) {
 		key: 'onSubmitForm',
 		value: function onSubmitForm(e) {
 			e.preventDefault();
+			//validation
+			var validate = this.state.modified.name && this.state.errors.name === '' && this.state.modified.description && this.state.errors.description === '' && this.state.modified.tag_names && this.state.errors.tag_names === '' && this.state.modified.required_skills && this.state.errors.required_skills === '';
+			if (!validate) {
+				var modified = this.state.modified;
+				modified.name = true;
+				modified.description = true;
+				modified.tag_names = true;
+				modified.required_skills = true;
+				this.setState({ modified: modified });
+				return;
+			}
 			var _this = this;
 
 			//parse first
@@ -65949,16 +65971,13 @@ var CreatePost = function (_Component) {
 				tag_names: tags,
 				required_skills: skills
 			};
-			console.log(parsed_data);
 
-			console.log(localStorage.getItem('jwtToken'));
+			//send request
 			var instance = _axios2.default.create({
 				headers: { 'x-access-token': localStorage.getItem('jwtToken'),
 					'Content-Type': 'application/json' }
 			});
-
 			var data = JSON.stringify(parsed_data);
-			//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
 			instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data).then(function (res) {
 				console.log(res);
 				_this.props.closeModalHandler();
@@ -65975,6 +65994,17 @@ var CreatePost = function (_Component) {
 			this.setState({
 				project: project
 			});
+			var error = this.state.errors;
+			if (project.name === '') {
+				error.name = 'Project title is required!';
+				this.setState({ error: error });
+			} else {
+				error.name = '';
+				this.setState({ error: error });
+			}
+			var modified = this.state.modified;
+			modified.name = true;
+			this.setState({ modified: modified });
 		}
 	}, {
 		key: 'onChangeDescription',
@@ -65984,6 +66014,17 @@ var CreatePost = function (_Component) {
 			this.setState({
 				project: project
 			});
+			var error = this.state.errors;
+			if (project.description === '') {
+				error.description = 'Project description is required!';
+				this.setState({ error: error });
+			} else {
+				error.description = '';
+				this.setState({ error: error });
+			}
+			var modified = this.state.modified;
+			modified.description = true;
+			this.setState({ modified: modified });
 		}
 	}, {
 		key: 'onChangeTag',
@@ -65993,6 +66034,23 @@ var CreatePost = function (_Component) {
 			this.setState({
 				project: project
 			});
+			var error = this.state.errors;
+			if (project.tag_names === '') {
+				error.tag_names = 'Tags are required!';
+				this.setState({ error: error });
+			} else {
+				var regex = /^\w+(,\w+)*$/;
+				if (regex.test(project.tag_names)) {
+					error.tag_names = '';
+					this.setState({ error: error });
+				} else {
+					error.tag_names = 'Tags must be comma separate string!';
+					this.setState({ error: error });
+				}
+			}
+			var modified = this.state.modified;
+			modified.tag_names = true;
+			this.setState({ modified: modified });
 		}
 	}, {
 		key: 'onChangeSkill',
@@ -66002,10 +66060,137 @@ var CreatePost = function (_Component) {
 			this.setState({
 				project: project
 			});
+			var error = this.state.errors;
+			if (project.required_skills === '') {
+				error.required_skills = 'Skills are required!';
+				this.setState({ error: error });
+			} else {
+				var regex = /^\w+(,\w+)*$/;
+				if (regex.test(project.required_skills)) {
+					error.required_skills = '';
+					this.setState({ error: error });
+				} else {
+					error.required_skills = 'Skills must be comma separate string!';
+					this.setState({ error: error });
+				}
+			}
+			var modified = this.state.modified;
+			modified.required_skills = true;
+			this.setState({ modified: modified });
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+			var title = _react2.default.createElement(
+				'div',
+				{ className: 'field' },
+				_react2.default.createElement(
+					'label',
+					null,
+					'Project Title'
+				),
+				_react2.default.createElement('input', { placeholder: 'Project Title', type: 'text', onChange: this.onChangeTitle.bind(this) })
+			);
+			var description = _react2.default.createElement(
+				'div',
+				{ className: 'field' },
+				_react2.default.createElement(
+					'label',
+					null,
+					'Description'
+				),
+				_react2.default.createElement('textarea', { rows: '10', onChange: this.onChangeDescription.bind(this) })
+			);
+			var tags = _react2.default.createElement(
+				'div',
+				{ className: 'field' },
+				_react2.default.createElement(
+					'label',
+					null,
+					'Tags'
+				),
+				_react2.default.createElement('input', { placeholder: 'Tags', type: 'text', onChange: this.onChangeTag.bind(this) })
+			);
+			var skills = _react2.default.createElement(
+				'div',
+				{ className: 'field' },
+				_react2.default.createElement(
+					'label',
+					null,
+					'Skills'
+				),
+				_react2.default.createElement('input', { placeholder: 'Skills', type: 'text', onChange: this.onChangeSkill.bind(this) })
+			);
+			if (this.state.modified.name && this.state.errors.name != '') {
+				var title = _react2.default.createElement(
+					'div',
+					{ className: 'field' },
+					_react2.default.createElement(
+						'label',
+						null,
+						'Project Title'
+					),
+					_react2.default.createElement('input', { className: 'input_border', placeholder: 'Project Title', type: 'text', onChange: this.onChangeTitle.bind(this) }),
+					_react2.default.createElement(
+						'span',
+						{ style: { color: "red" } },
+						this.state.errors["name"]
+					)
+				);
+			}
+			if (this.state.modified.description && this.state.errors.description != '') {
+				console.log("Here");
+				var description = _react2.default.createElement(
+					'div',
+					{ className: 'field' },
+					_react2.default.createElement(
+						'label',
+						null,
+						'Description'
+					),
+					_react2.default.createElement('textarea', { className: 'input_border', rows: '10', onChange: this.onChangeDescription.bind(this) }),
+					_react2.default.createElement(
+						'span',
+						{ style: { color: "red" } },
+						this.state.errors["description"]
+					)
+				);
+			}
+			if (this.state.modified.tag_names && this.state.errors.tag_names != '') {
+				var tags = _react2.default.createElement(
+					'div',
+					{ className: 'field' },
+					_react2.default.createElement(
+						'label',
+						null,
+						'Tags'
+					),
+					_react2.default.createElement('input', { className: 'input_border', placeholder: 'Tags', type: 'text', onChange: this.onChangeTag.bind(this) }),
+					_react2.default.createElement(
+						'span',
+						{ style: { color: "red" } },
+						this.state.errors["tag_names"]
+					)
+				);
+			}
+			if (this.state.modified.required_skills && this.state.errors.required_skills != '') {
+				var skills = _react2.default.createElement(
+					'div',
+					{ className: 'field' },
+					_react2.default.createElement(
+						'label',
+						null,
+						'Skills'
+					),
+					_react2.default.createElement('input', { className: 'input_border', placeholder: 'Skills', type: 'text', onChange: this.onChangeSkill.bind(this) }),
+					_react2.default.createElement(
+						'span',
+						{ style: { color: "red" } },
+						this.state.errors["required_skills"]
+					)
+				);
+			}
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'myPost' },
@@ -66026,49 +66211,13 @@ var CreatePost = function (_Component) {
 				_react2.default.createElement(
 					'form',
 					{ className: 'ui form attached fluid segment', onSubmit: this.onSubmitForm.bind(this) },
-					_react2.default.createElement(
-						'div',
-						{ className: 'field' },
-						_react2.default.createElement(
-							'label',
-							null,
-							'Project Title'
-						),
-						_react2.default.createElement('input', { placeholder: 'Project Title', type: 'text', onChange: this.onChangeTitle.bind(this) })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'field' },
-						_react2.default.createElement(
-							'label',
-							null,
-							'Description'
-						),
-						_react2.default.createElement('textarea', { rows: '10', onChange: this.onChangeDescription.bind(this) })
-					),
+					title,
+					description,
 					_react2.default.createElement(
 						'div',
 						{ className: 'two fields' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'field' },
-							_react2.default.createElement(
-								'label',
-								null,
-								'Tags'
-							),
-							_react2.default.createElement('input', { placeholder: 'Tags', type: 'text', onChange: this.onChangeTag.bind(this) })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'field' },
-							_react2.default.createElement(
-								'label',
-								null,
-								'Skills'
-							),
-							_react2.default.createElement('input', { placeholder: 'Skills', type: 'text', onChange: this.onChangeSkill.bind(this) })
-						)
+						tags,
+						skills
 					),
 					_react2.default.createElement(
 						'div',
