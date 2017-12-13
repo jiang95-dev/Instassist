@@ -21,6 +21,9 @@ class Mainpage extends Component {
         this.updateSearchResult = this.updateSearchResult.bind(this);
         this.cardClicked = this.cardClicked.bind(this);
         this.modalClosed = this.modalClosed.bind(this);
+
+
+        console.log(localStorage.getItem("jwtToken"));
     }
 
     /*for DV*/
@@ -59,7 +62,7 @@ class Mainpage extends Component {
 
 
     filterResult(filterType){
-        console.log(filterType);
+        // console.log(filterType);
         var urlFilter = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
         switch (filterType){
             case 'time':
@@ -72,14 +75,14 @@ class Mainpage extends Component {
                 urlFilter += '?sort={"name": 1}'
                 break;
         } 
-        console.log(urlFilter)
+        // console.log(urlFilter)
         axios.get(urlFilter)
         .then((response) => {
             this.setState({
                 postList: response.data.data
             })
-            console.log('Post data loaded!');
-            console.log(this.state.postList);            
+            // console.log('Post data loaded!');
+            // console.log(this.state.postList);            
         })
         .catch((error) => {
             console.log(error);
@@ -87,10 +90,10 @@ class Mainpage extends Component {
     }
 
     updateSearchResult(SearchKey){
-        console.log(SearchKey);
+        // console.log(SearchKey);
         if (typeof SearchKey == "string"){
             if(SearchKey != ""){
-                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": "^'+SearchKey+'"}}';
+                let urlSearch = 'https://mighty-oasis-90906.herokuapp.com/api/projects?where={"name": {"$regex": ".*'+SearchKey+'.*", "$options": "i"}}';
                 console.log(urlSearch)
                 
                 axios.get(urlSearch)
@@ -125,7 +128,7 @@ class Mainpage extends Component {
     }
 
     componentDidMount(){
-        console.log('Mainpage page will mount!')      
+        // console.log('Mainpage page will mount!')      
         let URLProject = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
         let URLTags = 'https://mighty-oasis-90906.herokuapp.com/api/tags?sort={"popularity": -1}';
         axios.get(URLProject)
@@ -133,8 +136,8 @@ class Mainpage extends Component {
             this.setState({
                 postList: response.data.data
             })
-            console.log('Post data loaded!');
-            console.log(this.state.postList);            
+            // console.log('Post data loaded!');
+            // console.log(this.state.postList);            
         })
         .catch((error) => {
             console.log(error);
@@ -144,8 +147,8 @@ class Mainpage extends Component {
             this.setState({
                 popularTagList: response.data.data
             })
-            console.log('Post data loaded!');
-            console.log(this.state.postList);            
+            // console.log('Post data loaded!');
+            // console.log(this.state.postList);            
         })
         .catch((error) => {
             console.log(error);
@@ -157,7 +160,7 @@ class Mainpage extends Component {
     filterHandler(id){
         if (id === -1){
             let urlTag = 'https://mighty-oasis-90906.herokuapp.com/api/projects';
-            console.log(urlTag);
+            // console.log(urlTag);
             axios.get(urlTag)
             .then((response) => {
                 this.setState({
@@ -200,14 +203,14 @@ class Mainpage extends Component {
 
 
         if (!this.state.postList || !this.state.popularTagList) {
-            console.log("Here");
+            // console.log("Here");
             return <div />
         } else {            
             let postGrid = this.state.postList.map((obj,idx) =>{
                 // console.log(idx);
                 if (obj.state != 0){
                     let projName = obj.name;
-                    console.log(projName);
+                    // console.log(projName);
                     let projTagList = obj.tags;
                     let projIntro = obj.description;
                     if (projIntro.length > 132){

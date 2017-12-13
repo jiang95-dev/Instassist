@@ -1,0 +1,90 @@
+$maincolor : #4999E2;
+
+.ui.modal{
+	border-radius: 5vw;
+}
+
+.ui.label{
+    background-color:$maincolor;
+    color: white;
+    border-radius: 2vw;
+    border-color: white;
+    border-width: 0.1vw;
+}
+
+.bg-blue{
+	background-color: $maincolor !important;
+}
+
+.header{
+	height: 30%;
+	p {
+		color: white;
+		margin: 0.5em 0 0.2em 0;
+	}
+
+	.sub{
+		p{
+			font-size: 1vw;
+			color: white;
+			opacity: .5;
+		}
+
+	}
+}
+
+.content{
+	.description{
+		margin: 2%;
+		p{
+			color: white;
+		}
+	}
+
+	.skills{
+		margin: 2%;
+	}
+}
+
+.ui.form{
+	margin: 2% 12% 2% 12%;
+}
+
+.default-modal{
+	.actions{
+		.button{
+			background-color: white;
+			color: $maincolor;
+			border-radius: 2vw;
+			width: 15%;
+/*			padding: 0 10% 0 10%;
+*/		}
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.form{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+
+			button{
+				margin: 1rem
+			}
+		}
+	}
+}
+
+
+/*
+.pop-up-modal{
+	.header.span{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+}
+
+*/
