@@ -25,7 +25,7 @@ const ProjectFeed = ({ style, projects, create, visibilityHandler, openModalHand
                                 <Icon className="hide" name='hide' />
                             </Card.Header>
                             <Card.Description>
-                                description={project.description}
+                                {project.description}
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
