@@ -1,7 +1,7 @@
-$maincolor : #4999E2;
-
+$maincolor : white;
+$fontcolor : black;
 body {
-    //background-color: #eee;
+    background-color:#e2e1e0;
     .alert {
         color: red;
     }
@@ -29,9 +29,9 @@ body {
     background-color: $maincolor;
     text-align: left;
     //margin: 0 10px 20px 10px;
-    box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, .1);
-    height: 40vh;
-    width: 21vw;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    height: 45vh;
+    width: 22vw;
     min-height: 200px;
     min-width: 200px;
     // font-size: calc((4vh + 2vmin)/4);
@@ -46,33 +46,37 @@ body {
     overflow-wrap:break-word;
     .header{
         padding: 5% 5% 0 5%;
+        color:$fontcolor;        
     }
     .meta{
         font-size: 1em;
         padding-left: 5%; 
-        color: rgba(255, 255, 255, 0.726);            
+        color: rgba(0, 0, 0, 0.726);            
     }
     .description{
         padding: 3% 3% 0 3%;
         font-size: 3em;            
-        color: white;  
         overflow: auto;  
-        border-radius: 5%;     
+        border-radius: 5%;
+        color:$fontcolor;
+        
     }
     > .extra{
         // background-color: rgb(73,197,182);
         padding: 3% 7% 0% 7%;
+        color:$fontcolor;        
     }
 
     .content>.header:not(.ui){
         font-size: 2em;
-        color: white;    
+        color: black;    
     }
 
     &:hover{
         transform: scale(1.007);
         // border-radius: 10px;
         background-color: $maincolor;
-        box-shadow: 0px 0px 20px 0px $maincolor;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        
     }
 }
