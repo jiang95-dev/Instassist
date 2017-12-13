@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import openSocket from 'socket.io-client';
+
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import Home from './components/Home/Home.jsx';
@@ -7,27 +9,25 @@ import Register from './components/Auth/Register.jsx';
 import Login from './components/Auth/Login.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Mainpage from './components/Mainpage/Mainpage.jsx';
-
-import MessageView from './components/MessageView/MessageView.jsx';
-
 import styles from './styles/main.scss';
 
-import { subscribeToTimer, messageSent, sentUserToken, subscribeToRefresh, subscribeToId } from '../../socketEvents.jsx' ;
+var socket_url = 'http://10.180.131.152:8000'
+const socket = openSocket(socket_url);
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMzBkZTkwNmEzZDUyMDAyMTE2ZTUzOCIsImlhdCI6MTUxMzE1MjE1MywiZXhwIjoxNTEzMjM4NTUzfQ.VnQkGp94oIepvZFFovYh7AQC3xHs3pHi91cuzHCdxBo';
+function sentUserToken(token) {
+    console.log("sending token!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    socket.emit("user token", localStorage.getItem("jwtToken"));
+}
 
+function subscribeToRefresh() {
+ console.log("subscribing to !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+ socket.on('refresh messages', ()=>{
+  console.log("I'm asked to refresh!");
+ });
+}
 
-var fake_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMzBiOTU1NmEzZDUyMDAyMTE2ZTRmOCIsImlhdCI6MTUxMzE0MjYyMywiZXhwIjoxNTEzMjI5MDIzfQ.FtHsmA34xm0cft8lX6oAzGFSOL-603uLE2IGYQpN9is"
-
-subscribeToTimer((err, timestamp) => {
-    console.log("subscribed to timer");
-});
-
-sentUserToken(fake_token);
-
+sentUserToken();
 subscribeToRefresh();
-subscribeToId();
-
-
-
 
 
 ReactDom.render(
@@ -39,7 +39,7 @@ ReactDom.render(
             <Route exact path="/dashboard" component={Dashboard}/>
             <Route exact path="/mainpage" component={Mainpage}/>
 
-            <Route exact path="/message" component={MessageView}/>
+            {/* <Route exact path="/message" component={MessageView}/> */}
         </Switch>
     </Router>,
     document.getElementById('react-app')
