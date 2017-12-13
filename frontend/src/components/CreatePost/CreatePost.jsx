@@ -16,14 +16,39 @@ class CreatePost extends Component {
                 tag_names: '',
                 required_skills: '',
             },
-            message: ''
+            errors: {
+            	name: 'Project title is required!',
+            	description: 'Project description is required!',
+                tag_names: 'Tags are required!',
+                required_skills: 'Skills are required!',
+            },
+            modified: {
+            	name: false,
+            	description: false,
+            	tag_names: false,
+            	required_skills: false
+            },
         }
 	}
 
 	onSubmitForm(e){
 		e.preventDefault();	
+		//validation
+		var validate =  this.state.modified.name && this.state.errors.name === '' &&
+						this.state.modified.description && this.state.errors.description === '' &&
+						this.state.modified.tag_names && this.state.errors.tag_names === '' &&
+						this.state.modified.required_skills && this.state.errors.required_skills === '';
+		if(!validate){
+			const modified = this.state.modified;
+	  		modified.name = true;
+	  		modified.description = true;
+	  		modified.tag_names = true;
+	  		modified.required_skills = true;
+	  		this.setState({modified});
+			return;
+		}
 		var _this = this;
-		
+
 		//parse first
 		const tags = this.state.project.tag_names.split(',');
 		const skills = this.state.project.required_skills.split(',');
@@ -33,16 +58,13 @@ class CreatePost extends Component {
 			tag_names : tags,
 			required_skills : skills
 		};
-		console.log(parsed_data);
 
-		console.log(localStorage.getItem('jwtToken'));
+		//send request
 		var instance = axios.create({
 			headers: {'x-access-token': localStorage.getItem('jwtToken'),
 						'Content-Type': 'application/json'}
 		});
-		
 		var data = JSON.stringify(parsed_data)
-		//axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMmRjYmI3MTllMjkxNmE3NDg3N2Q5NyIsImlhdCI6MTUxMjk1MDc0MCwiZXhwIjoxNTEzMDM3MTQwfQ.Qeh7sqU9m_xm2wQFCjWzUGo6z7ycFi8e6gDBOPlmTP4';
 		instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data)
 		.then(function(res){
 			console.log(res);
@@ -60,6 +82,17 @@ class CreatePost extends Component {
         this.setState({
             project
         });
+        const error = this.state.errors;
+  		if(project.name === ''){
+  			error.name = 'Project title is required!'
+  			this.setState({error}); 
+  		}else{
+  			error.name = ''
+  			this.setState({error});
+  		}
+  		const modified = this.state.modified;
+  		modified.name = true;
+  		this.setState({modified});
 	}
 
 	onChangeDescription(e){
@@ -68,6 +101,17 @@ class CreatePost extends Component {
         this.setState({
             project
         });
+        const error = this.state.errors;
+  		if(project.description === ''){
+  			error.description = 'Project description is required!'
+  			this.setState({error}); 
+  		}else{
+  			error.description = ''
+  			this.setState({error});
+  		}
+  		const modified = this.state.modified;
+  		modified.description = true;
+  		this.setState({modified});
 	}
 
 	onChangeTag(e){
@@ -76,6 +120,23 @@ class CreatePost extends Component {
         this.setState({
             project
         });
+        const error = this.state.errors;
+  		if(project.tag_names === ''){
+  			error.tag_names = 'Tags are required!';
+  			this.setState({error}); 
+  		}else{
+			var regex = /^\w+(,\w+)*$/;
+			if(regex.test(project.tag_names)){
+				error.tag_names = '';
+  				this.setState({error});
+			}else{
+				error.tag_names = 'Tags must be comma separate string!';
+  				this.setState({error});
+			}
+		}
+		const modified = this.state.modified;
+  		modified.tag_names = true;
+  		this.setState({modified});
 	}
 
 	onChangeSkill(e){
@@ -84,9 +145,89 @@ class CreatePost extends Component {
         this.setState({
             project
         });
+        const error = this.state.errors;
+        if(project.required_skills === ''){
+  			error.required_skills = 'Skills are required!';
+  			this.setState({error}); 
+  		}else{
+			var regex = /^\w+(,\w+)*$/;
+			if(regex.test(project.required_skills)){
+				error.required_skills = '';
+  				this.setState({error});
+			}else{
+				error.required_skills = 'Skills must be comma separate string!';
+  				this.setState({error});
+			}
+		}
+		const modified = this.state.modified;
+  		modified.required_skills = true;
+  		this.setState({modified});
 	}
 
+
     render() {	
+    	var title = (
+			<div className="field">
+		    	<label>Project Title</label>
+		    	<input placeholder="Project Title" type="text" onChange={this.onChangeTitle.bind(this)}/>
+		  	</div>
+		);
+    	var description = (
+    		<div className="field">
+		    	<label>Description</label>
+		    	<textarea rows="10" onChange={this.onChangeDescription.bind(this)}></textarea>
+		  	</div>
+    	);
+    	var tags = (
+    		<div className="field">
+	      		<label>Tags</label>
+	      		<input placeholder="Tags" type="text" onChange={this.onChangeTag.bind(this)}/>
+	    	</div>
+    	);
+    	var skills = (
+			<div className="field">
+		      	<label>Skills</label>
+		      	<input placeholder="Skills" type="text" onChange={this.onChangeSkill.bind(this)}/>
+		    </div>
+    	);
+    	if(this.state.modified.name && this.state.errors.name != ''){
+    		var title = (
+				<div className="field">
+			    	<label>Project Title</label>
+			    	<input className="input_border" placeholder="Project Title" type="text" onChange={this.onChangeTitle.bind(this)}/>
+			  		<span style={{color: "red"}}>{this.state.errors["name"]}</span>
+			  	</div>
+			);
+    	}
+    	if(this.state.modified.description && this.state.errors.description != ''){
+    		console.log("Here");
+    		var description = (
+				<div className="field">
+			    	<label>Description</label>
+			    	<textarea className="input_border" rows="10" onChange={this.onChangeDescription.bind(this)}></textarea>
+			    	<span style={{color: "red"}}>{this.state.errors["description"]}</span>
+			  	</div>
+			);
+    	}
+    	if(this.state.modified.tag_names && this.state.errors.tag_names != ''){
+    		var tags = (
+	    		<div className="field">
+		      		<label>Tags</label>
+		      		<input className="input_border" placeholder="Tags" type="text" onChange={this.onChangeTag.bind(this)}/>
+		    		<span style={{color: "red"}}>{this.state.errors["tag_names"]}</span>
+		    	</div>
+	    	)
+    	}
+    	if(this.state.modified.required_skills && this.state.errors.required_skills != ''){
+    		var skills = (
+				<div className="field">
+			      	<label>Skills</label>
+			      	<input className="input_border" placeholder="Skills" type="text" onChange={this.onChangeSkill.bind(this)}/>
+			   		<span style={{color: "red"}}>{this.state.errors["required_skills"]}</span>
+			    </div>
+	    	)
+    	}
+
         return(
         	<div className="myPost">
 	        	<div className="ui attached message">
@@ -94,23 +235,11 @@ class CreatePost extends Component {
 				  	<p>Fill out the form in detail so that others can have a clear understanding of your project</p>
 				</div>
 				<form className="ui form attached fluid segment" onSubmit={this.onSubmitForm.bind(this)}>
-				  	<div className="field">
-				    	<label>Project Title</label>
-				    	<input placeholder="Project Title" type="text" onChange={this.onChangeTitle.bind(this)}/>
-				  	</div>
-				  	<div className="field">
-				    	<label>Description</label>
-				    	<textarea rows="10" onChange={this.onChangeDescription.bind(this)}></textarea>
-				  	</div>
+				  	{title}
+				  	{description}
 					<div className="two fields">
-				    	<div className="field">
-				      		<label>Tags</label>
-				      		<input placeholder="Tags" type="text" onChange={this.onChangeTag.bind(this)}/>
-				    	</div>
-					    <div className="field">
-					      	<label>Skills</label>
-					      	<input placeholder="Skills" type="text" onChange={this.onChangeSkill.bind(this)}/>
-					    </div>
+				    	{tags}
+					    {skills}
 				 	</div>
 				  	<div className="inline field">
 				    	<div className="ui checkbox">
