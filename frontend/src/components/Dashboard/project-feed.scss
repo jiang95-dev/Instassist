@@ -6,16 +6,34 @@
 
     .card {
         //height: 260px !important;
-        .hide {
+        .visibility {
             text-align: right;
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            //position: absolute;
+            //top: 20px;
+            //right: 20px;
+            float: right;
             color: grey;
 
             &:hover {
-                color: darkred !important;
+                &.hide{
+                    color: crimson !important;
+                }
+                &.unhide{
+                    color: green !important;
+                }
             }
+        }
+
+        span {
+            margin: 0;
+        }
+
+        .h {
+            color: black;
+        }
+
+        .s {
+            color: grey;
         }
 
         .ui.label{
