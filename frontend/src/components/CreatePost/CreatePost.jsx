@@ -46,7 +46,8 @@ class CreatePost extends Component {
 		instance.post('https://mighty-oasis-90906.herokuapp.com/api/projects', data)
 		.then(function(res){
 			console.log(res);
-			_this.props.history.push('/dashboard');
+			_this.props.closeModalHandler();
+			//_this.props.history.push('/dashboard');
 		})
 		.catch(function(err){
 			console.log(err);

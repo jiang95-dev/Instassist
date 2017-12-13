@@ -34,9 +34,6 @@ app.route('/dashboard').get(function(req,res) {
 app.route('/mainpage').get(function(req,res) {
   return res.sendFile(path.join(__dirname, './backend/static/index.html'));
 })
-app.route('/createpost').get(function(req,res) {
-  return res.sendFile(path.join(__dirname, './backend/static/index.html'));
-})
 
 
 var allowCrossDomain = function (req, res, next) {

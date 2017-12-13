@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import style from './project-feed.scss'
 
-const ProjectFeed = ({ style, projects, create }) => {
+const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
     let feed;
     if (projects) {
         feed = projects.map(project => {
@@ -25,11 +25,9 @@ const ProjectFeed = ({ style, projects, create }) => {
             <h1>My Projects</h1>
             <Grid className="row" columns="equal">
                 <Grid.Column key="add" computer={4} mobile={16}>
-                    <Link to="/createpost">
-                        <Card>
-                            <p style={{ height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' }}> + </p>
-                        </Card>
-                    </Link>
+                    <Card onClick={openModalHandler}>
+                        <p style={{ height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' }}> + </p>
+                    </Card>
                 </Grid.Column>
                 {feed}
             </Grid>

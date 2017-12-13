@@ -8,6 +8,7 @@ import axios from 'axios'
 
 import Navbar from '../Navbar/Navbar.jsx'
 import style from './dashboard.scss'
+import PostModal from '../CreatePost/PostModal.jsx'
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ export default class Dashboard extends Component {
             username: "",
             description: "",
             projects: [],
-            skills: []
+            skills: [],
+            toOpen: false
         }
 
         this.token = localStorage.getItem('jwtToken');
@@ -26,6 +28,8 @@ export default class Dashboard extends Component {
         this.userUrl = null;
         this.logOut = this.logOut.bind(this);
         this.addSkill = this.addSkill.bind(this);
+        this.closeModalHandler = this.closeModalHandler.bind(this);
+        this.openModalHandler = this.openModalHandler.bind(this);
         this.fetchUser();
     }
 
@@ -92,6 +96,14 @@ export default class Dashboard extends Component {
     logOut(){
         localStorage.removeItem('jwtToken');
         this.props.history.push('/mainpage');
+    }
+
+    closeModalHandler(e){
+        this.setState({toOpen : false});
+    }
+
+    openModalHandler(e){
+        this.setState({toOpen : true});
     }
 
     render() {
@@ -163,8 +175,9 @@ export default class Dashboard extends Component {
                                 <MessageFeed events={null} />
                             </Grid.Column>
                         </Grid>
-                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} />
+                    <ProjectFeed style={{marginTop: '2em'}} projects={this.state.projects} openModalHandler={this.openModalHandler}/>
                 </Container>
+                <PostModal toOpen={this.state.toOpen} closeModalHandler={this.closeModalHandler}/>
             </div>
         );
     }
