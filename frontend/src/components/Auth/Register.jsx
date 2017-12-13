@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Input, Card } from 'semantic-ui-react'
+import { Button, Input, Card, Header, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -74,19 +74,21 @@ class Register extends Component {
             <div>
                 <Navbar/>
                 <form className="Register" action="/" onSubmit={this.onSubmit}>
-                    <Card className="Register__content">
-                        <div>
-                            <h1>Sign up</h1>
-                            <label>Email</label><br/>
-                            <input className="myInput" onChange={this.onChangeEmail} />
-                            <br/><br/>
-                            <label>Password</label><br/>
-                            <input type="password" className="myInput" onChange={this.onChangePassword} />
-                            <br/><br/>
+                    <Card className="rounded">
+                        <Card.Content>
+                            <Header as='h1'>
+                                <Header.Content>
+                                    Sign Up
+                                </Header.Content>
+                            </Header>
+                            <Input icon='mail' iconPosition='left' placeholder='Email' onChange={this.onChangeEmail}/>
+                            <Input icon='protect' iconPosition='left' placeholder='Password' onChange={this.onChangePassword}/>
                             <p>{this.state.message}</p>
-                            <Input type="submit" />
-                            <h4>Already have an account? Sign in <Link to="/login">here</Link> ! </h4>
-                        </div>
+                        </Card.Content>
+                        <Card.Content>
+                            <Input inverted type="submit" value="Group me up!" className="mySubmit" />
+                            <h4 style={{ fontWeight: '200' }}>Already have an account? Sign in <Link to="/login">here</Link> ! </h4>
+                        </Card.Content>
                     </Card>
                 </form>
             </div>

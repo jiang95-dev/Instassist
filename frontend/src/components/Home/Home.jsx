@@ -25,8 +25,6 @@ class Home extends Component {
                     <p className="footer-body">This is a random string. It makes no sense. Please replace the</p>
                     <p>sentence with what you want.</p>
                     <div className="stick"></div>
-
-                    
                 </div>
                 <Link to="/mainpage">
                     <div className="continue">
