@@ -16,9 +16,17 @@ function connectSocket(token){
 	socket.on('refresh messages', ()=>{
 		var icon = document.getElementsByClassName("myImage")[0]
 		icon.src = "notification.png";
+		icon.onClick = () => {icon.src = "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png"}
 		console.log("I'm asked to refresh!");
 	})
 }
+
+function imageOnClick(){
+	console.log("image cliekced");
+	var icon =  document.getElementsByClassName("myImage")[0];
+	icon.src = "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png";
+}
+
 var token = localStorage.getItem('jwtToken', token);
 if(token) connectSocket(token);
 function disconnetSocket(){
