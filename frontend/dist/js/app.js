@@ -6544,8 +6544,7 @@ var Navbar = function (_Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'ui icon input' },
-							_react2.default.createElement('input', { onChange: this.inputChangeHandler, type: 'text', placeholder: 'Search...', className: 'myInput' }),
-							_react2.default.createElement('i', { className: 'search link icon' })
+							_react2.default.createElement(_semanticUiReact.Input, { onChange: this.inputChangeHandler, type: 'text', placeholder: 'Search...', className: 'myInput' })
 						)
 					),
 					_react2.default.createElement(
@@ -65459,7 +65458,11 @@ var Dashboard = function (_Component) {
                             { width: 5 },
                             _react2.default.createElement(
                                 _semanticUiReact.Card,
-                                { centered: true, raised: this.state.editing },
+                                {
+                                    centered: true,
+                                    raised: this.state.editing,
+                                    className: 'rounded'
+                                },
                                 _react2.default.createElement(_semanticUiReact.Image, { src: 'http://jimenezylievanoabogados.com/en/wp-content/themes/jimenezylievanoabogados/images/no_image_profile.jpg' }),
                                 _react2.default.createElement(
                                     _semanticUiReact.Card.Content,
@@ -65475,18 +65478,20 @@ var Dashboard = function (_Component) {
                                         { className: 'ui two buttons' },
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
-                                            { onClick: function onClick() {
+                                            { style: { borderBottomLeftRadius: '8px' },
+                                                onClick: function onClick() {
                                                     if (_this5.state.editing) {
                                                         _this5.updateProfile(true);
                                                     } else {
                                                         _this5.setState({ editing: true });
                                                     }
-                                                }, basic: true, color: 'green' },
+                                                }, basic: true, color: 'green'
+                                            },
                                             editButton
                                         ),
                                         _react2.default.createElement(
                                             _semanticUiReact.Button,
-                                            { basic: true, color: 'red', onClick: this.logOut },
+                                            { style: { borderBottomRightRadius: '8px' }, basic: true, color: 'red', onClick: this.logOut },
                                             'Log Out'
                                         )
                                     )
@@ -65600,6 +65605,7 @@ var ProjectFeed = function ProjectFeed(_ref) {
                 _semanticUiReact.Grid.Column,
                 { key: project._id, computer: 4, mobile: 16 },
                 _react2.default.createElement(_semanticUiReact.Card, {
+                    className: 'rounded projects',
                     header: project.name,
                     description: project.description
                 })
@@ -65623,7 +65629,7 @@ var ProjectFeed = function ProjectFeed(_ref) {
                 { key: 'add', computer: 4, mobile: 16 },
                 _react2.default.createElement(
                     _semanticUiReact.Card,
-                    { onClick: openModalHandler },
+                    { className: 'rounded projects', onClick: openModalHandler },
                     _react2.default.createElement(
                         'p',
                         { style: { height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' } },
@@ -65827,7 +65833,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".my-skills .ui.circular.labels .label {\n  border-radius: .5em;\n  padding: .5em .7em !important;\n  font-weight: 200; }\n  .my-skills .ui.circular.labels .label.new.active {\n    background-color: #1678c2 !important;\n    border-color: #1678c2 !important;\n    color: #fff !important; }\n  .my-skills .ui.circular.labels .label.new::before {\n    content: \"+  |\";\n    font-weight: bold; }\n  .my-skills .ui.circular.labels .label.new input {\n    width: 3em;\n    border: none;\n    color: white;\n    background: transparent; }\n    .my-skills .ui.circular.labels .label.new input:focus {\n      outline: none; }\n", ""]);
+exports.push([module.i, ".my-skills .ui.circular.labels .label {\n  border-radius: .5em;\n  padding: .5em .7em !important;\n  font-weight: 200;\n  font-size: 10pt; }\n  .my-skills .ui.circular.labels .label.new.active {\n    background-color: #1678c2 !important;\n    border-color: #1678c2 !important;\n    color: #fff !important; }\n  .my-skills .ui.circular.labels .label.new::before {\n    content: \"+  |\";\n    font-weight: bold; }\n  .my-skills .ui.circular.labels .label.new input {\n    width: 3em;\n    border: none;\n    color: white;\n    background: transparent; }\n    .my-skills .ui.circular.labels .label.new input:focus {\n      outline: none; }\n", ""]);
 
 // exports
 
@@ -66420,6 +66426,7 @@ var Mainpage = function (_Component) {
                         return (
                             // <div key={projName+projTimeStamp+''+idx}>
                             _react2.default.createElement(_semanticUiReact.Card, {
+                                className: 'projects rounded',
                                 key: projName + projTimeStamp + '' + idx,
                                 header: projName,
                                 meta: projTimeStamp + "  Viewed: " + projViewCounter,
@@ -66568,7 +66575,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 2vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    margin: auto;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    overflow: auto;\n    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: black; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n    .Mainpage .sidebar:hover {\n      -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n              box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden;\n      border: none; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border: none; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: white;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: white;\n    border-radius: 0.5vw;\n    border-color: white; }\n  .Mainpage .ui.card {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    background-color: white;\n    text-align: left;\n    margin: 0 10px 20px 10px;\n    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n    height: 45vh;\n    width: 35vh;\n    min-height: 200px;\n    min-width: 200px;\n    font-size: 75%;\n    border-radius: 4%;\n    overflow-wrap: break-word; }\n    .Mainpage .ui.card .ui.label {\n      height: auto;\n      width: auto;\n      font-family: 'Maven Pro', sans-serif; }\n    .Mainpage .ui.card .header {\n      padding: 5% 5% 0 5%;\n      font-family: 'Maven Pro', sans-serif;\n      font-weight: bold; }\n    .Mainpage .ui.card .meta {\n      font-size: 1em;\n      padding-left: 5%;\n      color: black;\n      font-family: 'Maven Pro', sans-serif; }\n    .Mainpage .ui.card .description {\n      font-family: 'Maven Pro', sans-serif;\n      position: relative;\n      display: inline;\n      padding: 3% 3% 0 3%;\n      font-size: 3em;\n      color: black;\n      overflow: hidden;\n      border-radius: 5%; }\n    .Mainpage .ui.card > .extra {\n      position: absolute;\n      top: 80%;\n      width: 100%;\n      padding: 3% 7% 0% 7%; }\n    .Mainpage .ui.card .content > .header:not(.ui) {\n      font-size: 2em;\n      color: black;\n      font-family: 'Maven Pro', sans-serif; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
+exports.push([module.i, ".Mainpage {\n  top: 60px;\n  background-color: white;\n  text-align: center;\n  position: fixed;\n  height: 100vh;\n  /*    // top: 50%;\n    // left: 50%;\n    // transform: translate(-50%, -50%);*/ }\n  .Mainpage .postGrid {\n    top: 80px;\n    bottom: 20px;\n    position: fixed;\n    right: 0;\n    left: 250px;\n    padding: 5vh 2vw;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    margin: auto;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    overflow: auto;\n    max-height: 100%;\n    /*// align-items: ;*/ }\n    .Mainpage .postGrid .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden; }\n  .Mainpage .sidebar {\n    -webkit-transition: all .25s ease-in-out;\n    transition: all .25s ease-in-out;\n    position: relative;\n    float: left;\n    height: 100vh;\n    width: 200px;\n    padding: 13vh 0 0 20px;\n    overflow: auto;\n    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);\n    /*// background-color: lightblue;*/ }\n    .Mainpage .sidebar h3 {\n      color: black; }\n    .Mainpage .sidebar .centerdiv {\n      display: block;\n      margin: 0 auto; }\n    .Mainpage .sidebar:hover {\n      -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n              box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .Mainpage .popularTags {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .popularTags .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border-color: black;\n      overflow: hidden;\n      border: none; }\n  .Mainpage .filters {\n    margin-top: 1vh;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row wrap;\n            flex-flow: row wrap;\n    -ms-flex-item-align: auto;\n        align-self: auto; }\n    .Mainpage .filters .ui.label {\n      margin: 0 3px 6px 3px;\n      height: 30px;\n      width: 80%;\n      text-align: center;\n      background-color: white;\n      color: black;\n      border-radius: 0.5vw;\n      border: none; }\n  .Mainpage .vr {\n    width: 0.3vw;\n    background-color: white;\n    position: absolute;\n    top: 40px;\n    bottom: 100px;\n    left: 230px;\n    border-radius: 0.5vw; }\n  .Mainpage hr {\n    width: 100px;\n    margin-top: 5vh;\n    margin-bottom: 5vh;\n    background-color: white;\n    border-radius: 0.5vw;\n    border-color: white; }\n  .Mainpage .ui.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
 
 // exports
 
@@ -67049,7 +67056,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e2e1e0; }\n  body .alert {\n    color: red; }\n\n.myInput {\n  border-radius: 20px;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 500px; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e2e1e0; }\n  body .alert {\n    color: red; }\n\n.myInput {\n  border-radius: 20px;\n  outline: none;\n  padding: 6px 10px 6px 10px;\n  width: 500px; }\n\n.ui.secondary.menu {\n  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important;\n          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15) !important; }\n\n.rounded {\n  border-radius: 10px !important;\n  overflow: hidden; }\n\n.ui.projects.card {\n  -webkit-transition: all .25s ease-in-out;\n  transition: all .25s ease-in-out;\n  background-color: white;\n  text-align: left;\n  margin: 0 10px 20px 10px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  height: 45vh;\n  width: 35vh;\n  min-height: 200px;\n  min-width: 200px;\n  font-size: 75%;\n  overflow-wrap: break-word; }\n  .ui.projects.card .ui.label {\n    height: auto;\n    width: auto; }\n  .ui.projects.card .header {\n    padding: 5% 5% 0 5%;\n    color: black; }\n  .ui.projects.card .meta {\n    font-size: 1em;\n    padding-left: 5%;\n    color: rgba(0, 0, 0, 0.726); }\n  .ui.projects.card .description {\n    padding: 3% 3% 0 3%;\n    font-size: 3em;\n    overflow: auto;\n    border-radius: 5%;\n    color: black; }\n  .ui.projects.card > .extra {\n    padding: 3% 7% 0% 7%;\n    color: black; }\n  .ui.projects.card .content > .header:not(.ui) {\n    font-size: 2em;\n    color: black; }\n  .ui.projects.card:hover {\n    -webkit-transform: scale(1.007);\n            transform: scale(1.007);\n    background-color: white;\n    -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n", ""]);
 
 // exports
 

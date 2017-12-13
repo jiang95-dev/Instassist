@@ -128,61 +128,61 @@ $fontcolor : black;
         border-color: $maincolor;
     }
 
-    .ui.card {
-        // height: auto;
-        transition: all .25s ease-in-out;
-        background-color: $maincolor;
-        text-align: left;
-        margin: 0 10px 20px 10px;
-        // box-shadow: 0px 0px 15px 2px black;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        height: 45vh;
-        width: 35vh;
-        min-height: 200px;
-        min-width: 200px;
-        // font-size: calc((4vh + 2vmin)/4);
-        font-size: 75%;
-        border-radius: 4%;
-        overflow-wrap:break-word;
-        .ui.label{
-            height: auto;
-            width: auto;
-            font-family: 'Maven Pro', sans-serif;
-        }
-        .header{
-            padding: 5% 5% 0 5%;
-            font-family: 'Maven Pro', sans-serif;
-            font-weight: bold;
-        }
-        .meta{
-            font-size: 1em;
-            padding-left: 5%; 
-            color: $fontcolor;  
-            font-family: 'Maven Pro', sans-serif;          
-        }
-        .description{
-            font-family: 'Maven Pro', sans-serif;
-            position: relative;
-            display: inline;
-            padding: 3% 3% 0 3%;
-            font-size: 3em;            
-            color: $fontcolor;  
-            overflow: hidden;  
-            border-radius: 5%;     
-        }
-        > .extra{
-            // background-color: rgb(73,197,182);
-            position: absolute;
-            top: 80%;
-            width: 100%;
-            padding: 3% 7% 0% 7%;
-        }
-        .content>.header:not(.ui){
-            font-size: 2em;
-            color: $fontcolor;   
-            font-family: 'Maven Pro', sans-serif; 
-        }
-    }
+    // .ui.card {
+    //     // height: auto;
+    //     transition: all .25s ease-in-out;
+    //     background-color: $maincolor;
+    //     text-align: left;
+    //     margin: 0 10px 20px 10px;
+    //     // box-shadow: 0px 0px 15px 2px black;
+    //     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    //     height: 45vh;
+    //     width: 35vh;
+    //     min-height: 200px;
+    //     min-width: 200px;
+    //     // font-size: calc((4vh + 2vmin)/4);
+    //     font-size: 75%;
+    //     border-radius: 4%;
+    //     overflow-wrap:break-word;
+    //     .ui.label{
+    //         height: auto;
+    //         width: auto;
+    //         font-family: 'Maven Pro', sans-serif;
+    //     }
+    //     .header{
+    //         padding: 5% 5% 0 5%;
+    //         font-family: 'Maven Pro', sans-serif;
+    //         font-weight: bold;
+    //     }
+    //     .meta{
+    //         font-size: 1em;
+    //         padding-left: 5%; 
+    //         color: $fontcolor;  
+    //         font-family: 'Maven Pro', sans-serif;          
+    //     }
+    //     .description{
+    //         font-family: 'Maven Pro', sans-serif;
+    //         position: relative;
+    //         display: inline;
+    //         padding: 3% 3% 0 3%;
+    //         font-size: 3em;            
+    //         color: $fontcolor;  
+    //         overflow: hidden;  
+    //         border-radius: 5%;     
+    //     }
+    //     > .extra{
+    //         // background-color: rgb(73,197,182);
+    //         position: absolute;
+    //         top: 80%;
+    //         width: 100%;
+    //         padding: 3% 7% 0% 7%;
+    //     }
+    //     .content>.header:not(.ui){
+    //         font-size: 2em;
+    //         color: $fontcolor;   
+    //         font-family: 'Maven Pro', sans-serif; 
+    //     }
+    // }
     .ui.card:hover{
         transform: scale(1.007);
         // border-radius: 10px;

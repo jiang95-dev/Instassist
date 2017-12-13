@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Image } from 'semantic-ui-react'
+import { Dropdown, Image, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
@@ -53,8 +53,8 @@ class Navbar extends Component{
 					<Link to="/mainpage"><div className="myLogo">Groupin</div></Link>
 					<div className="item">
 					    <div className="ui icon input">
-					    	<input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
-					        <i className="search link icon"></i>
+					    	<Input onChange={this.inputChangeHandler}  type="text" placeholder="Search..." className="myInput"/>
+					        {/* <i className="search link icon"></i> */}
 					    </div>
 					</div>
 					<div className="right menu">

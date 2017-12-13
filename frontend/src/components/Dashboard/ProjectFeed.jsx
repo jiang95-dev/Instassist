@@ -12,6 +12,7 @@ const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
             return (
                 <Grid.Column key={project._id} computer={4} mobile={16}>
                     <Card
+                        className="rounded projects"
                         header={project.name}
                         description={project.description}
                     />
@@ -25,7 +26,7 @@ const ProjectFeed = ({ style, projects, create, openModalHandler }) => {
             <h1>My Projects</h1>
             <Grid className="row" columns="equal">
                 <Grid.Column key="add" computer={4} mobile={16}>
-                    <Card onClick={openModalHandler}>
+                    <Card className="rounded projects" onClick={openModalHandler}>
                         <p style={{ height: '100%', fontSize: '50pt', lineHeight: '250px', textAlign: 'center', verticalAlign: 'center' }}> + </p>
                     </Card>
                 </Grid.Column>
