@@ -29,11 +29,8 @@ class Mainpage extends Component {
         // console.log(obj);
         
         var baseUrl_ty = 'https://mighty-oasis-90906.herokuapp.com/api/projects/';
-        // var baseUrl_lc = 'http://localhost:8080/'
         var id = obj._id;
         var url_ty = baseUrl_ty + id + "/popularity";
-        // var url_lc = baseUrl_lc + id + "popularity";
-        // console.log("url_ty: " + url_ty);
 
 
         // update popularity
@@ -213,6 +210,9 @@ class Mainpage extends Component {
                     console.log(projName);
                     let projTagList = obj.tags;
                     let projIntro = obj.description;
+                    if (projIntro.length > 132){
+                        projIntro = projIntro.substr(0, 131);
+                    }
                     let projTimeStamp = obj.createdAt.substr(0, 9);
                     let projViewCounter = obj.popularity;
                     let projtag = projTagList.map((tag,idx_t) =>{
@@ -222,14 +222,17 @@ class Mainpage extends Component {
                     })
                     return(
                         // <div key={projName+projTimeStamp+''+idx}>
-                        <Card 
-                        key={projName+projTimeStamp+''+idx}
-                        header={projName}
-                        meta={projTimeStamp + "  Viewed: "+ projViewCounter}
-                        description={projIntro}
-                        extra={projtag}
-                        onClick={() => {this.cardClicked(obj, idx)}}
-                        />
+                        <Grid.Column style={{width:'auto'}}>
+                            <Card
+                                className="projects rounded"
+                                key={projName + projTimeStamp + '' + idx}
+                                header={projName}
+                                meta={projTimeStamp + "  Viewed: " + projViewCounter}
+                                description={projIntro}
+                                extra={projtag}
+                                onClick={() => { this.cardClicked(obj, idx) }}
+                            />
+                        </Grid.Column>
                     )
                 }
             });
@@ -259,9 +262,11 @@ class Mainpage extends Component {
                                 <Label as='a' onClick={()=>this.filterResult('popular')} basic>Popularity</Label>
                             </div>
                         </div>
-                        <div className="vr"/>
+                        {/* <div className="vr"/> */}
                         <div className="postGrid">
+                            <Grid>
                             {postGrid}
+                            </Grid>
                         </div>
                     </div>
                     <ModalView open={this.state.modalOpen} selected={this.state.selected} onClose={this.modalClosed}/>
