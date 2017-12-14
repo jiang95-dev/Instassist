@@ -103,6 +103,8 @@ export default class Dashboard extends Component {
 
     changeProjectVisibility(project) {
         console.log(project);
+        var projid = project._id;
+        console.log(projid);
         let newProjects = this.state.projects.map(p => {
             if (p === project) {
                 console.log("detect equality!")
@@ -113,7 +115,36 @@ export default class Dashboard extends Component {
                 return p;
             }
         });
-        this.setState({projects: newProjects});
+        // this.setState({projects: newProjects});
+        // axios.put('https://mighty-oasis-90906.herokuapp.com/api/projects/'+projid+'/status', { 
+        //         headers: { 
+        //             "x-access-token": this.token
+        //         } 
+        //     }).then((response) => {
+        //         console.log("Put success");
+        // });
+        //send request
+        // var token = localStorage.getItem('jwtToken');
+        // if (!token){
+        //     console.log("no token");
+        // }else{
+        //     console.log("Pass");
+        // }
+		// var instance = axios.create({
+		// 	headers: {'x-access-token': token,
+        //                 'Content-Type': 'application/json',
+        //                 'Access-Control-Allow-Origin':'*'
+        //                 }
+		// });
+		// // var data = JSON.stringify(parsed_data)
+		// instance.put('https://mighty-oasis-90906.herokuapp.com/api/projects/'+projid+'/status', JSON.stringify(''))
+		// .then((response) => {
+        //     console.log("Put success");
+        // })
+		// .catch(function(err){
+		// 	console.log(err);
+		// });
+
     }
 
     addSkill(newSkill) {

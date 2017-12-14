@@ -19,6 +19,7 @@
 	background-color: $mainColor !important;
 }
 
+
 .header{
 	height: 30%;
 	
@@ -32,6 +33,7 @@
 
 	.extra{
 		/*background-color: red;*/
+		margin-top: -20px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -64,6 +66,9 @@
 
 	.skills{
 		margin: 2%;
+		h4{
+			color: white;
+		}
 	}
 }
 

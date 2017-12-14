@@ -100,7 +100,7 @@ class ModalView extends Component{
 					<p>{description}</p>
 				</div>
 				<div className="skills">
-					{skills}
+					<h4>Required skills:</h4> {skills}
 				</div>
 			</Modal.Content>
 		);

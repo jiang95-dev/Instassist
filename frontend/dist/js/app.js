@@ -72267,6 +72267,8 @@ var Dashboard = function (_Component) {
         key: 'changeProjectVisibility',
         value: function changeProjectVisibility(project) {
             console.log(project);
+            var projid = project._id;
+            console.log(projid);
             var newProjects = this.state.projects.map(function (p) {
                 if (p === project) {
                     console.log("detect equality!");
@@ -72277,7 +72279,35 @@ var Dashboard = function (_Component) {
                     return p;
                 }
             });
-            this.setState({ projects: newProjects });
+            // this.setState({projects: newProjects});
+            // axios.put('https://mighty-oasis-90906.herokuapp.com/api/projects/'+projid+'/status', { 
+            //         headers: { 
+            //             "x-access-token": this.token
+            //         } 
+            //     }).then((response) => {
+            //         console.log("Put success");
+            // });
+            //send request
+            // var token = localStorage.getItem('jwtToken');
+            // if (!token){
+            //     console.log("no token");
+            // }else{
+            //     console.log("Pass");
+            // }
+            // var instance = axios.create({
+            // 	headers: {'x-access-token': token,
+            //                 'Content-Type': 'application/json',
+            //                 'Access-Control-Allow-Origin':'*'
+            //                 }
+            // });
+            // // var data = JSON.stringify(parsed_data)
+            // instance.put('https://mighty-oasis-90906.herokuapp.com/api/projects/'+projid+'/status', JSON.stringify(''))
+            // .then((response) => {
+            //     console.log("Put success");
+            // })
+            // .catch(function(err){
+            // 	console.log(err);
+            // });
         }
     }, {
         key: 'addSkill',
@@ -73707,6 +73737,12 @@ var ModalView = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'skills' },
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Required skills:'
+					),
+					' ',
 					skills
 				)
 			);
@@ -73891,7 +73927,7 @@ exports = module.exports = __webpack_require__(29)(undefined);
 
 
 // module
-exports.push([module.i, ".ui.button:hover {\n  -webkit-transform: scale(1.007);\n          transform: scale(1.007);\n  background-color: #6C7A89;\n  color: white;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n\n.ui.label {\n  background-color: #6C7A89;\n  color: white;\n  border-radius: 0.5vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-grey {\n  background-color: #6C7A89 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #6C7A89;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #6C7A89;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
+exports.push([module.i, ".ui.button:hover {\n  -webkit-transform: scale(1.007);\n          transform: scale(1.007);\n  background-color: #6C7A89;\n  color: white;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n\n.ui.label {\n  background-color: #6C7A89;\n  color: white;\n  border-radius: 0.5vw;\n  border-color: white;\n  border-width: 0.1vw; }\n\n.bg-grey {\n  background-color: #6C7A89 !important; }\n\n.header {\n  height: 30%; }\n  .header span {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin: 3%;\n    color: white; }\n  .header .extra {\n    /*background-color: red;*/\n    margin-top: -20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .header .extra .labels .meta {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center; }\n    .header .extra .meta {\n      font-size: 1vw;\n      color: white;\n      opacity: .5; }\n    .header .extra .labels {\n      margin: 0.5%; }\n\n.content .description {\n  margin: 2%; }\n  .content .description p {\n    color: white; }\n\n.content .skills {\n  margin: 2%; }\n  .content .skills h4 {\n    color: white; }\n\n.ui.form {\n  margin: 2% 12% 2% 12%; }\n\n.default-modal .actions {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.default-modal #button-join {\n  background-color: white;\n  color: #6C7A89;\n  border-radius: 2vw;\n  width: 30vw; }\n\n#form-message {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  #form-message #button-submit {\n    background-color: white;\n    color: #6C7A89;\n    border-radius: 2vw;\n    width: 30vw;\n    margin: 1rem; }\n\n.pop-up-modal .header.span {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
 
 // exports
 
