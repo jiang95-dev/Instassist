@@ -115,7 +115,7 @@ export default class Dashboard extends Component {
                 return p;
             }
         });
-        // this.setState({projects: newProjects});
+        this.setState({ projects: newProjects });
         // axios.put('https://mighty-oasis-90906.herokuapp.com/api/projects/'+projid+'/status', { 
         //         headers: { 
         //             "x-access-token": this.token
